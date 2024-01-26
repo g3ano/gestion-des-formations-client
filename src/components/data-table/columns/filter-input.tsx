@@ -1,0 +1,238 @@
+import { FilterContext } from '@/components/data-table/columns/filter-context-';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import Icon from '@/components/ui/icon';
+import { Input } from '@/components/ui/input';
+import { cn, matchSearch } from '@/lib/utils';
+import { CheckedState } from '@radix-ui/react-checkbox';
+import { Column, Table } from '@tanstack/react-table';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import {
+  BoxSelect,
+  MoreVertical,
+  MousePointerSquareDashed,
+} from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+
+interface FilterInputProps<TData, TValue> {
+  column: Column<TData, TValue>;
+  table: Table<TData>;
+}
+
+const searchSortedValues = (values: string[], searchValue: string) => {
+  const lowercasedValue = String(searchValue).trim().toLowerCase();
+  return lowercasedValue
+    ? values.filter((value) =>
+        value.trim().toLowerCase().includes(lowercasedValue)
+      )
+    : values;
+};
+
+function FilterInput<TData, TValue>({
+  column,
+  table,
+}: FilterInputProps<TData, TValue>) {
+  const { setOpen } = FilterContext();
+  const [filterValues, setFilterValues] = useState<string[]>(
+    (table.getColumn(column.id)?.getFilterValue() as string[]) || []
+  );
+  const [searchValue, setSearchValue] = useState('');
+
+  const sortedUniqueValues: string[] = useMemo(() => {
+    const typeofFirstValue = typeof table
+      .getRowModel()
+      .flatRows[0]?.getValue(column.id);
+    return typeofFirstValue === 'string'
+      ? Array.from(column.getFacetedUniqueValues().keys()).sort()
+      : typeofFirstValue === 'number'
+      ? Array.from(column.getFacetedUniqueValues().keys())
+          .sort((a, b) => a - b)
+          .map(String)
+      : [];
+  }, [column.getFacetedUniqueValues()]);
+
+  const searchResults = useMemo(
+    () => searchSortedValues(sortedUniqueValues, searchValue),
+    [searchValue]
+  );
+
+  console.log(sortedUniqueValues);
+  console.log(searchResults);
+  console.log(filterValues);
+  console.log(table.getState().columnFilters);
+
+  const parentRef = useRef<HTMLDivElement>(null);
+  const count = searchResults.length;
+  const virtualizer = useVirtualizer({
+    count,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 55,
+  });
+
+  const items = virtualizer.getVirtualItems();
+  const handleCheckChange = (checked: CheckedState, searchResult: string) => {
+    if (!!checked) {
+      setFilterValues((prev) => [...prev, searchResult]);
+    } else {
+      setFilterValues((prev) => {
+        const result = prev.filter(
+          (filterValue) => filterValue !== searchResult
+        );
+        return [...result];
+      });
+    }
+  };
+
+  const handleSetColumnFilterValues = () => {
+    column.setFilterValue(filterValues);
+    setOpen((prev) => ({
+      ...prev,
+      [column.id]: false,
+    }));
+  };
+  const handleSelectAllFilterValues = () => {
+    setFilterValues((prev) => [...prev, ...searchResults]);
+  };
+  const handleClearFilterValues = () => {
+    setFilterValues([]);
+  };
+
+  return (
+    <div className='space-y-4'>
+      <div className='flex'>
+        <div className='inline-block flex-1'>
+          <Input
+            name='searchValue'
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            autoFocus
+            placeholder={`Rechercher ${column.id.replace('_', ' ')}...`}
+          />
+        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size='icon'
+              variant='ghost'
+              className='ml-2'
+            >
+              <Icon
+                render={MoreVertical}
+                size='sm'
+              />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            <DropdownMenuItem
+              onClick={handleSelectAllFilterValues}
+              withIcon
+              icon={MousePointerSquareDashed}
+            >
+              Sélectionner Tout
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={handleClearFilterValues}
+              withIcon
+              icon={BoxSelect}
+            >
+              Clear
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <div
+        ref={parentRef}
+        className='overflow-y-auto'
+        style={{
+          height: 225,
+          contain: 'strict',
+        }}
+      >
+        <div
+          className='w-full relative'
+          style={{
+            height: virtualizer.getTotalSize(),
+          }}
+        >
+          <div
+            className='absolute top-0 left-0 w-full space-y-1'
+            style={{
+              transform: `translateY(${items[0]?.start ?? 0}px)`,
+            }}
+          >
+            {items.map((virtualRow) => (
+              <div
+                key={virtualRow.key}
+                data-index={virtualRow.index}
+                ref={virtualizer.measureElement}
+                className='hover:bg-accent px-2 py-1 rounded-lg'
+              >
+                <label className='flex gap-4 items-center'>
+                  <div className='flex-1 select-none'>
+                    {!!matchSearch(
+                      searchResults[virtualRow.index],
+                      searchValue
+                    ) ? (
+                      matchSearch(
+                        searchResults[virtualRow.index],
+                        searchValue
+                      )?.map((elem) => (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: elem,
+                          }}
+                        />
+                      ))
+                    ) : (
+                      <span>{searchResults[virtualRow.index]}</span>
+                    )}
+                  </div>
+                  <Checkbox
+                    checked={filterValues.includes(
+                      searchResults[virtualRow.index]
+                    )}
+                    onCheckedChange={(checked) =>
+                      handleCheckChange(
+                        checked,
+                        searchResults[virtualRow.index]
+                      )
+                    }
+                    className={cn(
+                      'peer h-4 w-4 shrink-0 border-none shadow-none flex items-center justify-center p-2',
+                      'focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50',
+                      'data-[state=checked]:bg-transparent data-[state=checked]:text-foreground data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground'
+                    )}
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className='flex items-center justify-between mt-4'>
+        <Button
+          variant='outline'
+          onClick={() =>
+            setOpen((prev) => ({
+              ...prev,
+              [column.id]: false,
+            }))
+          }
+        >
+          Cancel
+        </Button>
+        <Button onClick={handleSetColumnFilterValues}>OK</Button>
+      </div>
+    </div>
+  );
+}
+
+export default FilterInput;
+
