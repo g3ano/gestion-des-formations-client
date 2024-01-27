@@ -34,7 +34,7 @@ function Control<TData>({ table }: TableControlsProps<TData>) {
         <div className='flex items-center gap-1 animate-in slide-in-from-bottom-10 duration-100 ease-in-out'>
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   size='icon'
                   onClick={() => table.resetRowSelection()}
@@ -50,7 +50,7 @@ function Control<TData>({ table }: TableControlsProps<TData>) {
           </TooltipProvider>
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   size='icon'
                   onClick={() => table.resetRowSelection()}
@@ -69,7 +69,7 @@ function Control<TData>({ table }: TableControlsProps<TData>) {
 
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   size='icon'
                   variant='destructive'

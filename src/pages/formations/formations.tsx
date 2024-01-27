@@ -5,6 +5,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Icon from '@/components/ui/icon';
@@ -15,7 +18,7 @@ import columns from '@/pages/formations/columns';
 import DataTable from '@/pages/formations/data-table';
 import { useQuery } from '@tanstack/react-query';
 import { Table } from '@tanstack/react-table';
-import { Columns, FilterX, MoreVertical, Plus } from 'lucide-react';
+import { Columns, FilterX, MoreVertical, Plus, Rows } from 'lucide-react';
 
 export const Formations = () => {
   const { data, isPending, isSuccess } = useQuery({
@@ -67,7 +70,7 @@ const FormationMenu = () => {
     setToggleRowPerPage,
     resetFilteringColumns,
   } = TableContext();
-  const { setColumnFilters } = DataTableContext();
+  const { setColumnFilters, setColumnVisibility } = DataTableContext();
 
   return (
     <DropdownMenu>
@@ -96,17 +99,46 @@ const FormationMenu = () => {
         >
           Supprimer tout filtres
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setToggleVisibilityMenu((prev) => !prev)}
-          withIcon
-          icon={Columns}
-        >
-          Columns Visibility
-        </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger
+            withIcon
+            icon={Columns}
+          >
+            Columns Visibility
+          </DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem onClick={() => setColumnVisibility({})}>
+              Afficher tous
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                columns.map((column: any) => {
+                  if (
+                    column.id === 'select' ||
+                    column.accessorKey === 'intitule'
+                  ) {
+                    return;
+                  }
+                  setColumnVisibility((prev) => ({
+                    ...prev,
+                    [column.accessorKey as string]: false,
+                  }));
+                });
+              }}
+            >
+              Masquer tous
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => setToggleVisibilityMenu((prev) => !prev)}
+            >
+              Ouvrir menu
+            </DropdownMenuItem>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
         <DropdownMenuItem
           onClick={() => setToggleRowPerPage((prev) => !prev)}
           withIcon
-          icon={Columns}
+          icon={Rows}
         >
           Line par page
         </DropdownMenuItem>

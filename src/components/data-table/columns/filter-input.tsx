@@ -17,6 +17,7 @@ import {
   BoxSelect,
   MoreVertical,
   MousePointerSquareDashed,
+  X,
 } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
 
@@ -26,6 +27,7 @@ interface FilterInputProps<TData, TValue> {
 }
 
 const searchSortedValues = (values: string[], searchValue: string) => {
+  //in case of a number searchValue, cast it to a string
   const lowercasedValue = String(searchValue).trim().toLowerCase();
   return lowercasedValue
     ? values.filter((value) =>
@@ -38,9 +40,10 @@ function FilterInput<TData, TValue>({
   column,
   table,
 }: FilterInputProps<TData, TValue>) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const { setOpen } = FilterContext();
   const [filterValues, setFilterValues] = useState<string[]>(
-    (table.getColumn(column.id)?.getFilterValue() as string[]) || []
+    (table.getColumn(column.id)?.getFilterValue() as string[]) ?? []
   );
   const [searchValue, setSearchValue] = useState('');
 
@@ -48,12 +51,29 @@ function FilterInput<TData, TValue>({
     const typeofFirstValue = typeof table
       .getRowModel()
       .flatRows[0]?.getValue(column.id);
-    return typeofFirstValue === 'string'
+    //is it a number inside a string
+    const isNumericString = !isNaN(
+      parseFloat(table.getRowModel().flatRows[0]?.getValue(column.id))
+    );
+    const isString = typeofFirstValue === 'string' && !isNumericString;
+    const isNumber = typeofFirstValue === 'number' || isNumericString;
+
+    const values: string[] = isString
       ? Array.from(column.getFacetedUniqueValues().keys()).sort()
-      : typeofFirstValue === 'number'
+      : isNumber
       ? Array.from(column.getFacetedUniqueValues().keys())
           .sort((a, b) => a - b)
           .map(String)
+      : [];
+    return !!values
+      ? !!filterValues
+        ? [
+            ...(isString
+              ? filterValues.sort()
+              : filterValues.sort((a, b) => +a - +b)),
+            ...values.filter((value) => !filterValues.includes(value)),
+          ]
+        : values
       : [];
   }, [column.getFacetedUniqueValues()]);
 
@@ -61,11 +81,6 @@ function FilterInput<TData, TValue>({
     () => searchSortedValues(sortedUniqueValues, searchValue),
     [searchValue]
   );
-
-  console.log(sortedUniqueValues);
-  console.log(searchResults);
-  console.log(filterValues);
-  console.log(table.getState().columnFilters);
 
   const parentRef = useRef<HTMLDivElement>(null);
   const count = searchResults.length;
@@ -106,14 +121,31 @@ function FilterInput<TData, TValue>({
   return (
     <div className='space-y-4'>
       <div className='flex'>
-        <div className='inline-block flex-1'>
+        <div className='inline-block flex-1 relative'>
           <Input
+            ref={inputRef}
             name='searchValue'
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             autoFocus
             placeholder={`Rechercher ${column.id.replace('_', ' ')}...`}
           />
+          <Button
+            onClick={() => {
+              setSearchValue('');
+              inputRef.current?.focus();
+            }}
+            className={cn(
+              'absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground',
+              {
+                hidden: !searchValue,
+              }
+            )}
+            size='icon'
+            variant='ghost'
+          >
+            <Icon render={X} />
+          </Button>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -166,42 +198,34 @@ function FilterInput<TData, TValue>({
               transform: `translateY(${items[0]?.start ?? 0}px)`,
             }}
           >
-            {items.map((virtualRow) => (
+            {items.map((vr) => (
               <div
-                key={virtualRow.key}
-                data-index={virtualRow.index}
+                key={vr.key}
+                data-index={vr.index}
                 ref={virtualizer.measureElement}
                 className='hover:bg-accent px-2 py-1 rounded-lg'
               >
                 <label className='flex gap-4 items-center'>
                   <div className='flex-1 select-none'>
-                    {!!matchSearch(
-                      searchResults[virtualRow.index],
-                      searchValue
-                    ) ? (
-                      matchSearch(
-                        searchResults[virtualRow.index],
-                        searchValue
-                      )?.map((elem) => (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: elem,
-                          }}
-                        />
-                      ))
+                    {!!matchSearch(searchResults[vr.index], searchValue) ? (
+                      matchSearch(searchResults[vr.index], searchValue)?.map(
+                        (elem) => (
+                          <span
+                            key={elem}
+                            dangerouslySetInnerHTML={{
+                              __html: elem,
+                            }}
+                          />
+                        )
+                      )
                     ) : (
-                      <span>{searchResults[virtualRow.index]}</span>
+                      <span>{searchResults[vr.index]}</span>
                     )}
                   </div>
                   <Checkbox
-                    checked={filterValues.includes(
-                      searchResults[virtualRow.index]
-                    )}
+                    checked={filterValues.includes(searchResults[vr.index])}
                     onCheckedChange={(checked) =>
-                      handleCheckChange(
-                        checked,
-                        searchResults[virtualRow.index]
-                      )
+                      handleCheckChange(checked, searchResults[vr.index])
                     }
                     className={cn(
                       'peer h-4 w-4 shrink-0 border-none shadow-none flex items-center justify-center p-2',
@@ -235,4 +259,3 @@ function FilterInput<TData, TValue>({
 }
 
 export default FilterInput;
-

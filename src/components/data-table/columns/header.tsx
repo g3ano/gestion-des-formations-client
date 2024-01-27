@@ -45,7 +45,7 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
   };
 
   return (
-    <div className='w-full flex items-center justify-between'>
+    <div className='w-full flex items-center justify-between my-1'>
       <ContextMenu>
         <ContextMenuTrigger asChild>
           <p className='h-full data-table-cell uppercase cursor-default select-none'>
@@ -94,7 +94,7 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
               table.getState().columnSizing[column.id] !== 0
             }
           >
-            Clear resize
+            Default size
           </ContextMenuItem>
           <ContextMenuSeparator />
           {isFilteredColumn(column.id) ? (

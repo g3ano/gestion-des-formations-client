@@ -98,7 +98,7 @@ function DataTable<TData, TValue>({
       colSizes[`--col-${header.column.id}-size`] = header.column.getSize();
     }
     return colSizes;
-  }, [columnSizing]);
+  }, [columnSizing, columnVisibility]);
 
   return (
     <div className='flex flex-col h-full gap-2 relative'>
@@ -138,23 +138,17 @@ function DataTable<TData, TValue>({
         >
           <div
             role='table head'
-            className={cn(
-              'grid sticky top-0 z-10 bg-background shadow rounded-lg',
-              {
-                static: !!columnSizingInfo.isResizingColumn,
-              }
-            )}
+            className='grid sticky top-0 z-10 bg-background rounded-lg'
           >
             {table.getHeaderGroups().map((headerGroup) => (
               <div
                 role='table row'
                 key={headerGroup.id}
-                className='w-full flex'
+                className='w-full flex shadow rounded-lg pr-[2px]'
               >
                 {headerGroup.headers.map((header) => {
                   return (
                     <div
-                      tabIndex={0}
                       role='table header'
                       key={header.id}
                       className='flex w-full mt-[1px] relative overflow-hidden'
@@ -176,7 +170,7 @@ function DataTable<TData, TValue>({
                               'bg-light w-9': header.column.getIsResizing(),
                             }
                           )}
-                        ></div>
+                        />
                       )}
                     </div>
                   );
@@ -184,7 +178,7 @@ function DataTable<TData, TValue>({
               </div>
             ))}
           </div>
-          {!!columnSizingInfo.isResizingColumn && true ? (
+          {!!columnSizingInfo.isResizingColumn ? (
             <MemoizedTableBody
               table={table}
               containerRef={containerRef}
@@ -227,58 +221,59 @@ function TableBody<TData>({
   });
 
   return !!virtualizer.getVirtualItems().length ? (
-    <>
-      <div
-        role='table body'
-        className='grid relative'
-        style={{
-          height: `${virtualizer.getTotalSize()}px`,
-        }}
-      >
-        {virtualizer.getVirtualItems().map((virtualRow) => {
-          const row = table.getRowModel().rows[
-            virtualRow.index
-          ] as Row<Formation>;
-          return (
+    <div
+      role='table body'
+      className={cn('grid relative', {
+        'select-none': !!table.getState().columnSizingInfo.isResizingColumn,
+      })}
+      style={{
+        height: `${virtualizer.getTotalSize()}px`,
+      }}
+    >
+      {virtualizer.getVirtualItems().map((virtualRow) => {
+        const row = table.getRowModel().rows[
+          virtualRow.index
+        ] as Row<Formation>;
+        return (
+          <div
+            role='table row'
+            data-index={virtualRow.index}
+            ref={(node) => virtualizer.measureElement(node)}
+            key={row.id}
+            className='w-full flex absolute shadow rounded-lg'
+            style={{
+              transform: `translateY(${virtualRow.start}px)`,
+            }}
+          >
             <div
-              role='table row'
-              data-index={virtualRow.index}
-              ref={(node) => virtualizer.measureElement(node)}
-              key={row.id}
-              className='w-full flex absolute px-0.5'
-              style={{
-                transform: `translateY(${virtualRow.start}px)`,
-              }}
+              className={cn(
+                'flex mt-1 bg-background rounded-lg relative border border-background',
+                {
+                  'bg-light/70 border-light-foreground': row.getIsSelected(),
+                }
+              )}
             >
-              <div
-                className={cn(
-                  'flex mt-2 bg-background shadow rounded-lg relative',
-                  {
-                    'bg-light/70 outline outline-1 outline-offset-0 outline-light-foreground':
-                      row.getIsSelected(),
-                  }
-                )}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <div
-                    tabIndex={0}
-                    role='table cell'
-                    key={cell.id}
-                    className='data-table-cell overflow-hidden'
-                    style={{
-                      width: `calc(var(--col-${cell.column.id}-size) * 1px)`,
-                    }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </div>
-                ))}
-              </div>
+              {row.getVisibleCells().map((cell) => (
+                <div
+                  tabIndex={cell.column.id !== 'select' ? 0 : undefined}
+                  role='table cell'
+                  key={cell.id}
+                  className={cn(
+                    'data-table-cell overflow-hidden',
+                    'focus:outline-offset-0 focus:outline focus:outline-1 focus:outline-light-foreground focus:rounded-lg'
+                  )}
+                  style={{
+                    width: `calc(var(--col-${cell.column.id}-size) * 1px)`,
+                  }}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </div>
+              ))}
             </div>
-          );
-        })}
-      </div>
-      {}
-    </>
+          </div>
+        );
+      })}
+    </div>
   ) : (
     <div
       role='table row'

@@ -1,10 +1,10 @@
 import { Header } from '@/components/data-table/columns';
 import { Checkbox } from '@/components/ui/checkbox';
-import { arrIncludeSomeNumber } from '@/lib/utils';
+import { arrEquals, arrIncludeSomeNumber } from '@/lib/utils';
 import { Formation } from '@/pages/formations';
 import { ColumnDef } from '@tanstack/react-table';
 
-const minSize = 52;
+const minSize = 175;
 const maxSize = 500;
 
 const columns: ColumnDef<Formation>[] = [
@@ -153,7 +153,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: 'arrIncludesSome',
+    filterFn: arrEquals,
   },
   {
     accessorKey: 'lieu',
@@ -168,7 +168,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: 'arrIncludesSome',
+    filterFn: arrEquals,
   },
   {
     accessorKey: 'domaine',
@@ -306,6 +306,9 @@ const columns: ColumnDef<Formation>[] = [
         />
       );
     },
+    minSize,
+    maxSize,
+    size: 175,
     filterFn: 'arrIncludesSome',
   },
   {
@@ -318,6 +321,9 @@ const columns: ColumnDef<Formation>[] = [
         />
       );
     },
+    minSize,
+    maxSize,
+    size: 175,
     filterFn: 'arrIncludesSome',
   },
 ];

@@ -41,7 +41,10 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
     .filter(Boolean);
   let result: string[] = [];
 
-  //if length is 1, this means that searchValue is only at the beginning OR the end of the searchResult
+  if (!rest.length) {
+    result = [`<b>${capitalize(lowercasedSearchValue)}</b>`];
+  }
+
   if (rest.length === 1) {
     if (searchValueFirstIndex === searchValueLastIndex) {
       result = [`<b>${capitalize(lowercasedSearchValue)}</b>`, ...rest];
@@ -56,16 +59,16 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
         result = [...rest, `<b>${lowercasedSearchValue}</b>`];
       }
     }
-  } else {
-    //if length is not 1, then searchValue appears more than once is searchResult
-    //this loop takes care of cases where searchValue is found inside the searchResult
+    result = [capitalize(result[0]), ...result.slice(1)];
+  }
+  if (rest.length > 1) {
     result = rest.map((elem, index, array) => {
       if (index === array.length - 1) {
         return elem;
       }
       return `${elem}<b>${lowercasedSearchValue}</b>`;
     });
-    //this takes care of edge cases, beginning and end of searchResult
+
     if (searchValueFirstIndex === 0) {
       result = [`<b>${capitalize(lowercasedSearchValue)}</b>`, ...result];
     }
@@ -75,10 +78,9 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
     ) {
       result = [...result, `<b>${lowercasedSearchValue}</b>`];
     }
+    result = [capitalize(result[0]), ...result.slice(1)];
   }
 
-  result = [capitalize(result[0]), ...result.slice(1)];
-  console.log(result);
   return result;
 };
 
@@ -95,3 +97,12 @@ export const arrIncludeSomeNumber: FilterFn<any> = (
     return rowValue === parseFloat(value);
   });
 arrIncludeSomeNumber.autoRemove = (value: any) => !value;
+
+export const arrEquals: FilterFn<any> = (
+  row: Row<any>,
+  columnId: string,
+  filterValues: string[]
+) => {
+  return filterValues.some((value) => value === row.getValue(columnId));
+};
+arrEquals.autoRemove = (value: any) => !value;

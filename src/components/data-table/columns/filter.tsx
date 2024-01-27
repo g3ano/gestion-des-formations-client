@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { cn, stringOrNumberColumn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { Column, Table } from '@tanstack/react-table';
 import { Bird, ListFilter } from 'lucide-react';
 
