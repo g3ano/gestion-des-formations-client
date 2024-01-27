@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Icon from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
-import { cn, matchSearch } from '@/lib/utils';
+import { cn, matchSearch, searchInValues } from '@/lib/utils';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { Column, Table } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -19,22 +19,12 @@ import {
   MousePointerSquareDashed,
   X,
 } from 'lucide-react';
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 interface FilterInputProps<TData, TValue> {
   column: Column<TData, TValue>;
   table: Table<TData>;
 }
-
-const searchSortedValues = (values: string[], searchValue: string) => {
-  //in case of a number searchValue, cast it to a string
-  const lowercasedValue = String(searchValue).trim().toLowerCase();
-  return lowercasedValue
-    ? values.filter((value) =>
-        value.trim().toLowerCase().includes(lowercasedValue)
-      )
-    : values;
-};
 
 function FilterInput<TData, TValue>({
   column,
@@ -78,7 +68,7 @@ function FilterInput<TData, TValue>({
   }, [column.getFacetedUniqueValues()]);
 
   const searchResults = useMemo(
-    () => searchSortedValues(sortedUniqueValues, searchValue),
+    () => searchInValues(sortedUniqueValues, searchValue),
     [searchValue]
   );
 
@@ -105,18 +95,26 @@ function FilterInput<TData, TValue>({
   };
 
   const handleSetColumnFilterValues = () => {
-    column.setFilterValue(filterValues);
+    if (!!filterValues.length) {
+      column.setFilterValue(filterValues);
+    } else {
+      const columnFilters = table
+        .getState()
+        .columnFilters.filter((col) => col.id !== column.id);
+      table.setColumnFilters(columnFilters);
+    }
+
     setOpen((prev) => ({
       ...prev,
       [column.id]: false,
     }));
   };
-  const handleSelectAllFilterValues = () => {
+  const handleSelectAllFilterValues = useCallback(() => {
     setFilterValues((prev) => [...prev, ...searchResults]);
-  };
-  const handleClearFilterValues = () => {
+  }, []);
+  const handleClearFilterValues = useCallback(() => {
     setFilterValues([]);
-  };
+  }, []);
 
   return (
     <div className='space-y-4'>

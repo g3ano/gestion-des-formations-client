@@ -216,6 +216,21 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
+    accessorKey: 'h_j',
+    header: ({ column, table }) => {
+      return (
+        <Header
+          column={column}
+          table={table}
+        />
+      );
+    },
+    minSize,
+    maxSize,
+    size: 175,
+    filterFn: arrIncludeSomeNumber,
+  },
+  {
     accessorKey: 'pedagogiques',
     header: ({ column, table }) => {
       return (

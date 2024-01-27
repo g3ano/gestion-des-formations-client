@@ -101,7 +101,11 @@ function DataTable<TData, TValue>({
   }, [columnSizing, columnVisibility]);
 
   return (
-    <div className='flex flex-col h-full gap-2 relative'>
+    <div
+      className={cn('flex flex-col h-full gap-2 relative', {
+        'cursor-w-resize': !!table.getState().columnSizingInfo.isResizingColumn,
+      })}
+    >
       <div className='mb-4 flex items-center flex-col md:flex-row md:justify-between'>
         <div className='w-full md:w-1/4'>
           <GlobalFilter

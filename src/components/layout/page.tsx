@@ -29,7 +29,7 @@ const Page = ({ title, actions, children }: PageProps) => {
               >
                 <Icon render={ArrowLeft} />
               </Button>
-              <p className='text-2xl font-medium'>{title}</p>
+              <p className='text-2xl font-semibold tracking-tight'>{title}</p>
             </div>
             <div className='flex-1'>{actions}</div>
           </div>

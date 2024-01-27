@@ -18,6 +18,15 @@ export const stringOrNumberColumn = <TData>(
     : null;
 };
 
+export const searchInValues = (values: string[], searchValue: string) => {
+  const lowercasedValue = searchValue.trim().toLowerCase();
+  return lowercasedValue
+    ? values.filter((value) =>
+        value.trim().toLowerCase().includes(lowercasedValue)
+      )
+    : values;
+};
+
 export const capitalize = (input: string) => {
   return `${input.charAt(0).toUpperCase()}${input.slice(1)}`;
 };

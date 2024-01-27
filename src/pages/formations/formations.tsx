@@ -13,12 +13,12 @@ import {
 import Icon from '@/components/ui/icon';
 import { DataTableContext } from '@/lib/contexts/data-table-context';
 import { TableContext } from '@/lib/contexts/table-context';
-import { Formation, getFormations } from '@/pages/formations';
+import { getFormations } from '@/pages/formations';
 import columns from '@/pages/formations/columns';
 import DataTable from '@/pages/formations/data-table';
 import { useQuery } from '@tanstack/react-query';
-import { Table } from '@tanstack/react-table';
 import { Columns, FilterX, MoreVertical, Plus, Rows } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Formations = () => {
   const { data, isPending, isSuccess } = useQuery({
@@ -33,12 +33,17 @@ export const Formations = () => {
       actions={
         <div className='flex items-center justify-end gap-2'>
           <div>
-            <Button className='gap-2 justify-between px-3 ps-2'>
-              <Icon
-                render={Plus}
-                size='sm'
-              />
-              <span>Nouveau Formation</span>
+            <Button
+              className='gap-2 justify-between px-3 ps-2'
+              asChild
+            >
+              <Link to='/formations/create'>
+                <Icon
+                  render={Plus}
+                  size='sm'
+                />
+                <span>Nouveau Formation</span>
+              </Link>
             </Button>
           </div>
           <FormationMenu />
