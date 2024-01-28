@@ -33,14 +33,12 @@ export const Formations = () => {
       actions={
         <div className='flex items-center justify-end gap-2'>
           <div>
-            <Button
-              className='gap-2 justify-between px-3 ps-2'
-              asChild
-            >
+            <Button asChild>
               <Link to='/formations/create'>
                 <Icon
                   render={Plus}
                   size='sm'
+                  edge='left'
                 />
                 <span>Nouveau Formation</span>
               </Link>
@@ -75,7 +73,8 @@ const FormationMenu = () => {
     setToggleRowPerPage,
     resetFilteringColumns,
   } = TableContext();
-  const { setColumnFilters, setColumnVisibility } = DataTableContext();
+  const { columnFilters, setColumnFilters, setColumnVisibility } =
+    DataTableContext();
 
   return (
     <DropdownMenu>
@@ -101,6 +100,7 @@ const FormationMenu = () => {
           }}
           withIcon
           icon={FilterX}
+          disabled={!columnFilters.length}
         >
           Supprimer tout filtres
         </DropdownMenuItem>

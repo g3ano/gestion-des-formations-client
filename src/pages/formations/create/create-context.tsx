@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 
-interface TFormationInputs {
-  directValues: {
+export interface FormationCreateState {
+  direct: {
     structure: string;
     code_formation: string;
     mode: string;
@@ -9,11 +9,11 @@ interface TFormationInputs {
     effectif: string;
     durree: string;
     observation: string;
-    categorie: string;
-    domaine: string;
-    type: string;
+    categorie_id: string;
+    domaine_id: string;
+    type_id: string;
   };
-  setDirectValues: React.Dispatch<
+  setDirect: React.Dispatch<
     React.SetStateAction<{
       structure: string;
       code_formation: string;
@@ -22,24 +22,24 @@ interface TFormationInputs {
       effectif: string;
       durree: string;
       observation: string;
-      categorie: string;
-      domaine: string;
-      type: string;
+      categorie_id: string;
+      domaine_id: string;
+      type_id: string;
     }>
   >;
-  commonValues: {
+  common: {
     intitule: string;
     organisme: string;
     code_domaine: string;
   };
-  setCommonValues: React.Dispatch<
+  setCommon: React.Dispatch<
     React.SetStateAction<{
       intitule: string;
       organisme: string;
       code_domaine: string;
     }>
   >;
-  coutValues: {
+  cout: {
     pedagogiques: string;
     hebergement_restauration: string;
     transport: string;
@@ -47,7 +47,7 @@ interface TFormationInputs {
     autres_charges: string;
     dont_devise: string;
   };
-  setCoutValues: React.Dispatch<
+  setCout: React.Dispatch<
     React.SetStateAction<{
       pedagogiques: string;
       hebergement_restauration: string;
@@ -59,8 +59,12 @@ interface TFormationInputs {
   >;
 }
 
-const FormationsCreateInputs = createContext<TFormationInputs>({
-  directValues: {
+interface FormationCreateContextState extends FormationCreateState {
+  reset: () => void;
+}
+
+const _FormationsCreateContext = createContext<FormationCreateContextState>({
+  direct: {
     structure: '',
     code_formation: '',
     mode: '',
@@ -68,18 +72,18 @@ const FormationsCreateInputs = createContext<TFormationInputs>({
     effectif: '',
     durree: '',
     observation: '',
-    categorie: '',
-    domaine: '',
-    type: '',
+    categorie_id: '',
+    domaine_id: '',
+    type_id: '',
   },
-  setDirectValues: () => {},
-  commonValues: {
+  setDirect: () => {},
+  common: {
     intitule: '',
     organisme: '',
     code_domaine: '',
   },
-  setCommonValues: () => {},
-  coutValues: {
+  setCommon: () => {},
+  cout: {
     pedagogiques: '',
     hebergement_restauration: '',
     transport: '',
@@ -87,7 +91,8 @@ const FormationsCreateInputs = createContext<TFormationInputs>({
     autres_charges: '',
     dont_devise: '',
   },
-  setCoutValues: () => {},
+  setCout: () => {},
+  reset: () => {},
 });
 
 export function FormationsCreateProvider({
@@ -95,7 +100,7 @@ export function FormationsCreateProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [directValues, setDirectValues] = useState({
+  const [direct, setDirect] = useState({
     structure: '',
     code_formation: '',
     mode: '',
@@ -103,16 +108,16 @@ export function FormationsCreateProvider({
     effectif: '',
     durree: '',
     observation: '',
-    categorie: '',
-    domaine: '',
-    type: '',
+    categorie_id: '',
+    domaine_id: '',
+    type_id: '',
   });
-  const [commonValues, setCommonValues] = useState({
+  const [common, setCommon] = useState({
     intitule: '',
     organisme: '',
     code_domaine: '',
   });
-  const [coutValues, setCoutValues] = useState({
+  const [cout, setCout] = useState({
     pedagogiques: '',
     hebergement_restauration: '',
     transport: '',
@@ -120,20 +125,51 @@ export function FormationsCreateProvider({
     autres_charges: '',
     dont_devise: '',
   });
+
+  const reset = useCallback(() => {
+    setDirect({
+      structure: '',
+      code_formation: '',
+      mode: '',
+      lieu: '',
+      effectif: '',
+      durree: '',
+      observation: '',
+      categorie_id: '',
+      domaine_id: '',
+      type_id: '',
+    });
+    setCommon({
+      intitule: '',
+      organisme: '',
+      code_domaine: '',
+    });
+    setCout({
+      pedagogiques: '',
+      hebergement_restauration: '',
+      transport: '',
+      presalaire: '',
+      autres_charges: '',
+      dont_devise: '',
+    });
+  }, []);
+
   const values = {
-    directValues,
-    setDirectValues,
-    commonValues,
-    setCommonValues,
-    coutValues,
-    setCoutValues,
+    direct,
+    setDirect,
+    common,
+    setCommon: setCommon,
+    cout,
+    setCout,
+    reset,
   };
 
   return (
-    <FormationsCreateInputs.Provider value={values}>
+    <_FormationsCreateContext.Provider value={values}>
       {children}
-    </FormationsCreateInputs.Provider>
+    </_FormationsCreateContext.Provider>
   );
 }
 
-export const FormationsCreateContext = () => useContext(FormationsCreateInputs);
+export const FormationsCreateContext = () =>
+  useContext(_FormationsCreateContext);

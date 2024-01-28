@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors select-none',
-    'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
   ],
   {
     variants: {
@@ -17,11 +17,11 @@ const buttonVariants = cva(
           'data-[state=open]:bg-primary/90',
         ],
         destructive: [
-          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
+          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 focus-visible:ring-destructive',
           'data-[state=open]:bg-destructive/90',
         ],
         outline: [
-          'border border-input bg-background text-accent-foreground shadow-sm hover:bg-light/70 hover:text-light-foreground hover:border-light-foreground focus-visible:ring-light-foreground focus-visible:bg-light/70 focus-visible:text-light-foreground',
+          'border border-input bg-background text-accent-foreground shadow-sm hover:bg-light/70 hover:text-light-foreground hover:border-light-foreground',
           'data-[state=open]:bg-light/70 data-[state=open]:text-light-foreground data-[state=open]:border-light-foreground',
         ],
         secondary: [
@@ -29,7 +29,7 @@ const buttonVariants = cva(
           'data-[state=open]:bg-secondary',
         ],
         ghost: [
-          'text-gray-700 hover:bg-light/70 hover:text-light-foreground focus:bg-light/70 focus-visible:ring-0 focus:text-light-foreground',
+          'text-gray-700 hover:bg-light/70 hover:text-light-foreground',
           'data-[state=open]:bg-light data-[state=open]:text-light-foreground',
         ],
         link: 'text-primary underline-offset-4 hover:underline',

@@ -27,7 +27,7 @@ interface HeaderProps<TData, TValue> {
 
 function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
   const { isFilteredColumn, removeFilteredColumn, addFilteredColumn } =
-    TableContext<TData>();
+    TableContext();
   const { setOpen } = FilterContext();
   const { setColumnFilters } = DataTableContext();
   const handleColumnFilterDeletion = () => {
@@ -59,7 +59,7 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
             onClick={() => {
               column.toggleSorting(false);
             }}
-            disabled={column.getIsSorted() === 'asc'}
+            disabled={!column.getCanSort() || column.getIsSorted() === 'asc'}
           >
             Trier A to Z
           </ContextMenuItem>
@@ -69,7 +69,7 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
             onClick={() => {
               column.toggleSorting(true);
             }}
-            disabled={column.getIsSorted() === 'desc'}
+            disabled={!column.getCanSort() || column.getIsSorted() === 'desc'}
           >
             Trier Z to A
           </ContextMenuItem>

@@ -1,21 +1,9 @@
-import { FilterFn, Row, RowModel } from '@tanstack/react-table';
+import { FilterFn, Row } from '@tanstack/react-table';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
-};
-
-export const stringOrNumberColumn = <TData>(
-  rowModel: RowModel<TData>,
-  columnId: string
-) => {
-  const firstValue = rowModel.flatRows[0].getValue(columnId);
-  return typeof firstValue === 'string'
-    ? 'string'
-    : typeof firstValue === 'number'
-    ? 'number'
-    : null;
 };
 
 export const searchInValues = (values: string[], searchValue: string) => {
@@ -58,7 +46,8 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
     //this handles cases where only the searchValue is present
     //and it's repeated.
     const searchResultWithoutSearchValue = lowercasedSearchResult.slice(
-      lowercasedSearchResult.indexOf(searchValue) + lowercasedSearchValue.length
+      lowercasedSearchResult.indexOf(lowercasedSearchValue) +
+        lowercasedSearchValue.length
     );
     if (searchResultWithoutSearchValue.length) {
       result = [
@@ -74,19 +63,23 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
   const toEnd =
     searchValueLastIndex + lowercasedSearchValue.length - 1 ===
     lowercasedSearchResult.length - 1;
-  let skip: boolean = false;
+  let skip = false;
 
   if (rest.length === 1) {
     if (toStart) {
       result = [`<b>${capitalize(lowercasedSearchValue)}</b>`, ...rest];
       //in order to avoid searchValue added to both sides, unnecessary
-      //this could happen when rest is found one or more times in the searchValue
+      //this could happen when rest is found one or more times in the searchValue,
+      //e.g: searchValue: 555, searchResult: 5555
       if (lowercasedSearchValue.includes(rest[0])) {
         skip = true;
       }
     }
     if (toEnd && !skip) {
-      result = [...(result ? result : rest), `<b>${lowercasedSearchValue}</b>`];
+      result = [
+        ...(result.length ? result : rest),
+        `<b>${lowercasedSearchValue}</b>`,
+      ];
     }
 
     result = [capitalize(result[0]), ...result.slice(1)];

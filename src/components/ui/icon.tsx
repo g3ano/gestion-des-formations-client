@@ -11,6 +11,9 @@ const iconVariants = cva('', {
       xs: 'size-[17px]',
     },
   },
+  defaultVariants: {
+    size: 'base',
+  },
 });
 
 interface IconProps
@@ -18,12 +21,16 @@ interface IconProps
     Omit<SVGProps<SVGSVGElement>, 'ref'>,
     VariantProps<typeof iconVariants> {
   render: LucideIcon;
+  edge?: 'left' | 'right';
 }
 
-const Icon = ({ className, size, ...props }: IconProps) => {
+const Icon = ({ className, size, edge, ...props }: IconProps) => {
   return (
     <props.render
-      className={cn(iconVariants({ size, className }))}
+      className={cn(iconVariants({ size, className }), {
+        '-translate-x-1/4': edge === 'left',
+        'translate-x-1/4': edge === 'right',
+      })}
       {...props}
     />
   );

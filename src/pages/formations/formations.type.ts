@@ -1,3 +1,5 @@
+import { FormationCreateState } from '@/pages/formations/create/create-context';
+
 export interface Formation {
   id: number;
   categorie: string;
@@ -20,3 +22,6 @@ export interface Formation {
   autres_charges: number;
   dont_devise: number;
 }
+
+export interface FormationInput
+  extends Omit<FormationCreateState, 'setCommon' | 'setDirect' | 'setCout'> {}

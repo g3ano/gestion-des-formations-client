@@ -7,8 +7,7 @@ import {
 } from '@/components/ui/popover';
 import { cn, matchSearch, searchInValues, unique } from '@/lib/utils';
 import {
-  ComponentPropsWithoutRef,
-  ElementRef,
+  InputHTMLAttributes,
   forwardRef,
   useMemo,
   useRef,
@@ -17,79 +16,82 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
-export const AutoComplete = forwardRef<
-  ElementRef<'input'>,
-  Omit<ComponentPropsWithoutRef<'input'>, 'onChange'> & {
-    data: (string | number)[];
-    onChange: (name: string, value: string) => void;
-  }
->(({ name, value, onChange, data, ...props }, ref) => {
-  const [open, setOpen] = useState(false);
+interface AutoCompleteProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  data: (string | number)[];
+  onChange: (name: string, value: string) => void;
+}
 
-  const searchResults = useMemo(() => {
-    const uniqueData = unique(data);
-    const uniqueSortedData =
-      typeof uniqueData[0] === 'number'
-        ? uniqueData.sort((a, b) => +a - +b).map(String)
-        : uniqueData.sort().map(String);
-    return searchInValues(uniqueSortedData, String(value));
-  }, [value]);
+export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
+  ({ name, value, onChange, data, ...props }, ref) => {
+    const [open, setOpen] = useState(false);
 
-  return (
-    <Popover
-      open={open}
-      onOpenChange={setOpen}
-    >
-      <PopoverTrigger asChild>
-        <div className='relative'>
-          <Input
-            ref={ref}
-            name={name}
-            value={value}
-            onChange={(e) => {
-              onChange(e.target.name, e.target.value);
-              if (!open) {
-                setOpen(true);
-              }
-            }}
-            {...props}
-          />
-          <Icon
-            render={ChevronsUpDown}
-            className='absolute top-1/2 right-0 -translate-y-1/2 mr-2 shrink-0 opacity-50'
-            size='sm'
-          />
-        </div>
-      </PopoverTrigger>
-      <PopoverContent
-        align='start'
-        role='auto complete'
-        className='px-0'
-        style={{
-          width: 'var(--radix-popover-trigger-width)',
-        }}
-        onOpenAutoFocus={(e) => e.preventDefault()}
+    const searchResults = useMemo(() => {
+      const uniqueData = unique(data);
+      const uniqueSortedData =
+        typeof uniqueData[0] === 'number'
+          ? uniqueData.sort((a, b) => +a - +b).map(String)
+          : uniqueData.sort().map(String);
+      return searchInValues(uniqueSortedData, String(value));
+    }, [value]);
+
+    return (
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
       >
-        {searchResults.length ? (
-          <SearchResultList
-            name={String(name)}
-            searchResults={searchResults}
-            value={value}
-            onChange={onChange}
-            setOpen={setOpen}
-          />
-        ) : (
-          <div
-            className='hover:bg-accent px-3 py-2 rounded-lg'
-            onClick={() => setOpen(false)}
-          >
-            {value}
+        <PopoverTrigger asChild>
+          <div className='relative'>
+            <Input
+              ref={ref}
+              name={name}
+              value={value}
+              onChange={(e) => {
+                onChange(e.target.name, e.target.value);
+                if (!open) {
+                  setOpen(true);
+                }
+              }}
+              {...props}
+            />
+            <Icon
+              render={ChevronsUpDown}
+              className='absolute top-1/2 right-0 -translate-y-1/2 mr-2 shrink-0 opacity-50'
+              size='sm'
+            />
           </div>
-        )}
-      </PopoverContent>
-    </Popover>
-  );
-});
+        </PopoverTrigger>
+        <PopoverContent
+          align='start'
+          role='auto complete'
+          className='px-0'
+          style={{
+            width: 'var(--radix-popover-trigger-width)',
+          }}
+          onOpenAutoFocus={(e) => e.preventDefault()}
+        >
+          {searchResults.length ? (
+            <SearchResultList
+              name={String(name)}
+              searchResults={searchResults}
+              value={value}
+              onChange={onChange}
+              setOpen={setOpen}
+            />
+          ) : (
+            <div
+              className='hover:bg-accent px-3 py-2 rounded-lg'
+              onClick={() => setOpen(false)}
+            >
+              {value}
+            </div>
+          )}
+        </PopoverContent>
+      </Popover>
+    );
+  }
+);
+AutoComplete.displayName = 'AutoComplete';
 
 const SearchResultList = ({
   name,

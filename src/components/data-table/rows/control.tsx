@@ -17,7 +17,7 @@ interface TableControlsProps<TData> {
 }
 
 function Control<TData>({ table }: TableControlsProps<TData>) {
-  const { rowSelection, setRowSelection } = DataTableContext<TData>();
+  const { rowSelection, setRowSelection } = DataTableContext();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -29,77 +29,71 @@ function Control<TData>({ table }: TableControlsProps<TData>) {
   });
 
   return (
-    !!table.getSelectedRowModel().flatRows.length && (
-      <>
-        <div className='flex items-center gap-1 animate-in slide-in-from-bottom-10 duration-100 ease-in-out'>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size='icon'
-                  onClick={() => table.resetRowSelection()}
-                >
-                  <Icon
-                    render={Download}
-                    size='sm'
-                  />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Annuler la sélection actuelle</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size='icon'
-                  onClick={() => table.resetRowSelection()}
-                >
-                  <Icon
-                    render={X}
-                    size='sm'
-                  />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                Télécharger les lignes sélectionnées (pdf)
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+    <div className='flex items-center gap-1 animate-in slide-in-from-bottom-10 duration-100 ease-in-out'>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size='icon'
+              onClick={() => table.resetRowSelection()}
+            >
+              <Icon
+                render={Download}
+                size='sm'
+              />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Annuler la sélection actuelle</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size='icon'
+              onClick={() => table.resetRowSelection()}
+            >
+              <Icon
+                render={X}
+                size='sm'
+              />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            Télécharger les lignes sélectionnées (pdf)
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size='icon'
-                  variant='destructive'
-                  onClick={() => {
-                    const ids = Object.keys(rowSelection);
-                    mutation.mutate(ids);
-                  }}
-                  disabled={mutation.isPending}
-                >
-                  {mutation.isPending ? (
-                    <Icon
-                      render={Loader2}
-                      className='animate-spin'
-                    />
-                  ) : (
-                    <Icon
-                      render={Trash}
-                      size='sm'
-                    />
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                Supprimer les lignes sélectionnées
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      </>
-    )
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size='icon'
+              variant='destructive'
+              onClick={() => {
+                const ids = Object.keys(rowSelection);
+                mutation.mutate(ids);
+              }}
+              disabled={mutation.isPending}
+            >
+              {mutation.isPending ? (
+                <Icon
+                  render={Loader2}
+                  className='animate-spin'
+                />
+              ) : (
+                <Icon
+                  render={Trash}
+                  size='sm'
+                />
+              )}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Supprimer les lignes sélectionnées</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
   );
 }
 

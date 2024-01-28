@@ -180,7 +180,7 @@ function FilterInput<TData, TValue>({
         ref={parentRef}
         className='overflow-y-auto'
         style={{
-          height: 225,
+          height: 250,
           contain: 'strict',
         }}
       >
@@ -201,9 +201,9 @@ function FilterInput<TData, TValue>({
                 key={vr.key}
                 data-index={vr.index}
                 ref={virtualizer.measureElement}
-                className='hover:bg-accent px-2 py-1 rounded-lg'
+                className='hover:bg-accent rounded-lg'
               >
-                <label className='flex gap-4 items-center'>
+                <label className='rounded-lg m-[2px] flex gap-4 items-center px-2 py-1 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring'>
                   <div className='flex-1 select-none'>
                     {!!matchSearch(searchResults[vr.index], searchValue) ? (
                       matchSearch(searchResults[vr.index], searchValue)?.map(

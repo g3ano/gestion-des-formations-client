@@ -1,19 +1,22 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 
-interface TTable<_TData> {
+interface TableState {
   filteredColumns: string[];
   setFilteredColumns: React.Dispatch<React.SetStateAction<string[]>>;
   resetFilteringColumns: () => void;
-  isFilteredColumn: (columnId: string) => boolean;
-  addFilteredColumn: (columnId: string) => void;
-  removeFilteredColumn: (columnId: string) => void;
   toggleVisibilityMenu: boolean;
   setToggleVisibilityMenu: React.Dispatch<React.SetStateAction<boolean>>;
   toggleRowPerPage: boolean;
   setToggleRowPerPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Table = createContext<TTable<any>>({
+interface TableContextState extends TableState {
+  isFilteredColumn: (columnId: string) => boolean;
+  addFilteredColumn: (columnId: string) => void;
+  removeFilteredColumn: (columnId: string) => void;
+}
+
+const _TableContext = createContext<TableContextState>({
   filteredColumns: [],
   setFilteredColumns: () => {},
   resetFilteringColumns: () => {},
@@ -67,9 +70,11 @@ export const TableContextProvider = ({
     setToggleRowPerPage,
   };
 
-  return <Table.Provider value={values}>{children}</Table.Provider>;
+  return (
+    <_TableContext.Provider value={values}>{children}</_TableContext.Provider>
+  );
 };
 
-export function TableContext<TData>() {
-  return useContext<TTable<TData>>(Table);
+export function TableContext() {
+  return useContext(_TableContext);
 }

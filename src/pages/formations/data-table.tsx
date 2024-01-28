@@ -114,7 +114,9 @@ function DataTable<TData, TValue>({
           />
         </div>
         <div className='flex items-center gap-2'>
-          {!!rowSelection && <Control table={table} />}
+          {!!table.getSelectedRowModel().flatRows.length && (
+            <Control table={table} />
+          )}
           {toggleRowPerPage && (
             <div className='duration-100 ease-in-out animate-in slide-in-from-bottom-10'>
               <RowPerPage table={table} />

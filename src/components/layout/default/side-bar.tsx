@@ -43,19 +43,15 @@ const SideBar = () => {
                       <NavLink
                         to={navItem.to}
                         className={({ isActive }) =>
-                          cn('rounded-lg p-2', {
-                            'bg-light': isActive,
-                          })
+                          cn(
+                            'rounded-lg p-2 flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                            {
+                              'bg-light text-light-foreground': isActive,
+                            }
+                          )
                         }
                       >
-                        {({ isActive }) => (
-                          <Icon
-                            render={navItem.icon}
-                            className={cn({
-                              'text-light-foreground': isActive,
-                            })}
-                          />
-                        )}
+                        <Icon render={navItem.icon} />
                       </NavLink>
                     </div>
                   </TooltipTrigger>

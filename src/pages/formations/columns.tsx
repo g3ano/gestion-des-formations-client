@@ -336,6 +336,7 @@ const columns: ColumnDef<Formation>[] = [
         />
       );
     },
+    enableSorting: false,
     minSize,
     maxSize,
     size: 175,

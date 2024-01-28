@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-table';
 import { createContext, useContext, useState } from 'react';
 
-interface TDataTable<_TData> {
+interface DataTableState {
   columnVisibility: VisibilityState;
   setColumnVisibility: React.Dispatch<React.SetStateAction<VisibilityState>>;
   rowSelection: {};
@@ -29,7 +29,7 @@ interface TDataTable<_TData> {
   >;
 }
 
-const Table = createContext<TDataTable<any>>({
+const _DataTableContext = createContext<DataTableState>({
   columnVisibility: {},
   setColumnVisibility: () => {},
   setColumnFilters: () => {},
@@ -102,9 +102,13 @@ export const DataTableProvider = ({
     setColumnSizingInfo,
   };
 
-  return <Table.Provider value={values}>{children}</Table.Provider>;
+  return (
+    <_DataTableContext.Provider value={values}>
+      {children}
+    </_DataTableContext.Provider>
+  );
 };
 
-export function DataTableContext<TData>() {
-  return useContext<TDataTable<TData>>(Table);
+export function DataTableContext() {
+  return useContext(_DataTableContext);
 }

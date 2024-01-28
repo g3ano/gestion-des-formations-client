@@ -1,5 +1,5 @@
 import axiosClient from '@/lib/axios';
-import { Formation } from '@/pages/formations';
+import { Formation, FormationInput } from '@/pages/formations';
 
 export const getFormations = async (): Promise<Formation[]> => {
   const res = await axiosClient.get('/formations');
@@ -22,4 +22,11 @@ export const getCommonValues = async (): Promise<{
 }> => {
   const res = await axiosClient.get('/formations/commonValues');
   return res.data.commonValues;
+};
+
+export const createFormation = async (formationsInputs: FormationInput) => {
+  const res = await axiosClient.post('/formations', {
+    ...formationsInputs,
+  });
+  return res.data;
 };
