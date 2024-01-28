@@ -16,10 +16,10 @@ export const deleteFormations = async (ids: (number | string)[]) => {
 };
 
 export const getCommonValues = async (): Promise<{
-  intitules: [];
-  organismes: [];
-  code_domaines: [];
+  intitules: string[];
+  organismes: string[];
+  code_domaines: number[];
 }> => {
   const res = await axiosClient.get('/formations/commonValues');
-  return res.data;
+  return res.data.commonValues;
 };

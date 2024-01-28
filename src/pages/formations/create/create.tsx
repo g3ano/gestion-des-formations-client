@@ -1,9 +1,7 @@
 import Page from '@/components/layout/page';
-import { Step } from '@/components/layout/step';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
-import { CommonValuesForm } from '@/pages/formations/create/steps/common-values-form';
 import { CoutValuesForm } from '@/pages/formations/create/steps/cout-values-form';
 import { DirectValuesForm } from '@/pages/formations/create/steps/direct-values-form';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -11,7 +9,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 export const FormationsCreate = () => {
   const { step, backward, forward, current, total } = useStepper([
     <DirectValuesForm />,
-    <CommonValuesForm />,
     <CoutValuesForm />,
   ]);
 

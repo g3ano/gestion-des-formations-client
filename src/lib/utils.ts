@@ -31,6 +31,10 @@ export const capitalize = (input: string) => {
   return `${input.charAt(0).toUpperCase()}${input.slice(1)}`;
 };
 
+export const unique = <T>(values: T[]) => {
+  return values.filter((value, index, array) => array.indexOf(value) === index);
+};
+
 export const matchSearch = (searchResult: string, searchValue: string) => {
   const lowercasedSearchResult = searchResult.trim().toLowerCase();
   const lowercasedSearchValue = searchValue.trim().toLowerCase();
@@ -50,24 +54,41 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
     .filter(Boolean);
   let result: string[] = [];
 
-  if (!rest.length) {
-    result = [`<b>${capitalize(lowercasedSearchValue)}</b>`];
+  if (rest.length === 0) {
+    //this handles cases where only the searchValue is present
+    //and it's repeated.
+    const searchResultWithoutSearchValue = lowercasedSearchResult.slice(
+      lowercasedSearchResult.indexOf(searchValue) + lowercasedSearchValue.length
+    );
+    if (searchResultWithoutSearchValue.length) {
+      result = [
+        `<b>${capitalize(lowercasedSearchValue)}</b>`,
+        searchResultWithoutSearchValue,
+      ];
+    } else {
+      result = [`<b>${capitalize(lowercasedSearchValue)}</b>`];
+    }
   }
 
+  const toStart = searchValueFirstIndex === 0;
+  const toEnd =
+    searchValueLastIndex + lowercasedSearchValue.length - 1 ===
+    lowercasedSearchResult.length - 1;
+  let skip: boolean = false;
+
   if (rest.length === 1) {
-    if (searchValueFirstIndex === searchValueLastIndex) {
+    if (toStart) {
       result = [`<b>${capitalize(lowercasedSearchValue)}</b>`, ...rest];
-    } else {
-      if (searchValueFirstIndex === 0) {
-        result = [`<b>${capitalize(lowercasedSearchValue)}</b>`, ...rest];
-      }
-      if (
-        searchValueLastIndex + lowercasedSearchValue.length - 1 ===
-        lowercasedSearchResult.length - 1
-      ) {
-        result = [...rest, `<b>${lowercasedSearchValue}</b>`];
+      //in order to avoid searchValue added to both sides, unnecessary
+      //this could happen when rest is found one or more times in the searchValue
+      if (lowercasedSearchValue.includes(rest[0])) {
+        skip = true;
       }
     }
+    if (toEnd && !skip) {
+      result = [...(result ? result : rest), `<b>${lowercasedSearchValue}</b>`];
+    }
+
     result = [capitalize(result[0]), ...result.slice(1)];
   }
   if (rest.length > 1) {
@@ -78,13 +99,10 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
       return `${elem}<b>${lowercasedSearchValue}</b>`;
     });
 
-    if (searchValueFirstIndex === 0) {
+    if (toStart) {
       result = [`<b>${capitalize(lowercasedSearchValue)}</b>`, ...result];
     }
-    if (
-      searchValueLastIndex + lowercasedSearchValue.length - 1 ===
-      lowercasedSearchResult.length - 1
-    ) {
+    if (toEnd) {
       result = [...result, `<b>${lowercasedSearchValue}</b>`];
     }
     result = [capitalize(result[0]), ...result.slice(1)];

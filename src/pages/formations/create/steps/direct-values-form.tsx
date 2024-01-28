@@ -9,9 +9,11 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { FormationsCreateContext } from '@/pages/formations/create';
+import { CommonValuesForm } from '@/pages/formations/create/steps/common-values-form';
 
 export const DirectValuesForm = () => {
   const { directValues, setDirectValues } = FormationsCreateContext();
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -21,7 +23,6 @@ export const DirectValuesForm = () => {
       [name]: value,
     }));
   };
-  console.log(directValues);
 
   return (
     <Step>
@@ -41,7 +42,7 @@ export const DirectValuesForm = () => {
                     name='structure'
                     value={directValues.structure}
                     onChange={handleChange}
-                    placeholder='Enter structure...'
+                    placeholder='Entrer structure...'
                     className=''
                   />
                 </div>
@@ -51,7 +52,7 @@ export const DirectValuesForm = () => {
                     name='code_formation'
                     value={directValues.code_formation}
                     onChange={handleChange}
-                    placeholder='Enter code formation...'
+                    placeholder='Entrer code formation...'
                   />
                 </div>
               </div>
@@ -136,7 +137,7 @@ export const DirectValuesForm = () => {
                     name='lieu'
                     value={directValues.lieu}
                     onChange={handleChange}
-                    placeholder='Enter lieu...'
+                    placeholder='Entrer lieu...'
                   />
                 </div>
                 <div className='flex-1 flex flex-col gap-2'>
@@ -167,6 +168,9 @@ export const DirectValuesForm = () => {
                   </Select>
                 </div>
               </div>
+              <div>
+                <CommonValuesForm />
+              </div>
               <div className='flex items-center gap-4'>
                 <div className='flex-1 space-y-2'>
                   <label htmlFor='observation'>Observation</label>
@@ -177,7 +181,7 @@ export const DirectValuesForm = () => {
                     onChange={handleChange}
                     placeholder='Entrer Observation...'
                     className={cn(
-                      'resize-none flex w-full rounded-lg border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors',
+                      'resize-none flex w-full rounded-lg border border-input bg-background px-3 py-3 text-sm shadow-sm transition-colors',
                       'placeholder:text-muted-foreground',
                       'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
                     )}
@@ -201,7 +205,7 @@ export const DirectValuesForm = () => {
                   name='effectif'
                   value={directValues.effectif}
                   onChange={handleChange}
-                  placeholder='Enter nombre des effectifs...'
+                  placeholder='Entrer nombre des effectifs...'
                 />
               </div>
               <div className='flex-1 space-y-2'>
@@ -211,7 +215,7 @@ export const DirectValuesForm = () => {
                   name='durree'
                   value={directValues.durree}
                   onChange={handleChange}
-                  placeholder='Enter durree...'
+                  placeholder='Entrer durree...'
                 />
               </div>
             </div>

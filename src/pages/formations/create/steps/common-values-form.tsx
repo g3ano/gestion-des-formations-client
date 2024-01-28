@@ -1,63 +1,69 @@
 import { Step } from '@/components/layout/step';
-import { Button } from '@/components/ui/button';
-import {
-  Command,
-  CommandInput,
-  CommandGroup,
-  CommandItem,
-  CommandEmpty,
-} from '@/components/ui/command';
-import Icon from '@/components/ui/icon';
-import { Input } from '@/components/ui/input';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { getFormations } from '@/pages/formations';
 import { FormationsCreateContext } from '@/pages/formations/create';
-import { getCommonValues } from '@/pages/formations/formations.api';
+import { getCommonValues } from '@/pages/formations';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { AutoComplete } from '@/components/pages/auto-complete';
 
 export const CommonValuesForm = () => {
   const { commonValues, setCommonValues } = FormationsCreateContext();
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
-
-  const { data, isPending, isSuccess } = useQuery({
+  const {
+    data: commonValuesData,
+    isPending,
+    isSuccess,
+  } = useQuery({
     queryKey: ['formations', 'commonValues'],
     queryFn: getCommonValues,
     staleTime: 1000 * 60 * 5,
   });
+
+  const keys = {
+    intitules: 'intitule',
+    organismes: 'organisme',
+    code_domaines: 'code_domaine',
+  } as const;
+  const commonValuesKeys =
+    commonValuesData &&
+    (Object.keys(commonValuesData) as (keyof typeof keys)[]);
+  const handleChange = (name: string, value: string) => {
+    setCommonValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <Step>
       {isPending && <div>loading...</div>}
       {isSuccess && (
         <form>
-          <div>
-            <Input
-              name='intitule'
-              value={commonValues.intitule}
-              onChange={(e) => {
-                if (!open) {
-                  setOpen(true);
-                }
-                setCommonValues((prev) => ({
-                  ...prev,
-                  intitule: e.target.value,
-                }));
-              }}
-            />
+          <div className='flex items-center gap-4'>
+            {commonValuesKeys?.map((key) => {
+              const data = commonValuesData[key];
+
+              return (
+                <div
+                  className='flex-1'
+                  key={key}
+                >
+                  <div className='flex-1 space-y-2'>
+                    <label
+                      htmlFor='effectif'
+                      className='capitalize'
+                    >
+                      {keys[key]}
+                    </label>
+                    <AutoComplete
+                      name={keys[key]}
+                      placeholder={`Entrer ${keys[key]}...`}
+                      value={commonValues[keys[key]]}
+                      data={data}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          {isSuccess && !!commonValues.intitule && (
-            <div role='auto complete'>
-              <div>results</div>
-              {JSON.stringify(data)}
-            </div>
-          )}
         </form>
       )}
     </Step>
