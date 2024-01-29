@@ -13,56 +13,53 @@ import {
 import Icon from '@/components/ui/icon';
 import { DataTableContext } from '@/lib/contexts/data-table-context';
 import { TableContext } from '@/lib/contexts/table-context';
-import { getFormations } from '@/pages/formations';
-import columns from '@/pages/formations/columns';
-import DataTable from '@/pages/formations/data-table';
+import { getEmployees } from '@/pages/employees';
+import columns from '@/pages/employees/columns';
+import DataTable from '@/pages/employees/data-table';
 import { useQuery } from '@tanstack/react-query';
 import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export const Formations = () => {
-  const { data, isPending, isSuccess } = useQuery({
-    queryKey: ['formations'],
-    queryFn: getFormations,
-    staleTime: 1000 * 60 * 5,
+export const Employees = () => {
+  const {
+    data: employees,
+    isSuccess,
+    isPending,
+  } = useQuery({
+    queryKey: ['employees'],
+    queryFn: getEmployees,
   });
 
   return (
     <Page
-      title='Formations'
+      title='Employées'
       actions={
         <div className='flex items-center justify-end gap-2'>
           <div className='flex items-center'>
             <Button asChild>
-              <Link to='/formations/create'>
-                <span>Nouveau Formation</span>
+              <Link to='/employees/create'>
+                <span>Nouveau Employée</span>
               </Link>
             </Button>
           </div>
-          <FormationMenu />
+          <EmployeeMenu />
         </div>
       }
     >
-      <div className='h-full'>
-        {isPending && (
-          <div>
-            <p>Loading...</p>
-          </div>
-        )}
-        {isSuccess && (
-          <FilterContextProvider>
-            <DataTable
-              data={data}
-              columns={columns}
-            />
-          </FilterContextProvider>
-        )}
-      </div>
+      {isPending && <div>loading...</div>}
+      {isSuccess && (
+        <FilterContextProvider>
+          <DataTable
+            data={employees}
+            columns={columns}
+          />
+        </FilterContextProvider>
+      )}
     </Page>
   );
 };
 
-const FormationMenu = () => {
+const EmployeeMenu = () => {
   const {
     setToggleVisibilityMenu,
     setToggleRowPerPage,
@@ -115,7 +112,9 @@ const FormationMenu = () => {
                 columns.map((column: any) => {
                   if (
                     column.id === 'select' ||
-                    column.accessorKey === 'intitule'
+                    column.accessorKey === 'matricule' ||
+                    column.accessorKey === 'nom' ||
+                    column.accessorKey === 'prenom'
                   ) {
                     return;
                   }

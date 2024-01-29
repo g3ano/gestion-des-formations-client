@@ -6,20 +6,25 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { LayoutDashboard, NotebookText } from 'lucide-react';
+import { LayoutGrid, NotebookText, UsersRound } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { NavLink } from 'react-router-dom';
 
 const navigation = [
   {
-    label: 'dashboard',
-    icon: LayoutDashboard,
+    label: 'Dashboard',
+    icon: LayoutGrid,
     to: '/',
   },
   {
-    label: 'formations',
+    label: 'Formations',
     icon: NotebookText,
     to: '/formations',
+  },
+  {
+    label: 'Employées',
+    icon: UsersRound,
+    to: '/employees',
   },
 ];
 
@@ -28,8 +33,8 @@ const SideBar = () => {
     <div className='bg-background h-full fixed z-50 w-16 shadow-xl'>
       <div>
         <div className='rounded-lg w-full h-20 flex items-center justify-center'>
-          <div className='h-12 rounded-lg flex items-center justify-center'>
-            <Logo className='size-8 fill-primary shadow' />
+          <div className='size-12 rounded-lg flex items-center justify-center'>
+            <Logo className='fill-primary shadow' />
           </div>
         </div>
 
@@ -46,7 +51,7 @@ const SideBar = () => {
                           cn(
                             'rounded-lg p-2 flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                             {
-                              'bg-light text-light-foreground': isActive,
+                              'bg-accent text-accent-foreground': isActive,
                             }
                           )
                         }

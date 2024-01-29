@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/context-menu';
 import { TableContext } from '@/lib/contexts/table-context';
 import { Filter } from '@/components/data-table/columns';
-import { FilterContext } from '@/components/data-table/columns/filter-context-';
+import { FilterContext } from '@/components/data-table/columns/filter-context';
 import { DataTableContext } from '@/lib/contexts/data-table-context';
 import {
   ArrowDown,
@@ -17,6 +17,8 @@ import {
   EyeOff,
   FilterIcon,
   FilterX,
+  ListMinus,
+  ListPlus,
   UnfoldHorizontal,
 } from 'lucide-react';
 
@@ -124,6 +126,17 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
             disabled={!column.getCanHide()}
           >
             Masquer
+          </ContextMenuItem>
+          <ContextMenuItem
+            withIcon
+            icon={table.getIsAllPageRowsSelected() ? ListMinus : ListPlus}
+            onClick={() => table.toggleAllPageRowsSelected()}
+          >
+            {table.getIsAllPageRowsSelected() ? (
+              <span>Désélectionner tous</span>
+            ) : (
+              <span>Sélectionner tous</span>
+            )}
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

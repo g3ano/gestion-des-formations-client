@@ -30,3 +30,8 @@ export const createFormation = async (formationsInputs: FormationInput) => {
   });
   return res.data;
 };
+
+export const getFormation = async (id: string) => {
+  const res = await axiosClient.get(`/formations/${id}`);
+  return res.data;
+};

@@ -19,7 +19,7 @@ const Page = ({ title, actions, children }: PageProps) => {
   return (
     <div className='w-full h-screen overflow-hidden'>
       <div className='flex flex-col h-full'>
-        <div className='px-6 h-20'>
+        <div className='w-full min-h-20 h-20 flex items-center justify-center px-6'>
           <div className='h-full w-full flex items-center gap-4'>
             <div className='flex items-center gap-4'>
               <Button

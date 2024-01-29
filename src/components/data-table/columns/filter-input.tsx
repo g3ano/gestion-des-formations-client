@@ -1,4 +1,4 @@
-import { FilterContext } from '@/components/data-table/columns/filter-context-';
+import { FilterContext } from '@/components/data-table/columns/filter-context';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -201,7 +201,7 @@ function FilterInput<TData, TValue>({
                 key={vr.key}
                 data-index={vr.index}
                 ref={virtualizer.measureElement}
-                className='hover:bg-accent rounded-lg'
+                className='group hover:bg-accent hover:text-accent-foreground rounded-lg'
               >
                 <label className='rounded-lg m-[2px] flex gap-4 items-center px-2 py-1 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring'>
                   <div className='flex-1 select-none'>
@@ -226,9 +226,8 @@ function FilterInput<TData, TValue>({
                       handleCheckChange(checked, searchResults[vr.index])
                     }
                     className={cn(
-                      'peer h-4 w-4 shrink-0 border-none shadow-none flex items-center justify-center p-2',
-                      'focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50',
-                      'data-[state=checked]:bg-transparent data-[state=checked]:text-foreground data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground'
+                      'border-none shadow-none hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-0 group-hover:text-accent-foreground',
+                      'data-[state=checked]:bg-transparent data-[state=checked]:text-foreground'
                     )}
                   />
                 </label>

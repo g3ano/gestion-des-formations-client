@@ -80,7 +80,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
             />
           ) : (
             <div
-              className='hover:bg-accent px-3 py-2 rounded-lg'
+              className='hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded-lg'
               onClick={() => setOpen(false)}
             >
               {value}
@@ -145,9 +145,10 @@ const SearchResultList = ({
             >
               <div
                 className={cn(
-                  'w-full cursor-pointer hover:bg-accent px-3 py-2 flex items-center justify-between',
+                  'w-full cursor-pointer hover:bg-accent hover:text-accent-foreground px-3 py-2 flex items-center justify-between focus:bg-accent focus:text-accent-foreground',
                   {
-                    'bg-accent': value === searchResults[vr.index],
+                    'bg-accent text-accent-foreground':
+                      value === searchResults[vr.index],
                   }
                 )}
                 onClick={() => {

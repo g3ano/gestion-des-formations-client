@@ -12,7 +12,7 @@ export const Default = () => {
   }
 
   return (
-    <div className='bg-secondary w-full'>
+    <div className='bg-secondary text-foreground w-full'>
       <div className='min-h-full flex items-stretch'>
         <div className='shadow'>
           <SideBar />

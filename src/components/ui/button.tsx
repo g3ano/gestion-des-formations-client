@@ -21,16 +21,16 @@ const buttonVariants = cva(
           'data-[state=open]:bg-destructive/90',
         ],
         outline: [
-          'border border-input bg-background text-accent-foreground shadow-sm hover:bg-light/70 hover:text-light-foreground hover:border-light-foreground',
-          'data-[state=open]:bg-light/70 data-[state=open]:text-light-foreground data-[state=open]:border-light-foreground',
+          'border border-input bg-background text-accent-foreground shadow-sm hover:bg-accent/70 hover:text-accent-foreground hover:border-accent-foreground',
+          'data-[state=open]:bg-accent/70 data-[state=open]:text-accent-foreground data-[state=open]:border-accent-foreground',
         ],
         secondary: [
           'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
           'data-[state=open]:bg-secondary',
         ],
         ghost: [
-          'text-gray-700 hover:bg-light/70 hover:text-light-foreground',
-          'data-[state=open]:bg-light data-[state=open]:text-light-foreground',
+          'text-foreground hover:text-accent-foreground',
+          'data-[state=open]:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:shadow data-[state=open]:outline data-[state=open]:outline-1 data-[state=open]:outline-accent-foreground',
         ],
         link: 'text-primary underline-offset-4 hover:underline',
       },

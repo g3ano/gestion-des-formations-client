@@ -12,7 +12,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         <label
           ref={ref}
           htmlFor={htmlFor}
-          className='inline-block mb-2'
+          className='inline-block mb-1 truncate'
           {...props}
         >
           {capitalize(label)}

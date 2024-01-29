@@ -1,6 +1,5 @@
 import { Table } from '@tanstack/react-table';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteFormations } from '@/pages/formations';
 import { DataTableContext } from '@/lib/contexts/data-table-context';
 import {
   Tooltip,
@@ -14,17 +13,24 @@ import { Download, Loader2, Trash, X } from 'lucide-react';
 
 interface TableControlsProps<TData> {
   table: Table<TData>;
+  queryFn: (ids: (number | string)[]) => Promise<any>;
+  queryKey: string;
 }
 
-function Control<TData>({ table }: TableControlsProps<TData>) {
+function Control<TData>({
+  table,
+  queryFn,
+  queryKey,
+}: TableControlsProps<TData>) {
   const { rowSelection, setRowSelection } = DataTableContext();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (ids: (number | string)[]) => deleteFormations(ids),
+    mutationFn: (ids: (number | string)[]) => queryFn(ids),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['formations'] });
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
       setRowSelection({});
+      console.log('delete succeeded');
     },
   });
 

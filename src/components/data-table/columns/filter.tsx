@@ -1,4 +1,4 @@
-import { FilterContext } from '@/components/data-table/columns/filter-context-';
+import { FilterContext } from '@/components/data-table/columns/filter-context';
 import FilterInput from '@/components/data-table/columns/filter-input';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -39,7 +39,7 @@ function Filter<TData>({ table, column }: FilterProps<TData>) {
           <Icon
             render={ListFilter}
             className={cn({
-              'text-light-foreground': column.getIsFiltered(),
+              'text-accent-foreground': column.getIsFiltered(),
             })}
             size='sm'
           />
@@ -52,7 +52,7 @@ function Filter<TData>({ table, column }: FilterProps<TData>) {
         <ScrollArea>
           <div className='p-0.5'>
             {!!column.id ? (
-              <div>
+              <>
                 {column.getIsVisible() && column.getCanFilter() && (
                   <div key={column.id}>
                     {
@@ -63,14 +63,12 @@ function Filter<TData>({ table, column }: FilterProps<TData>) {
                     }
                   </div>
                 )}
-              </div>
+              </>
             ) : (
-              <div>
+              <>
                 <div>Aucun filtre trouvé</div>
-                <div>
-                  <Bird />
-                </div>
-              </div>
+                <Bird />
+              </>
             )}
           </div>
         </ScrollArea>

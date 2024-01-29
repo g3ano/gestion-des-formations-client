@@ -1,28 +1,34 @@
 import {
   ColumnDef,
+  ExpandedState,
+  GroupingState,
   Row,
   Table,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFacetedMinMaxValues,
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
+  getGroupedRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { memo, useMemo, useRef } from 'react';
-import { Formation, deleteFormations } from '@/pages/formations';
+import { memo, useMemo, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import GlobalFilter from '@/components/data-table/global-search';
 import { DataTableContext } from '@/lib/contexts/data-table-context';
+import { TableContext } from '@/lib/contexts/table-context';
+import GlobalFilter from '@/components/data-table/global-search';
 import VisibilityOptions from '@/components/data-table/visibility-options';
 import Pagination from '@/components/data-table/pagination';
 import Control from '@/components/data-table/rows/control';
-import { TableContext } from '@/lib/contexts/table-context';
 import RowPerPage from '@/components/data-table/rows/row-per-page';
+import { Employee } from '@/pages/employees';
+import { deleteEmployees } from '@/pages/employees/employees.api';
+import { Preview } from '@/pages/employees/show/preview';
 
 interface DataTableProps<TData, TValue> {
   data: TData[];
@@ -51,6 +57,8 @@ function DataTable<TData, TValue>({
     columnSizingInfo,
     setColumnSizingInfo,
   } = DataTableContext();
+  const [grouping, setGrouping] = useState<GroupingState>([]);
+  const [expanded, setExpanded] = useState<ExpandedState>({});
 
   const { toggleVisibilityMenu, toggleRowPerPage } = TableContext();
 
@@ -66,6 +74,8 @@ function DataTable<TData, TValue>({
       pagination,
       columnSizing,
       columnSizingInfo,
+      grouping,
+      expanded,
     },
     onGlobalFilterChange: setGlobalFilter,
     onColumnVisibilityChange: setColumnVisibility,
@@ -75,6 +85,8 @@ function DataTable<TData, TValue>({
     onPaginationChange: setPagination,
     onColumnSizingChange: setColumnSizing,
     onColumnSizingInfoChange: setColumnSizingInfo,
+    onGroupingChange: setGrouping,
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -82,6 +94,8 @@ function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    getExpandedRowModel: getExpandedRowModel(),
+    getGroupedRowModel: getGroupedRowModel(),
     getRowId: (row: any) => row.id,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
@@ -117,8 +131,8 @@ function DataTable<TData, TValue>({
           {!!table.getSelectedRowModel().flatRows.length && (
             <Control
               table={table}
-              queryFn={deleteFormations}
-              queryKey='formations'
+              queryFn={deleteEmployees}
+              queryKey='employees'
             />
           )}
           {toggleRowPerPage && (
@@ -241,9 +255,7 @@ function TableBody<TData>({
       }}
     >
       {virtualizer.getVirtualItems().map((virtualRow) => {
-        const row = table.getRowModel().rows[
-          virtualRow.index
-        ] as Row<Formation>;
+        const row = table.getRowModel().rows[virtualRow.index] as Row<Employee>;
         return (
           <div
             role='table row'
@@ -255,36 +267,42 @@ function TableBody<TData>({
               transform: `translateY(${virtualRow.start}px)`,
             }}
           >
-            <div
-              className={cn(
-                'flex shadow  mt-1 bg-background rounded-lg relative border border-background select-none',
-                {
-                  'bg-accent/70 border-accent-foreground': row.getIsSelected(),
-                  'cursor-pointer':
-                    !table.getState().columnSizingInfo.isResizingColumn,
-                }
-              )}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <div
-                  role='table cell'
-                  key={cell.id}
-                  className='data-table-cell overflow-hidden'
-                  style={{
-                    width: `calc(var(--col-${cell.column.id}-size) * 1px)`,
-                  }}
-                  onClick={() => {
-                    if (cell.column.id === 'expand') {
-                      return;
-                    } else {
-                      row.toggleSelected();
-                    }
-                  }}
-                  onDoubleClick={() => row.toggleExpanded()}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </div>
-              ))}
+            <div>
+              <div
+                className={cn(
+                  'flex shadow  mt-1 bg-background rounded-lg relative border border-background select-none',
+                  {
+                    'bg-accent/70 border-accent-foreground':
+                      row.getIsSelected(),
+                    'cursor-pointer':
+                      !table.getState().columnSizingInfo.isResizingColumn,
+                  }
+                )}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <div
+                    role='table cell'
+                    key={cell.id}
+                    className={cn('data-table-cell overflow-hidden', {
+                      'p-0': cell.column.id === 'expand',
+                    })}
+                    style={{
+                      width: `calc(var(--col-${cell.column.id}-size) * 1px)`,
+                    }}
+                    onClick={() => {
+                      if (cell.column.id === 'expand') {
+                        return;
+                      } else {
+                        row.toggleSelected();
+                      }
+                    }}
+                    onDoubleClick={() => row.toggleExpanded()}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </div>
+                ))}
+              </div>
+              {row.getIsExpanded() && <Preview row={row} />}
             </div>
           </div>
         );
