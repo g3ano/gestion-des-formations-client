@@ -1,6 +1,5 @@
 import { Table } from '@tanstack/react-table';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { DataTableContext } from '@/lib/contexts/data-table-context';
 import {
   Tooltip,
   TooltipContent,
@@ -22,15 +21,13 @@ function Control<TData>({
   queryFn,
   queryKey,
 }: TableControlsProps<TData>) {
-  const { rowSelection, setRowSelection } = DataTableContext();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (ids: (number | string)[]) => queryFn(ids),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey] });
-      setRowSelection({});
-      console.log('delete succeeded');
+      table.resetRowSelection();
     },
   });
 
@@ -78,7 +75,7 @@ function Control<TData>({
               size='icon'
               variant='destructive'
               onClick={() => {
-                const ids = Object.keys(rowSelection);
+                const ids = Object.keys(table.getState().rowSelection);
                 mutation.mutate(ids);
               }}
               disabled={mutation.isPending}

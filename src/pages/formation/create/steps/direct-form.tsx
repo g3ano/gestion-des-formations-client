@@ -9,11 +9,10 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
-import { FormationsCreateContext } from '@/pages/formations/create';
-import { CommonForm } from '@/pages/formations/create/steps/common-form';
+import { CommonForm, FormationCreateContext } from '@/pages/formation/create';
 
-export const DirectForm = () => {
-  const { direct, setDirect } = FormationsCreateContext();
+function DirectForm() {
+  const { direct, setDirect } = FormationCreateContext();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -31,7 +30,7 @@ export const DirectForm = () => {
         <div className='flex flex-col gap-4'>
           <div className='flex items-center justify-center gap-4'>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-semibold text-lg'>Formation</span>
+            <span className='font-medium text-lg'>Formation</span>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
           </div>
           <div className='space-y-4'>
@@ -251,7 +250,7 @@ export const DirectForm = () => {
         <div className='flex flex-col gap-4'>
           <div className='flex items-center justify-center gap-4'>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-semibold text-lg'>Effectif à former</span>
+            <span className='font-medium text-lg'>Effectif à former</span>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
           </div>
           <div className='flex items-center gap-4'>
@@ -282,4 +281,5 @@ export const DirectForm = () => {
       </div>
     </Step>
   );
-};
+}
+export default DirectForm;

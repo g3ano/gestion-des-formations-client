@@ -2,7 +2,7 @@ import { Header } from '@/components/data-table/columns';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { arrEquals } from '@/lib/utils';
-import { Employee } from '@/pages/employees';
+import { Employee } from '@/pages/employee';
 import { ColumnDef } from '@tanstack/react-table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 
@@ -17,7 +17,7 @@ const columns: ColumnDef<Employee>[] = [
         variant='ghost'
         size='icon'
         onClick={() => table.toggleAllRowsExpanded()}
-        className='cursor-pointer w-full h-full'
+        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0'
       >
         <Icon
           render={table.getIsSomeRowsExpanded() ? ChevronDown : ChevronRight}
@@ -29,7 +29,7 @@ const columns: ColumnDef<Employee>[] = [
         variant='ghost'
         size='icon'
         onClick={() => row.toggleExpanded()}
-        className='cursor-pointer w-full h-full'
+        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0'
       >
         <Icon render={row.getIsExpanded() ? ChevronDown : ChevronRight} />
       </Button>
@@ -83,6 +83,7 @@ const columns: ColumnDef<Employee>[] = [
         />
       );
     },
+    enableHiding: false,
     minSize,
     maxSize,
     size: 275,

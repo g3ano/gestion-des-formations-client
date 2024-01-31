@@ -1,14 +1,28 @@
-import SideBar from '@/components/layout/default/side-bar';
-import { DataTableProvider } from '@/lib/contexts/data-table-context';
 import { TableContextProvider } from '@/lib/contexts/table-context';
-import { FormationsCreateProvider } from '@/pages/formations/create';
+import { FormationCreateProvider } from '@/pages/formation/create';
+import { FormationDataTableProvider } from '@/pages/formation';
+import { EmployeeDataTableProvider } from '@/pages/employee';
 import { Outlet, useNavigation } from 'react-router-dom';
+import { SideBar } from '@/components/layout/default';
+import Icon from '@/components/ui/icon';
+import { Loader2 } from 'lucide-react';
 
-export const Default = () => {
+function Default() {
   const { state } = useNavigation();
 
   if (state === 'loading') {
-    return <div>Loading...</div>;
+    return (
+      <div className='fixed top-0 left-1/2 -translate-x-1/2 mt-8'>
+        <div className='flex items-center gap-2'>
+          <Icon
+            render={Loader2}
+            className='animate-spin'
+            size='sm'
+          />
+          <p className='font-medium'>Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -18,15 +32,18 @@ export const Default = () => {
           <SideBar />
         </div>
         <div className='flex-1 min-w-0 ml-16'>
-          <DataTableProvider>
-            <TableContextProvider>
-              <FormationsCreateProvider>
-                <Outlet />
-              </FormationsCreateProvider>
-            </TableContextProvider>
-          </DataTableProvider>
+          <FormationDataTableProvider>
+            <EmployeeDataTableProvider>
+              <TableContextProvider>
+                <FormationCreateProvider>
+                  <Outlet />
+                </FormationCreateProvider>
+              </TableContextProvider>
+            </EmployeeDataTableProvider>
+          </FormationDataTableProvider>
         </div>
       </div>
     </div>
   );
-};
+}
+export default Default;

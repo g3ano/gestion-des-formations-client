@@ -1,5 +1,5 @@
 import axiosClient from '@/lib/axios';
-import { Employee } from '@/pages/employees';
+import { Employee } from '@/pages/employee';
 
 export const getEmployees = async (): Promise<Employee[]> => {
   const res = await axiosClient.get('/employees');

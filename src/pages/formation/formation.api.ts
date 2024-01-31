@@ -1,5 +1,6 @@
 import axiosClient from '@/lib/axios';
-import { Formation, FormationInput } from '@/pages/formations';
+import type { Formation, FormationInput } from '@/pages/formation';
+import { FormationRaw } from '@/pages/formation/formation.type';
 
 export const getFormations = async (): Promise<Formation[]> => {
   const res = await axiosClient.get('/formations');
@@ -31,7 +32,12 @@ export const createFormation = async (formationsInputs: FormationInput) => {
   return res.data;
 };
 
-export const getFormation = async (id: string) => {
-  const res = await axiosClient.get(`/formations/${id}`);
-  return res.data;
+export const getFormation = async ({
+  queryKey,
+}: {
+  queryKey: any[];
+}): Promise<FormationRaw> => {
+  const [_, { formationId }] = queryKey;
+  const res = await axiosClient.get(`/formations/${formationId}`);
+  return res.data.formation;
 };

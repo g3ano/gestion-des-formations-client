@@ -63,7 +63,7 @@ interface FormationCreateContextState extends FormationCreateState {
   reset: () => void;
 }
 
-const _FormationsCreateContext = createContext<FormationCreateContextState>({
+const _FormationCreateContext = createContext<FormationCreateContextState>({
   direct: {
     structure: '',
     code_formation: '',
@@ -95,7 +95,7 @@ const _FormationsCreateContext = createContext<FormationCreateContextState>({
   reset: () => {},
 });
 
-export function FormationsCreateProvider({
+export function FormationCreateProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -165,11 +165,10 @@ export function FormationsCreateProvider({
   };
 
   return (
-    <_FormationsCreateContext.Provider value={values}>
+    <_FormationCreateContext.Provider value={values}>
       {children}
-    </_FormationsCreateContext.Provider>
+    </_FormationCreateContext.Provider>
   );
 }
 
-export const FormationsCreateContext = () =>
-  useContext(_FormationsCreateContext);
+export const FormationCreateContext = () => useContext(_FormationCreateContext);

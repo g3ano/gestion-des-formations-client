@@ -29,12 +29,12 @@ const Page = ({ title, actions, children }: PageProps) => {
               >
                 <Icon render={ArrowLeft} />
               </Button>
-              <p className='text-2xl font-semibold tracking-tight'>{title}</p>
+              <p className='text-2xl font-medium tracking-tight'>{title}</p>
             </div>
             <div className='flex-1'>{actions}</div>
           </div>
         </div>
-        <div className='pt-4 h-full overflow-y-auto px-6 bg-secondary'>
+        <div className='py-4 h-full overflow-y-auto px-6 bg-secondary'>
           {children}
         </div>
       </div>

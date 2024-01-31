@@ -13,9 +13,9 @@ import {
 import Icon from '@/components/ui/icon';
 import { DataTableContext } from '@/lib/contexts/data-table-context';
 import { TableContext } from '@/lib/contexts/table-context';
-import { getFormations } from '@/pages/formations';
-import columns from '@/pages/formations/columns';
-import DataTable from '@/pages/formations/data-table';
+import { getFormations } from '@/pages/formation';
+import columns from '@/pages/formation/columns';
+import DataTable from '@/pages/formation/data-table';
 import { useQuery } from '@tanstack/react-query';
 import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';

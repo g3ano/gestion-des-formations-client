@@ -1,14 +1,14 @@
 import Icon from '@/components/ui/icon';
 import { capitalize, cn } from '@/lib/utils';
-import { Employee } from '@/pages/employees';
+import { Employee } from '@/pages/employee';
 import { Row } from '@tanstack/react-table';
 import { UserRound } from 'lucide-react';
 
-interface ShowProps {
+interface EmployeeShowProps {
   row: Row<Employee>;
 }
 
-export function Preview({ row }: ShowProps) {
+function EmployeeShow({ row }: EmployeeShowProps) {
   return (
     <div
       className={cn(
@@ -24,15 +24,15 @@ export function Preview({ row }: ShowProps) {
         </div>
         <div className='-space-y-1'>
           <div className='flex items-center gap-1'>
-            <p className='font-semibold uppercase'>{`${row.getValue(
+            <p className='font-medium uppercase'>{`${row.getValue(
               'nom'
             )} ${row.getValue('prenom')}`}</p>
           </div>
           <p>{row.getValue('email')}</p>
         </div>
       </div>
-      <div className='flex flex-col sm:flex-row'>
-        <div className='sm:pe-20'>
+      <div className='flex flex-col md:flex-row'>
+        <div className='sm:pe-20 w-1/5'>
           <Presentation
             column='matricule'
             rowValue={row.getValue('matricule')}
@@ -50,7 +50,6 @@ export function Preview({ row }: ShowProps) {
             rowValue={row.getValue('csp')}
           />
         </div>
-        <div className='hidden sm:inline-block min-h-10 bg-foreground/10 w-px'></div>
         <div className='sm:ps-20'>
           <Presentation
             column='sexe'
@@ -69,8 +68,9 @@ export function Preview({ row }: ShowProps) {
     </div>
   );
 }
+export default EmployeeShow;
 
-const Presentation = ({
+function Presentation({
   column,
   rowValue,
   isCapitalized = true,
@@ -78,10 +78,12 @@ const Presentation = ({
   column: string;
   rowValue: string;
   isCapitalized?: boolean;
-}) => (
-  <div className='flex items-center'>
-    <p className='min-w-48 font-semibold'>{capitalize(column)}</p>
-    {isCapitalized && <p className='line-clamp-1'>{capitalize(rowValue)}</p>}
-    {!isCapitalized && <p className='line-clamp-1'>{rowValue}</p>}
-  </div>
-);
+}) {
+  return (
+    <div className='flex items-center'>
+      <p className='min-w-48 font-medium'>{capitalize(column)}</p>
+      {isCapitalized && <p className='line-clamp-1'>{capitalize(rowValue)}</p>}
+      {!isCapitalized && <p className='line-clamp-1'>{rowValue}</p>}
+    </div>
+  );
+}

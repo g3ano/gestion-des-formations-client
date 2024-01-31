@@ -17,15 +17,15 @@ const buttonVariants = cva(
           'data-[state=open]:bg-primary/90',
         ],
         destructive: [
-          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 focus-visible:ring-destructive',
+          'bg-destructive text-destructive-foreground shadow hover:bg-destructive/90 focus-visible:ring-destructive',
           'data-[state=open]:bg-destructive/90',
         ],
         outline: [
-          'border border-input bg-background text-accent-foreground shadow-sm hover:bg-accent/70 hover:text-accent-foreground hover:border-accent-foreground',
+          'border border-orange-200 bg-background text-accent-foreground hover:bg-accent/40',
           'data-[state=open]:bg-accent/70 data-[state=open]:text-accent-foreground data-[state=open]:border-accent-foreground',
         ],
         secondary: [
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+          'bg-secondary text-secondary-foreground shadow hover:bg-secondary/80',
           'data-[state=open]:bg-secondary',
         ],
         ghost: [
@@ -35,7 +35,7 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-9 px-4 py-2',
+        default: 'h-9 px-5 py-2',
         sm: 'h-8 rounded-lg px-3 text-xs',
         lg: 'h-10 rounded-lg px-8',
         icon: 'h-9 w-9',
@@ -52,14 +52,18 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  edge?: 'left' | 'right';
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, edge, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className }), {
+          '-translate-x-1/4': edge === 'left',
+          'translate-x-1/4': edge === 'right',
+        })}
         ref={ref}
         {...props}
       />

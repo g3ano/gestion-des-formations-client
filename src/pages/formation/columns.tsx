@@ -1,7 +1,6 @@
 import { Header } from '@/components/data-table/columns';
-import { Checkbox } from '@/components/ui/checkbox';
 import { arrEquals, arrIncludeSomeNumber } from '@/lib/utils';
-import { Formation } from '@/pages/formations';
+import { Formation } from '@/pages/formation';
 import { ColumnDef } from '@tanstack/react-table';
 
 const minSize = 175;
@@ -9,30 +8,20 @@ const maxSize = 500;
 
 const columns: ColumnDef<Formation>[] = [
   {
-    id: 'select',
-    header: ({ table }) => (
-      <div className='flex items-center px-4'>
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label='Select all'
+    accessorKey: 'id',
+    header: ({ column, table }) => {
+      return (
+        <Header
+          column={column}
+          table={table}
         />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
-      />
-    ),
-    enableSorting: false,
+      );
+    },
+    minSize,
+    maxSize,
+    size: 275,
+    filterFn: 'arrIncludesSome',
     enableHiding: false,
-    enableResizing: false,
-    size: 40,
   },
   {
     accessorKey: 'intitule',
@@ -150,6 +139,9 @@ const columns: ColumnDef<Formation>[] = [
         />
       );
     },
+    cell: (row) => (
+      <span className='uppercase'>{row.getValue() as string}</span>
+    ),
     minSize,
     maxSize,
     size: 175,
@@ -180,6 +172,9 @@ const columns: ColumnDef<Formation>[] = [
         />
       );
     },
+    cell: (row) => (
+      <span className='uppercase'>{row.getValue() as string}</span>
+    ),
     minSize,
     maxSize,
     size: 175,
@@ -323,7 +318,7 @@ const columns: ColumnDef<Formation>[] = [
     },
     minSize,
     maxSize,
-    size: 175,
+    size: 400,
     filterFn: 'arrIncludesSome',
   },
   {

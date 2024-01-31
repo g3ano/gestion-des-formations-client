@@ -37,7 +37,6 @@ function VisibilityOptions<TData, TValue>({
     </Popover>
   );
 }
-
 export default VisibilityOptions;
 
 function VisibilityOptionsList<TData>({ table }: { table: Table<TData> }) {

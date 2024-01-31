@@ -36,7 +36,7 @@ function RowPerPage<TData>({ table }: { table: Table<TData> }) {
           </Tooltip>
         </TooltipProvider>
         <SelectContent align='end'>
-          {[25, 50, 100, 200].map((item) => (
+          {[25, 50, 100, 200, 500].map((item) => (
             <SelectItem
               key={item}
               value={String(item)}

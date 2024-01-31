@@ -11,16 +11,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Icon from '@/components/ui/icon';
-import { DataTableContext } from '@/lib/contexts/data-table-context';
 import { TableContext } from '@/lib/contexts/table-context';
-import { getEmployees } from '@/pages/employees';
-import columns from '@/pages/employees/columns';
-import DataTable from '@/pages/employees/data-table';
+import { EmployeeDataTableContext, getEmployees } from '@/pages/employee';
+import columns from '@/pages/employee/columns';
+import DataTable from '@/pages/employee/data-table';
 import { useQuery } from '@tanstack/react-query';
 import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export const Employees = () => {
+function Employees() {
   const {
     data: employees,
     isSuccess,
@@ -28,6 +27,7 @@ export const Employees = () => {
   } = useQuery({
     queryKey: ['employees'],
     queryFn: getEmployees,
+    staleTime: 60 * 1000 * 5,
   });
 
   return (
@@ -57,16 +57,18 @@ export const Employees = () => {
       )}
     </Page>
   );
-};
+}
 
-const EmployeeMenu = () => {
+export default Employees;
+
+function EmployeeMenu() {
   const {
     setToggleVisibilityMenu,
     setToggleRowPerPage,
     resetFilteringColumns,
   } = TableContext();
   const { columnFilters, setColumnFilters, setColumnVisibility } =
-    DataTableContext();
+    EmployeeDataTableContext();
 
   return (
     <DropdownMenu>
@@ -144,4 +146,4 @@ const EmployeeMenu = () => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
+}

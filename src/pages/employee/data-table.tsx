@@ -1,7 +1,5 @@
 import {
   ColumnDef,
-  ExpandedState,
-  GroupingState,
   Row,
   Table,
   flexRender,
@@ -11,24 +9,27 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
-  getGroupedRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
+import { ScrollBar } from '@/components/ui/scroll-area';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { memo, useMemo, useRef, useState } from 'react';
+import { memo, useMemo, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { DataTableContext } from '@/lib/contexts/data-table-context';
 import { TableContext } from '@/lib/contexts/table-context';
 import GlobalFilter from '@/components/data-table/global-search';
 import VisibilityOptions from '@/components/data-table/visibility-options';
 import Pagination from '@/components/data-table/pagination';
 import Control from '@/components/data-table/rows/control';
 import RowPerPage from '@/components/data-table/rows/row-per-page';
-import { Employee } from '@/pages/employees';
-import { deleteEmployees } from '@/pages/employees/employees.api';
-import { Preview } from '@/pages/employees/show/preview';
+import {
+  Employee,
+  EmployeeDataTableContext,
+  EmployeePreview,
+  deleteEmployees,
+} from '@/pages/employee';
 
 interface DataTableProps<TData, TValue> {
   data: TData[];
@@ -56,9 +57,9 @@ function DataTable<TData, TValue>({
     setColumnSizing,
     columnSizingInfo,
     setColumnSizingInfo,
-  } = DataTableContext();
-  const [grouping, setGrouping] = useState<GroupingState>([]);
-  const [expanded, setExpanded] = useState<ExpandedState>({});
+    expanded,
+    setExpanded,
+  } = EmployeeDataTableContext();
 
   const { toggleVisibilityMenu, toggleRowPerPage } = TableContext();
 
@@ -74,7 +75,6 @@ function DataTable<TData, TValue>({
       pagination,
       columnSizing,
       columnSizingInfo,
-      grouping,
       expanded,
     },
     onGlobalFilterChange: setGlobalFilter,
@@ -85,7 +85,6 @@ function DataTable<TData, TValue>({
     onPaginationChange: setPagination,
     onColumnSizingChange: setColumnSizing,
     onColumnSizingInfoChange: setColumnSizingInfo,
-    onGroupingChange: setGrouping,
     onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -95,7 +94,6 @@ function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     getExpandedRowModel: getExpandedRowModel(),
-    getGroupedRowModel: getGroupedRowModel(),
     getRowId: (row: any) => row.id,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
@@ -148,73 +146,78 @@ function DataTable<TData, TValue>({
         </div>
       </div>
 
-      <div
-        ref={containerRef}
-        className='h-full relative overflow-auto rounded-lg'
-      >
-        <div
-          role='table'
-          className='grid'
-          style={{
-            ...columnSizeVars,
-            width: table.getTotalSize(),
-          }}
+      <ScrollAreaPrimitive.Root className='col-span-12 overflow-auto flex max-h-full max-w-full'>
+        <ScrollAreaPrimitive.Viewport
+          ref={containerRef}
+          className='h-full relative rounded-lg'
         >
           <div
-            role='table head'
-            className='grid sticky top-0 z-10 bg-background rounded-lg'
+            role='table'
+            className='grid'
+            style={{
+              ...columnSizeVars,
+              width: table.getTotalSize(),
+            }}
           >
-            {table.getHeaderGroups().map((headerGroup) => (
-              <div
-                role='table row'
-                key={headerGroup.id}
-                className='w-full flex shadow rounded-lg pr-[2px]'
-              >
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <div
-                      role='table header'
-                      key={header.id}
-                      className='flex w-full mt-[1px] relative overflow-hidden'
-                      style={{
-                        width: `calc(var(--header-${header?.id}-size) * 1px)`,
-                      }}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {header.column.getCanResize() && (
-                        <div
-                          onMouseDown={header.getResizeHandler()}
-                          onTouchStart={header.getResizeHandler()}
-                          className={cn(
-                            'w-1 cursor-w-resize h-full hover:bg-accent absolute inset-y-0 right-0 transition duration-150 ease-in-out',
-                            {
-                              'bg-accent w-9': header.column.getIsResizing(),
-                            }
-                          )}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+            <div
+              role='table head'
+              className='grid sticky top-0 z-10 bg-background rounded-lg'
+            >
+              {table.getHeaderGroups().map((headerGroup) => (
+                <div
+                  role='table row'
+                  key={headerGroup.id}
+                  className='w-full flex shadow rounded-lg pr-[2px]'
+                >
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <div
+                        role='table header'
+                        key={header.id}
+                        className='flex w-full relative overflow-hidden'
+                        style={{
+                          width: `calc(var(--header-${header?.id}-size) * 1px)`,
+                        }}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {header.column.getCanResize() && (
+                          <div
+                            onMouseDown={header.getResizeHandler()}
+                            onTouchStart={header.getResizeHandler()}
+                            className={cn(
+                              'w-1 cursor-w-resize h-full hover:bg-accent absolute inset-y-0 right-0 transition duration-150 ease-in-out',
+                              {
+                                'bg-accent w-9': header.column.getIsResizing(),
+                              }
+                            )}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+            {!!columnSizingInfo.isResizingColumn ? (
+              <MemoizedTableBody
+                table={table}
+                containerRef={containerRef}
+              />
+            ) : (
+              <TableBody
+                table={table}
+                containerRef={containerRef}
+              />
+            )}
           </div>
-          {!!columnSizingInfo.isResizingColumn ? (
-            <MemoizedTableBody
-              table={table}
-              containerRef={containerRef}
-            />
-          ) : (
-            <TableBody
-              table={table}
-              containerRef={containerRef}
-            />
-          )}
-        </div>
-      </div>
+        </ScrollAreaPrimitive.Viewport>
+        <ScrollBar orientation='vertical' />
+        <ScrollBar orientation='horizontal' />
+        <ScrollAreaPrimitive.Corner />
+      </ScrollAreaPrimitive.Root>
 
       <div className='h-20 flex items-center w-full relative'>
         <Pagination table={table} />
@@ -222,7 +225,6 @@ function DataTable<TData, TValue>({
     </div>
   );
 }
-
 export default DataTable;
 
 function TableBody<TData>({
@@ -293,16 +295,15 @@ function TableBody<TData>({
                       if (cell.column.id === 'expand') {
                         return;
                       } else {
-                        row.toggleSelected();
+                        row.toggleExpanded();
                       }
                     }}
-                    onDoubleClick={() => row.toggleExpanded()}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ))}
               </div>
-              {row.getIsExpanded() && <Preview row={row} />}
+              {row.getIsExpanded() && <EmployeePreview row={row} />}
             </div>
           </div>
         );
@@ -323,7 +324,7 @@ function TableBody<TData>({
   );
 }
 
-export const MemoizedTableBody = memo(
+const MemoizedTableBody = memo(
   TableBody,
   (prev, next) => prev.table.options.data === next.table.options.data
 ) as typeof TableBody;

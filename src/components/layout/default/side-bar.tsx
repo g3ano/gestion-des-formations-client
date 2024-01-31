@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { LayoutGrid, NotebookText, UsersRound } from 'lucide-react';
+import { LayoutGrid, NotebookText, UsersRound, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { NavLink } from 'react-router-dom';
 
@@ -23,12 +23,12 @@ const navigation = [
   },
   {
     label: 'Employées',
-    icon: UsersRound,
+    icon: Users,
     to: '/employees',
   },
 ];
 
-const SideBar = () => {
+function SideBar() {
   return (
     <div className='bg-background h-full fixed z-50 w-16 shadow-xl'>
       <div>
@@ -74,6 +74,5 @@ const SideBar = () => {
       </div>
     </div>
   );
-};
-
+}
 export default SideBar;

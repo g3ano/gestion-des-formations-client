@@ -1,10 +1,10 @@
 import { Step } from '@/components/layout/step';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { FormationsCreateContext } from '@/pages/formations/create';
+import { FormationCreateContext } from '@/pages/formation/create';
 
-export const CoutForm = () => {
-  const { cout, setCout } = FormationsCreateContext();
+function CoutForm() {
+  const { cout, setCout } = FormationCreateContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,7 +20,7 @@ export const CoutForm = () => {
         <div className='flex flex-col gap-4'>
           <div className='flex items-center justify-center gap-4'>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-semibold text-lg'>Coût</span>
+            <span className='font-medium text-lg'>Coût</span>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
           </div>
           <div className='space-y-4'>
@@ -113,4 +113,5 @@ export const CoutForm = () => {
       </div>
     </Step>
   );
-};
+}
+export default CoutForm;

@@ -1,4 +1,4 @@
-import { FormationCreateState } from '@/pages/formations/create/create-context';
+import { FormationCreateState } from '@/pages/formation/create/create-context';
 
 export interface Formation {
   id: number;
@@ -21,6 +21,16 @@ export interface Formation {
   presalaire: number;
   autres_charges: number;
   dont_devise: number;
+}
+
+export interface FormationRaw extends Formation {
+  categorie_id: number;
+  domaine_id: number;
+  type_id: number;
+  intitule_id: number;
+  organisme_id: number;
+  code_domaine_id: number;
+  cout_id: number;
 }
 
 export interface FormationInput

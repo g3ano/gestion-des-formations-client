@@ -32,7 +32,7 @@ interface DataTableState {
   setExpanded: React.Dispatch<React.SetStateAction<ExpandedState>>;
 }
 
-const _DataTableContext = createContext<DataTableState>({
+const _FormationDataTableContext = createContext<DataTableState>({
   columnVisibility: {},
   setColumnVisibility: () => {},
   setColumnFilters: () => {},
@@ -63,7 +63,7 @@ const _DataTableContext = createContext<DataTableState>({
   setExpanded: () => {},
 });
 
-export const DataTableProvider = ({
+export const FormationDataTableProvider = ({
   children,
 }: {
   children: React.ReactNode;
@@ -112,12 +112,12 @@ export const DataTableProvider = ({
   };
 
   return (
-    <_DataTableContext.Provider value={values}>
+    <_FormationDataTableContext.Provider value={values}>
       {children}
-    </_DataTableContext.Provider>
+    </_FormationDataTableContext.Provider>
   );
 };
 
-export function DataTableContext() {
-  return useContext(_DataTableContext);
+export function FormationDataTableContext() {
+  return useContext(_FormationDataTableContext);
 }

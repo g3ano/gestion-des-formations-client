@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Roboto';
+  src: url('./font/Roboto-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('./font/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('./font/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('./font/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -14,6 +35,7 @@
     --primary-foreground: 60 9.1% 97.8%;
     --accent: 34 100% 92%;
     --accent-foreground: 20.54 90.24% 48.24%;
+    --accent-border: 32 98% 83%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
     --muted: 60 4.8% 95.9%;
@@ -63,7 +85,7 @@
 
   /* Track */
   ::-webkit-scrollbar-track {
-    @apply bg-background rounded-lg;
+    @apply bg-transparent rounded-lg;
   }
 
   /* Handle */

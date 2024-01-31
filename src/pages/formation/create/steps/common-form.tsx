@@ -1,12 +1,12 @@
 import { Step } from '@/components/layout/step';
-import { FormationsCreateContext } from '@/pages/formations/create';
-import { getCommonValues } from '@/pages/formations';
+import { FormationCreateContext } from '@/pages/formation/create';
+import { getCommonValues } from '@/pages/formation';
 import { useQuery } from '@tanstack/react-query';
 import { AutoComplete } from '@/components/pages/auto-complete';
 import { Label } from '@/components/ui/label';
 
-export const CommonForm = () => {
-  const { common, setCommon } = FormationsCreateContext();
+function CommonForm() {
+  const { common, setCommon } = FormationCreateContext();
   const {
     data: commonData,
     isPending,
@@ -64,4 +64,5 @@ export const CommonForm = () => {
       )}
     </Step>
   );
-};
+}
+export default CommonForm;

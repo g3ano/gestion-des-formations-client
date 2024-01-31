@@ -52,5 +52,4 @@ function GlobalFilter({
     </div>
   );
 }
-
 export default GlobalFilter;

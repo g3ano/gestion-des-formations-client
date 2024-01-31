@@ -1,8 +1,18 @@
-import Default from '@/components/layout/default';
-import Dashboard from '@/pages/dashboard';
-import { Employees } from '@/pages/employees';
-import { Formations, FormationsCreate } from '@/pages/formations';
+import { Default } from '@/components/layout/default';
+import { Dashboard } from '@/pages/dashboard';
+import { Employees } from '@/pages/employee';
+import { Formations, FormationCreate, FormationEdit } from '@/pages/formation';
+import { loader as formationEditLoader } from '@/pages/formation/edit/edit';
+import { QueryClient } from '@tanstack/react-query';
 import { createBrowserRouter } from 'react-router-dom';
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -21,7 +31,12 @@ const router = createBrowserRouter([
           },
           {
             path: '/formations/create',
-            element: <FormationsCreate />,
+            element: <FormationCreate />,
+          },
+          {
+            path: '/formations/:formationId/edit',
+            element: <FormationEdit />,
+            loader: formationEditLoader(queryClient),
           },
         ],
       },
@@ -34,7 +49,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/employees/create',
-            element: <FormationsCreate />,
+            element: <FormationCreate />,
           },
         ],
       },

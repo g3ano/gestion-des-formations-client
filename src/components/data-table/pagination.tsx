@@ -1,18 +1,5 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { Table } from '@tanstack/react-table';
 import {
   ChevronFirst,
@@ -84,5 +71,4 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
     </div>
   );
 }
-
 export default Pagination;

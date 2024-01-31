@@ -9,7 +9,6 @@ import {
 import { TableContext } from '@/lib/contexts/table-context';
 import { Filter } from '@/components/data-table/columns';
 import { FilterContext } from '@/components/data-table/columns/filter-context';
-import { DataTableContext } from '@/lib/contexts/data-table-context';
 import {
   ArrowDown,
   ArrowUp,
@@ -31,10 +30,9 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
   const { isFilteredColumn, removeFilteredColumn, addFilteredColumn } =
     TableContext();
   const { setOpen } = FilterContext();
-  const { setColumnFilters } = DataTableContext();
   const handleColumnFilterDeletion = () => {
     removeFilteredColumn(column.id);
-    setColumnFilters((prev) => {
+    table.setColumnFilters((prev) => {
       return prev.filter((columnFilter) => columnFilter.id !== column.id);
     });
   };
@@ -42,12 +40,12 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
     addFilteredColumn(column.id);
     setOpen((prev) => ({
       ...prev,
-      [column.id]: false,
+      [column.id]: true,
     }));
   };
 
   return (
-    <div className='w-full flex items-center justify-between my-1'>
+    <div className='w-full flex items-center justify-between my-1 px-px'>
       <ContextMenu>
         <ContextMenuTrigger asChild>
           <p className='h-full data-table-cell uppercase cursor-default select-none'>
@@ -98,6 +96,14 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
           >
             Default size
           </ContextMenuItem>
+          <ContextMenuItem
+            withIcon
+            icon={EyeOff}
+            onClick={() => column.toggleVisibility(false)}
+            disabled={!column.getCanHide()}
+          >
+            Masquer
+          </ContextMenuItem>
           <ContextMenuSeparator />
           {isFilteredColumn(column.id) ? (
             <ContextMenuItem
@@ -119,14 +125,6 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
             </ContextMenuItem>
           )}
           <ContextMenuSeparator />
-          <ContextMenuItem
-            withIcon
-            icon={EyeOff}
-            onClick={() => column.toggleVisibility(false)}
-            disabled={!column.getCanHide()}
-          >
-            Masquer
-          </ContextMenuItem>
           <ContextMenuItem
             withIcon
             icon={table.getIsAllPageRowsSelected() ? ListMinus : ListPlus}
@@ -151,5 +149,4 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
     </div>
   );
 }
-
 export default Header;
