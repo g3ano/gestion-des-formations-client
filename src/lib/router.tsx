@@ -2,7 +2,6 @@ import { Default } from '@/components/layout/default';
 import { Dashboard } from '@/pages/dashboard';
 import { Employees } from '@/pages/employee';
 import { Formations, FormationCreate, FormationEdit } from '@/pages/formation';
-import { loader as formationEditLoader } from '@/pages/formation/edit/edit';
 import { QueryClient } from '@tanstack/react-query';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -36,7 +35,6 @@ const router = createBrowserRouter([
           {
             path: '/formations/:formationId/edit',
             element: <FormationEdit />,
-            loader: formationEditLoader(queryClient),
           },
         ],
       },

@@ -187,7 +187,7 @@ const Presentation = ({
       'flex-row justify-between gap-4': inline,
     })}
   >
-    <p className='flex-1 line-clamp-1 2xl:line-clamp-none'>
+    <p className='flex-1 line-clamp-1 2xl:line-clamp-none text-muted-foreground'>
       {capitalize(column)}:
     </p>
     {isCapitalized && (

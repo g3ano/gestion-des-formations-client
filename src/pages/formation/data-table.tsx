@@ -95,7 +95,7 @@ function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     getExpandedRowModel: getExpandedRowModel(),
-    getRowId: (row: any) => row.id,
+    getRowId: (row: any) => row.formation.id,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
   });

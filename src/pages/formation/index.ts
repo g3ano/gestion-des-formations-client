@@ -1,10 +1,11 @@
-export type { Formation, FormationRaw, FormationInput } from './formation.type';
+export type { Formation, FormationInput } from './formation.type';
 export {
   getFormations,
   deleteFormations,
   createFormation,
   getCommonValues,
   getFormation,
+  editFormation,
 } from './formation.api';
 export {
   FormationDataTableContext,

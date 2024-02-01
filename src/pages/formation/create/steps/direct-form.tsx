@@ -45,7 +45,7 @@ function DirectForm() {
                   value={direct.structure}
                   onChange={handleChange}
                   placeholder='Entrer structure...'
-                  className=''
+                  maxLength={50}
                 />
               </Label>
               <Label
@@ -69,12 +69,12 @@ function DirectForm() {
                     <SelectValue placeholder='CDI' />
                   </SelectTrigger>
                   <SelectContent align='end'>
-                    <SelectItem value='cdi'>CDI</SelectItem>
-                    <SelectItem value='cda'>CDA</SelectItem>
-                    <SelectItem value='cde'>CDE</SelectItem>
-                    <SelectItem value='ldi'>LDI</SelectItem>
-                    <SelectItem value='lda'>LDA</SelectItem>
-                    <SelectItem value='lde'>LDE</SelectItem>
+                    <SelectItem value='CDI'>CDI</SelectItem>
+                    <SelectItem value='CDA'>CDA</SelectItem>
+                    <SelectItem value='CDE'>CDE</SelectItem>
+                    <SelectItem value='LDI'>LDI</SelectItem>
+                    <SelectItem value='LDA'>LDA</SelectItem>
+                    <SelectItem value='LDE'>LDE</SelectItem>
                   </SelectContent>
                 </Select>
               </Label>
@@ -104,9 +104,9 @@ function DirectForm() {
                     />
                   </SelectTrigger>
                   <SelectContent align='end'>
-                    <SelectItem value='présentiel'>Présentiel</SelectItem>
-                    <SelectItem value='distanciel'>Distanciel</SelectItem>
-                    <SelectItem value='blended'>Blended</SelectItem>
+                    <SelectItem value='Présentiel'>Présentiel</SelectItem>
+                    <SelectItem value='Distanciel'>Distanciel</SelectItem>
+                    <SelectItem value='Blended'>Blended</SelectItem>
                   </SelectContent>
                 </Select>
               </Label>
@@ -185,6 +185,7 @@ function DirectForm() {
                   value={direct.lieu}
                   onChange={handleChange}
                   placeholder='Entrer lieu...'
+                  maxLength={50}
                 />
               </Label>
               <Label
@@ -241,6 +242,7 @@ function DirectForm() {
                     'placeholder:text-muted-foreground',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
                   )}
+                  maxLength={255}
                 />
               </Label>
             </div>

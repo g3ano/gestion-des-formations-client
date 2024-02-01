@@ -1,36 +1,53 @@
 import { FormationCreateState } from '@/pages/formation/create/create-context';
 
 export interface Formation {
-  id: number;
-  categorie: string;
-  type: string;
-  intitule: string;
-  organisme: string;
-  code_domaine: number;
-  structure: string;
-  code_formation: string;
-  mode: string;
-  lieu: string;
-  effectif: number;
-  durree: number;
-  observation: string;
-  domaine: string;
-  pedagogiques: number;
-  hebergement_restauration: number;
-  transport: number;
-  presalaire: number;
-  autres_charges: number;
-  dont_devise: number;
-}
-
-export interface FormationRaw extends Formation {
-  categorie_id: number;
-  domaine_id: number;
-  type_id: number;
-  intitule_id: number;
-  organisme_id: number;
-  code_domaine_id: number;
-  cout_id: number;
+  formation: {
+    id: number;
+    structure: string;
+    code_formation: string;
+    mode: string;
+    lieu: string;
+    effectif: number;
+    durree: number;
+    h_j: number;
+    observation: string;
+    created_at: string;
+  };
+  relationships: {
+    intitule: {
+      id: number;
+      intitule: string;
+    };
+    organisme: {
+      id: number;
+      organisme: string;
+    };
+    code_domaine: {
+      id: number;
+      code_domaine: number;
+    };
+    categorie: {
+      id: number;
+      categorie: string;
+    };
+    domaine: {
+      id: number;
+      domaine: string;
+    };
+    type: {
+      id: number;
+      type: string;
+    };
+    couts: {
+      id: number;
+      pedagogiques: string;
+      hebergement_restauration: string;
+      transport: string;
+      presalaire: string;
+      autres_charges: string;
+      dont_devise: string;
+    };
+  };
 }
 
 export interface FormationInput

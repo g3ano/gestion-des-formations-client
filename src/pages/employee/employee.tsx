@@ -20,11 +20,7 @@ import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 function Employees() {
-  const {
-    data: employees,
-    isSuccess,
-    isPending,
-  } = useQuery({
+  const { data, isSuccess, isPending } = useQuery({
     queryKey: ['employees'],
     queryFn: getEmployees,
     staleTime: 60 * 1000 * 5,
@@ -50,7 +46,7 @@ function Employees() {
       {isSuccess && (
         <FilterContextProvider>
           <DataTable
-            data={employees}
+            data={data}
             columns={columns}
           />
         </FilterContextProvider>

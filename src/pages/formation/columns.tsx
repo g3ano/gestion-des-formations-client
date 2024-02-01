@@ -8,7 +8,8 @@ const maxSize = 500;
 
 const columns: ColumnDef<Formation>[] = [
   {
-    accessorKey: 'id',
+    accessorKey: 'relationships.intitule.intitule',
+    id: 'intitule',
     header: ({ column, table }) => {
       return (
         <Header
@@ -24,23 +25,8 @@ const columns: ColumnDef<Formation>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'intitule',
-    header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
-    },
-    minSize,
-    maxSize,
-    size: 275,
-    filterFn: 'arrIncludesSome',
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'categorie',
+    accessorKey: 'relationships.categorie.categorie',
+    id: 'categorie',
     header: ({ column, table }) => {
       return (
         <Header
@@ -55,7 +41,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'type',
+    accessorKey: 'relationships.type.type',
+    id: 'type',
     header: ({ column, table }) => {
       return (
         <Header
@@ -70,7 +57,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'organisme',
+    accessorKey: 'relationships.organisme.organisme',
+    id: 'organisme',
     header: ({ column, table }) => {
       return (
         <Header
@@ -85,7 +73,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'code_domaine',
+    accessorKey: 'relationships.code_domaine.code_domaine',
+    id: 'code_domaine',
     header: ({ column, table }) => {
       return (
         <Header
@@ -100,7 +89,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'structure',
+    accessorKey: 'formation.structure',
+    id: 'structure',
     header: ({ column, table }) => {
       return (
         <Header
@@ -115,7 +105,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'code_formation',
+    accessorKey: 'formation.code_formation',
+    id: 'code_formation',
     header: ({ column, table }) => {
       return (
         <Header
@@ -130,7 +121,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'mode',
+    accessorKey: 'formation.mode',
+    id: 'mode',
     header: ({ column, table }) => {
       return (
         <Header
@@ -148,7 +140,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrEquals,
   },
   {
-    accessorKey: 'lieu',
+    accessorKey: 'formation.lieu',
+    id: 'lieu',
     header: ({ column, table }) => {
       return (
         <Header
@@ -163,7 +156,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrEquals,
   },
   {
-    accessorKey: 'domaine',
+    accessorKey: 'relationships.domaine.domaine',
+    id: 'domaine',
     header: ({ column, table }) => {
       return (
         <Header
@@ -181,7 +175,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'effectif',
+    accessorKey: 'formation.effectif',
+    id: 'effectif',
     header: ({ column, table }) => {
       return (
         <Header
@@ -196,7 +191,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'durree',
+    accessorKey: 'formation.durree',
+    id: 'durree',
     header: ({ column, table }) => {
       return (
         <Header
@@ -211,7 +207,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'h_j',
+    accessorKey: 'formation.h_j',
+    id: 'h_j',
     header: ({ column, table }) => {
       return (
         <Header
@@ -226,7 +223,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'pedagogiques',
+    accessorKey: 'relationships.couts.pedagogiques',
+    id: 'pedagogiques',
     header: ({ column, table }) => {
       return (
         <Header
@@ -241,7 +239,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'hebergement_restauration',
+    accessorKey: 'relationships.couts.hebergement_restauration',
+    id: 'hebergement_restauration',
     header: ({ column, table }) => {
       return (
         <Header
@@ -256,7 +255,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'transport',
+    accessorKey: 'relationships.couts.transport',
+    id: 'transport',
     header: ({ column, table }) => {
       return (
         <Header
@@ -271,7 +271,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'presalaire',
+    accessorKey: 'relationships.couts.presalaire',
+    id: 'presalaire',
     header: ({ column, table }) => {
       return (
         <Header
@@ -286,7 +287,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'autres_charges',
+    accessorKey: 'relationships.couts.autres_charges',
+    id: 'autres_charges',
     header: ({ column, table }) => {
       return (
         <Header
@@ -295,19 +297,14 @@ const columns: ColumnDef<Formation>[] = [
         />
       );
     },
-    cell: ({ row }) => {
-      const value: string = row.getValue('autres_charges');
-      const formatted = parseFloat(value);
-
-      return <span>{formatted}</span>;
-    },
     minSize,
     maxSize,
     size: 175,
     filterFn: arrIncludeSomeNumber,
   },
   {
-    accessorKey: 'observation',
+    id: 'observation',
+    accessorKey: 'formation.observation',
     header: ({ column, table }) => {
       return (
         <Header
@@ -322,7 +319,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'formation.created_at',
+    id: 'created_at',
     header: ({ column, table }) => {
       return (
         <Header

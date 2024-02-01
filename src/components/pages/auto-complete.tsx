@@ -27,7 +27,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
     const [open, setOpen] = useState(false);
 
     const searchResults = useMemo(() => {
-      const uniqueData = unique(data);
+      const uniqueData = unique(data) ?? [];
       const uniqueSortedData =
         typeof uniqueData[0] === 'number'
           ? uniqueData.sort((a, b) => +a - +b).map(String)

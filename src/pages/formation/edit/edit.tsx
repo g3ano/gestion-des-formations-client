@@ -2,77 +2,86 @@ import Page from '@/components/layout/page';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
-import { Formation, FormationRaw, getFormation } from '@/pages/formation';
+import { editFormation, getFormation } from '@/pages/formation';
 import { FormationCreateContext } from '@/pages/formation/create';
 import CoutForm from '@/pages/formation/create/steps/cout-form';
 import DirectForm from '@/pages/formation/create/steps/direct-form';
-import { QueryClient } from '@tanstack/react-query';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
 import { useEffect } from 'react';
-import {
-  LoaderFunction,
-  LoaderFunctionArgs,
-  useLoaderData,
-} from 'react-router-dom';
-
-const formationEditQuery = (formationId?: string) => ({
-  queryKey: [
-    'formations',
-    {
-      formationId,
-    },
-  ],
-  queryFn: getFormation,
-  notifyOnChangeProps: [],
-});
-
-export const loader =
-  (queryClient: QueryClient): LoaderFunction =>
-  async ({ params }: LoaderFunctionArgs): Promise<Formation> => {
-    const query = formationEditQuery(params.formationId);
-    return (
-      queryClient.getQueryData(query.queryKey) ??
-      (await queryClient.fetchQuery(query))
-    );
-  };
+import { useNavigate, useParams } from 'react-router-dom';
 
 function FormationEdit({}: {}) {
   const { step, backward, forward, current, total } = useStepper([
     <DirectForm />,
     <CoutForm />,
   ]);
-  const { cout, common, direct, reset, setCommon, setDirect, setCout } =
+  const { cout, common, direct, setCommon, setDirect, setCout, reset } =
     FormationCreateContext();
 
-  const formation = useLoaderData() as FormationRaw;
+  const params = useParams();
+  const formationId = params.formationId;
+  const navigate = useNavigate();
+
+  const { data, isSuccess } = useQuery({
+    queryKey: [
+      'formations',
+      {
+        formationId,
+      },
+    ],
+    queryFn: getFormation,
+  });
+  const mutation = useMutation({
+    mutationKey: ['formation', { formationId }],
+    mutationFn: editFormation,
+    onSuccess: () => {
+      reset();
+      navigate('/formations');
+    },
+  });
 
   useEffect(() => {
-    const keys = Object.keys(formation);
-    if (keys.length) {
-      keys.forEach((key) => {
-        if (key in common) {
-          setCommon((prev) => ({
-            ...prev,
-            [key]: formation[key as keyof typeof formation] ?? '',
-          }));
-        }
-
-        if (key in direct) {
-          setDirect((prev) => ({
-            ...prev,
-            [key]: formation[key as keyof typeof formation] ?? '',
-          }));
-        }
-        if (key in cout) {
-          setCout((prev) => ({
-            ...prev,
-            [key]: formation[key as keyof typeof formation] ?? '',
-          }));
-        }
+    if (isSuccess) {
+      const { relationships, formation } = data;
+      setDirect({
+        categorie_id: String(relationships.categorie.id),
+        domaine_id: String(relationships.domaine.id),
+        type_id: String(relationships.type.id),
+        code_formation: formation.code_formation,
+        durree: String(formation.durree),
+        effectif: String(formation.effectif),
+        mode: formation.mode,
+        lieu: formation.lieu,
+        observation: formation.observation,
+        structure: formation.structure,
+      });
+      setCommon({
+        intitule: relationships.intitule.intitule,
+        organisme: relationships.organisme.organisme,
+        code_domaine: String(relationships.code_domaine.code_domaine),
+      });
+      setCout({
+        autres_charges: relationships.couts.autres_charges,
+        pedagogiques: relationships.couts.pedagogiques,
+        presalaire: relationships.couts.presalaire,
+        hebergement_restauration: relationships.couts.hebergement_restauration,
+        dont_devise: relationships.couts.dont_devise,
+        transport: relationships.couts.transport,
       });
     }
-  }, []);
-  console.log(cout, direct, common);
+  }, [isSuccess]);
+
+  const handleEdit = () => {
+    mutation.mutate({
+      formationId,
+      body: {
+        direct,
+        common,
+        cout,
+      },
+    });
+  };
 
   return (
     <Page
@@ -107,7 +116,42 @@ function FormationEdit({}: {}) {
         </div>
       }
     >
-      <form>{step}</form>
+      <div className='h-full flex flex-col justify-between relative'>
+        <div className='w-full h-full rounded-lg'>
+          <form>{step}</form>
+          <div className='absolute bottom-0 inset-x-0 pb-2'>
+            <div className='flex items-end justify-between'>
+              <div>
+                {current + 1} / {total}
+              </div>
+
+              {current === total - 1 && (
+                <div className='space-x-2'>
+                  <Button>
+                    <Icon
+                      render={CheckCheck}
+                      size='sm'
+                      edge='left'
+                    />
+                    <span>Preview</span>
+                  </Button>
+                  <Button
+                    className='px-5'
+                    onClick={handleEdit}
+                  >
+                    <Icon
+                      render={Save}
+                      size='sm'
+                      edge='left'
+                    />
+                    <span>Modifier</span>
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </Page>
   );
 }

@@ -1,10 +1,9 @@
 import axiosClient from '@/lib/axios';
 import type { Formation, FormationInput } from '@/pages/formation';
-import { FormationRaw } from '@/pages/formation/formation.type';
 
 export const getFormations = async (): Promise<Formation[]> => {
   const res = await axiosClient.get('/formations');
-  return res.data.formations;
+  return res.data.data;
 };
 
 export const deleteFormations = async (ids: (number | string)[]) => {
@@ -22,7 +21,7 @@ export const getCommonValues = async (): Promise<{
   code_domaines: number[];
 }> => {
   const res = await axiosClient.get('/formations/commonValues');
-  return res.data.commonValues;
+  return res.data.data;
 };
 
 export const createFormation = async (formationsInputs: FormationInput) => {
@@ -36,8 +35,21 @@ export const getFormation = async ({
   queryKey,
 }: {
   queryKey: any[];
-}): Promise<FormationRaw> => {
+}): Promise<Formation> => {
   const [_, { formationId }] = queryKey;
   const res = await axiosClient.get(`/formations/${formationId}`);
-  return res.data.formation;
+  return res.data.data;
+};
+
+export const editFormation = async ({
+  formationId,
+  body,
+}: {
+  formationId: string | undefined;
+  body: Record<string, object>;
+}) => {
+  const res = await axiosClient.put(`/formations/${formationId ?? ''}`, {
+    ...body,
+  });
+  return res.data;
 };

@@ -2,13 +2,14 @@ import Page from '@/components/layout/page';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
+import { queryClient } from '@/lib/router';
 import { FormationInput, createFormation } from '@/pages/formation';
 import {
   CoutForm,
   DirectForm,
   FormationCreateContext,
 } from '@/pages/formation/create';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +19,6 @@ function FormationCreate() {
     <CoutForm />,
   ]);
   const { cout, common, direct, reset } = FormationCreateContext();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const mutation = useMutation({
