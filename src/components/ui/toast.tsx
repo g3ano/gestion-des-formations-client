@@ -82,7 +82,10 @@ const ToastClose = React.forwardRef<
     toast-close=''
     {...props}
   >
-    <Icon render={X} />
+    <Icon
+      render={X}
+      size='sm'
+    />
   </ToastPrimitives.Close>
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;

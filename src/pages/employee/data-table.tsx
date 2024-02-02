@@ -114,11 +114,11 @@ function DataTable<TData, TValue>({
 
   return (
     <div
-      className={cn('flex flex-col h-full gap-2 relative', {
+      className={cn('grid grid-cols-11 grid-rows-12 gap-4 h-full relative', {
         'cursor-w-resize': !!table.getState().columnSizingInfo.isResizingColumn,
       })}
     >
-      <div className='mb-4 flex items-center flex-col md:flex-row md:justify-between'>
+      <div className='col-span-12 row-span-1 flex items-end flex-col md:flex-row md:justify-between'>
         <div className='w-full md:w-1/4'>
           <GlobalFilter
             globalFilter={globalFilter}
@@ -130,7 +130,7 @@ function DataTable<TData, TValue>({
             <Control
               table={table}
               queryFn={deleteEmployees}
-              queryKey='employees'
+              queryKey='formations'
             />
           )}
           {toggleRowPerPage && (
@@ -145,8 +145,11 @@ function DataTable<TData, TValue>({
           )}
         </div>
       </div>
-
-      <ScrollAreaPrimitive.Root className='col-span-12 overflow-auto flex max-h-full max-w-full'>
+      <ScrollAreaPrimitive.Root
+        className={cn(
+          'col-span-12 row-span-10 overflow-auto flex max-h-full max-w-full shadow rounded-lg'
+        )}
+      >
         <ScrollAreaPrimitive.Viewport
           ref={containerRef}
           className='h-full relative rounded-lg'
@@ -219,7 +222,7 @@ function DataTable<TData, TValue>({
         <ScrollAreaPrimitive.Corner />
       </ScrollAreaPrimitive.Root>
 
-      <div className='h-20 flex items-center w-full relative'>
+      <div className='col-span-12 row-span-1 flex bg-background px-4 w-full shadow rounded-lg'>
         <Pagination table={table} />
       </div>
     </div>

@@ -24,7 +24,6 @@ export const Formations = () => {
   const { data, isPending, isSuccess } = useQuery({
     queryKey: ['formations'],
     queryFn: getFormations,
-    staleTime: 1000 * 60 * 5,
   });
 
   return (

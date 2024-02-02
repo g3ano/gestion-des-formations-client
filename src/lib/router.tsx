@@ -8,7 +8,7 @@ import { createBrowserRouter } from 'react-router-dom';
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60,
+      staleTime: 1000 * 60 * 5,
     },
   },
 });

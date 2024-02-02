@@ -126,3 +126,57 @@ export const arrEquals: FilterFn<any> = (
   return filterValues.some((value) => value === row.getValue(columnId));
 };
 arrEquals.autoRemove = (value: any) => !value;
+
+//I can't believe I've spent 5 hours on this shit
+//it is not even completed, there is some edge cases that need to be covered
+export const resolvePageNumber = (
+  pageCount: number,
+  pageIndex: number,
+  pagesNum: number
+): {
+  currentPage: number;
+  firstPage: number;
+  lastPage: number;
+  pages: number[];
+} => {
+  const currentPage = pageIndex;
+  const firstPage = 0;
+  const lastPage = pageCount - 1;
+  let pages: number[] = [];
+  const isEnoughNextPages = currentPage + pagesNum < pageCount;
+  const safePagesNum = currentPage === firstPage ? pagesNum - 1 : pagesNum - 2;
+
+  let end = isEnoughNextPages
+    ? currentPage >= 2 //covers left padding added below
+      ? currentPage + safePagesNum - 1
+      : currentPage + safePagesNum
+    : lastPage;
+
+  let start = isEnoughNextPages
+    ? currentPage >= 2 //adds a left padding of one page if page position >= 2
+      ? currentPage - 1
+      : currentPage
+    : currentPage === firstPage
+    ? 0
+    : currentPage - (safePagesNum - (lastPage - currentPage)) - 1; //calculate items pad if no more overflowing pages is found, and it's not the first page
+
+  for (start; start < end; start++) {
+    if (start < pageCount && start >= 0) {
+      pages.push(start);
+    }
+  }
+  if (!pages.includes(firstPage)) {
+    pages = [...pages, firstPage];
+  }
+  if (!pages.includes(lastPage)) {
+    pages = [...pages, lastPage];
+  }
+  pages.sort((a, b) => a - b);
+
+  return {
+    currentPage,
+    firstPage,
+    lastPage,
+    pages,
+  };
+};

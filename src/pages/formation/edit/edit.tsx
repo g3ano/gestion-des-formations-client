@@ -2,6 +2,7 @@ import Page from '@/components/layout/page';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
+import { queryClient } from '@/lib/router';
 import { editFormation, getFormation } from '@/pages/formation';
 import { FormationCreateContext } from '@/pages/formation/create';
 import CoutForm from '@/pages/formation/create/steps/cout-form';
@@ -33,11 +34,14 @@ function FormationEdit({}: {}) {
     queryFn: getFormation,
   });
   const mutation = useMutation({
-    mutationKey: ['formation', { formationId }],
+    mutationKey: ['formations', 'edit', { formationId }],
     mutationFn: editFormation,
     onSuccess: () => {
       reset();
       navigate('/formations');
+      queryClient.invalidateQueries({
+        queryKey: ['formations'],
+      });
     },
   });
 
@@ -125,29 +129,27 @@ function FormationEdit({}: {}) {
                 {current + 1} / {total}
               </div>
 
-              {current === total - 1 && (
-                <div className='space-x-2'>
-                  <Button>
-                    <Icon
-                      render={CheckCheck}
-                      size='sm'
-                      edge='left'
-                    />
-                    <span>Preview</span>
-                  </Button>
-                  <Button
-                    className='px-5'
-                    onClick={handleEdit}
-                  >
-                    <Icon
-                      render={Save}
-                      size='sm'
-                      edge='left'
-                    />
-                    <span>Modifier</span>
-                  </Button>
-                </div>
-              )}
+              <div className='space-x-2'>
+                <Button>
+                  <Icon
+                    render={CheckCheck}
+                    size='sm'
+                    edge='left'
+                  />
+                  <span>Preview</span>
+                </Button>
+                <Button
+                  className='px-5'
+                  onClick={handleEdit}
+                >
+                  <Icon
+                    render={Save}
+                    size='sm'
+                    edge='left'
+                  />
+                  <span>Modifier</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

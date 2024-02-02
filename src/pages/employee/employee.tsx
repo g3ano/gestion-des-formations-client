@@ -23,7 +23,6 @@ function Employees() {
   const { data, isSuccess, isPending } = useQuery({
     queryKey: ['employees'],
     queryFn: getEmployees,
-    staleTime: 60 * 1000 * 5,
   });
 
   return (

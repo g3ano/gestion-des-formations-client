@@ -154,7 +154,7 @@ function DataTable<TData, TValue>({
 
       <ScrollAreaPrimitive.Root
         className={cn(
-          'col-span-12 row-span-10 overflow-auto flex max-h-full max-w-full shadow',
+          'col-span-12 row-span-10 overflow-auto flex max-h-full max-w-full shadow rounded-lg',
           {
             'col-span-8 lg:col-span-9 xl:col-span-9':
               table.getIsSomeRowsExpanded(),
@@ -240,7 +240,7 @@ function DataTable<TData, TValue>({
           <FormationPreview row={previewRow} />
         </div>
       )}
-      <div className='col-span-12 row-span-1 flex bg-background px-4 w-full'>
+      <div className='col-span-12 row-span-1 flex bg-background px-4 w-full shadow rounded-lg'>
         <Pagination table={table} />
       </div>
     </div>

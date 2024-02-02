@@ -43,7 +43,7 @@ const _FormationDataTableContext = createContext<DataTableState>({
   setSorting: () => {},
   pagination: {
     pageIndex: 0,
-    pageSize: 100,
+    pageSize: 25,
   },
   setPagination: () => {},
   globalFilter: '',
@@ -74,7 +74,7 @@ export const FormationDataTableProvider = ({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 100,
+    pageSize: 25,
   });
   const [globalFilter, setGlobalFilter] = useState('');
   const [columnSizing, setColumnSizing] = useState<ColumnSizingState>({});
