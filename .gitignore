@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 todo.md
+src/font
 
 # Editor directories and files
 .vscode/*
