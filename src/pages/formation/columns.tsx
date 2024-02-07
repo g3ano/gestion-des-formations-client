@@ -1,5 +1,5 @@
 import { Header } from '@/components/data-table/columns';
-import { arrEquals, arrIncludeSomeNumber } from '@/lib/utils';
+import { arrEquals, arrIncludeSomeNumber } from '@/lib/filter-fns';
 import { Formation } from '@/pages/formation';
 import { ColumnDef } from '@tanstack/react-table';
 
@@ -86,7 +86,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 150,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'formation.structure',
@@ -137,7 +137,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrEquals,
+    filterFn: arrEquals(),
   },
   {
     accessorKey: 'formation.lieu',
@@ -153,7 +153,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrEquals,
+    filterFn: arrEquals(),
   },
   {
     accessorKey: 'relationships.domaine.domaine',
@@ -188,7 +188,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'formation.durree',
@@ -204,7 +204,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'formation.h_j',
@@ -220,7 +220,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'relationships.couts.pedagogiques',
@@ -235,8 +235,8 @@ const columns: ColumnDef<Formation>[] = [
     },
     minSize,
     maxSize,
-    size: 175,
-    filterFn: arrIncludeSomeNumber,
+    size: 225,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'relationships.couts.hebergement_restauration',
@@ -252,7 +252,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 275,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'relationships.couts.transport',
@@ -268,7 +268,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'relationships.couts.presalaire',
@@ -284,7 +284,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     accessorKey: 'relationships.couts.autres_charges',
@@ -300,7 +300,7 @@ const columns: ColumnDef<Formation>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrIncludeSomeNumber,
+    filterFn: arrIncludeSomeNumber(),
   },
   {
     id: 'observation',

@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 export default function FormationShow({ row }: { row: Row<Formation> }) {
   return (
     <div className='w-full flex rounded-lg'>
-      <ScrollArea className='-mb-0.5'>
+      <ScrollArea className='-mb-0.5 rounded-lg drop-shadow'>
         <div className='flex flex-col justify-between gap-4'>
-          <div className='bg-background rounded-lg space-y-1.5 shadow'>
-            <div className='flex min-h-12 items-center justify-between bg-primary text-primary-foreground px-4 py-1 absolute inset-x-0 top-0 z-10 rounded-t-lg shadow'>
+          <div className='bg-card rounded-lg space-y-1.5'>
+            <div className='flex min-h-12 items-center justify-between bg-accent px-4 py-1 absolute inset-x-0 top-0 z-10 rounded-t-lg'>
               <Button
                 variant='ghost'
                 size='icon'
-                className='text-primary-foreground hover:text-primary-foreground'
+                className='hover:text-primary-foreground'
                 onClick={() => row.toggleExpanded(false)}
                 edge='left'
                 asChild
@@ -32,7 +32,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               <Button
                 variant='ghost'
                 size='icon'
-                className='text-primary-foreground hover:text-primary-foreground'
+                className='hover:text-primary-foreground'
                 onClick={() => row.toggleExpanded(false)}
                 edge='right'
               >
@@ -49,7 +49,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               </p>
             </div>
           </div>
-          <div className='bg-background rounded-lg p-4 space-y-1.5 shadow'>
+          <div className='bg-card rounded-lg p-4 space-y-1.5'>
             <p className='font-medium line-clamp-2 pb-1'>Formation</p>
             <Presentation
               column='structure'
@@ -101,7 +101,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-background rounded-lg p-4 space-y-1.5 shadow'>
+          <div className='bg-card rounded-lg p-4 space-y-1.5'>
             <p className='font-medium line-clamp-2 pb-1'>Effectif à former</p>
             <Presentation
               column='durree'
@@ -122,7 +122,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-background rounded-lg p-4 space-y-1.5 shadow'>
+          <div className='bg-card rounded-lg p-4 space-y-1.5'>
             <p className='font-medium line-clamp-2 pb-1'>Coût</p>
             <Presentation
               column='Pédagogiques'
@@ -155,7 +155,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-background rounded-lg p-4 space-y-1.5 shadow mb-0.5'>
+          <div className='bg-card rounded-lg p-4 space-y-1.5 mb-0.5'>
             <p className='font-medium line-clamp-2'>Observation</p>
             <p className='line-clamp-4 pt-1'>
               {row.getValue('observation')

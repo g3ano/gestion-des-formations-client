@@ -1,20 +1,23 @@
 import * as React from 'react';
-import { DayPicker } from 'react-day-picker';
+import * as DayPickerPrimitive from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<
+  typeof DayPickerPrimitive.DayPicker
+>;
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  mode,
   ...props
 }: CalendarProps) {
   return (
-    <DayPicker
+    <DayPickerPrimitive.DayPicker
       showOutsideDays={showOutsideDays}
       className={cn('p-3', className)}
       classNames={{
@@ -36,7 +39,7 @@ function Calendar({
         row: 'flex w-full mt-2',
         cell: cn(
           'relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md',
-          props.mode === 'range'
+          mode === 'range'
             ? '[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md'
             : '[&:has([aria-selected])]:rounded-md'
         ),
@@ -58,8 +61,18 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className='h-4 w-4' />,
-        IconRight: ({ ...props }) => <ChevronRight className='h-4 w-4' />,
+        IconLeft: ({ ...props }) => (
+          <ChevronLeft
+            className='h-4 w-4'
+            {...props}
+          />
+        ),
+        IconRight: ({ ...props }) => (
+          <ChevronRight
+            className='h-4 w-4'
+            {...props}
+          />
+        ),
       }}
       {...props}
     />

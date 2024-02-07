@@ -2,6 +2,7 @@ import Page from '@/components/layout/page';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
+import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
 import { FormationInput, createFormation } from '@/pages/formation';
 import {
@@ -14,9 +15,10 @@ import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 function FormationCreate() {
+  const { toast } = useToast();
   const { step, backward, forward, current, total } = useStepper([
-    <DirectForm />,
-    <CoutForm />,
+    <DirectForm key='direct' />,
+    <CoutForm key='cout' />,
   ]);
   const { cout, common, direct, reset } = FormationCreateContext();
   const navigate = useNavigate();
@@ -25,11 +27,14 @@ function FormationCreate() {
     mutationFn: (formationsInputs: FormationInput) =>
       createFormation(formationsInputs),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: ['formations'],
       });
       reset();
       navigate('/formations');
+      toast({
+        title: 'Formation est cree',
+      });
     },
   });
 
@@ -42,7 +47,7 @@ function FormationCreate() {
       title='Nouveau formation'
       actions={
         <div className='flex items-center justify-end'>
-          <div className='flex items-center gap-1'>
+          <div className='flex items-center gap-2'>
             <Button
               onClick={backward}
               disabled={current === 0}
@@ -54,7 +59,6 @@ function FormationCreate() {
               />
               <p>Back</p>
             </Button>
-
             <Button
               onClick={forward}
               disabled={current === total - 1}
@@ -81,7 +85,7 @@ function FormationCreate() {
 
               {current === total - 1 && (
                 <div className='space-x-2'>
-                  <Button>
+                  <Button variant='outline'>
                     <Icon
                       render={CheckCheck}
                       size='sm'

@@ -1,4 +1,3 @@
-import { FilterFn, Row } from '@tanstack/react-table';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -104,35 +103,12 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
   return result;
 };
 
-export const arrIncludeSomeNumber: FilterFn<any> = (
-  row: Row<any>,
-  columnId: string,
-  filterValues: string[]
-) =>
-  filterValues.some((value) => {
-    const rowValue =
-      typeof row.getValue<number | string>(columnId) === 'string'
-        ? parseFloat(row.getValue<string>(columnId))
-        : row.getValue<number>(columnId);
-    return rowValue === parseFloat(value);
-  });
-arrIncludeSomeNumber.autoRemove = (value: any) => !value;
-
-export const arrEquals: FilterFn<any> = (
-  row: Row<any>,
-  columnId: string,
-  filterValues: string[]
-) => {
-  return filterValues.some((value) => value === row.getValue(columnId));
-};
-arrEquals.autoRemove = (value: any) => !value;
-
 //I can't believe I've spent 5 hours on this shit
 //it is not even completed, there is some edge cases that need to be covered
 export const resolvePageNumber = (
   pageCount: number,
   pageIndex: number,
-  pagesNum: number
+  displayPagesNum: number
 ): {
   currentPage: number;
   firstPage: number;
@@ -141,12 +117,13 @@ export const resolvePageNumber = (
 } => {
   const currentPage = pageIndex;
   const firstPage = 0;
-  const lastPage = pageCount - 1;
+  const lastPage = pageCount ? pageCount - 1 : pageCount;
   let pages: number[] = [];
-  const isEnoughNextPages = currentPage + pagesNum < pageCount;
-  const safePagesNum = currentPage === firstPage ? pagesNum - 1 : pagesNum - 2;
+  const isEnoughNextPages = currentPage + displayPagesNum < pageCount;
+  const safePagesNum =
+    currentPage === firstPage ? displayPagesNum - 1 : displayPagesNum - 2;
 
-  let end = isEnoughNextPages
+  const end = isEnoughNextPages
     ? currentPage >= 2 //covers left padding added below
       ? currentPage + safePagesNum - 1
       : currentPage + safePagesNum

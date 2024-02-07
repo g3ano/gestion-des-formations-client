@@ -34,7 +34,7 @@ const Page = ({ title, actions, children }: PageProps) => {
             <div className='flex-1'>{actions}</div>
           </div>
         </div>
-        <div className='py-4 h-full overflow-y-auto px-6 bg-secondary'>
+        <div className='py-4 h-full overflow-y-auto px-6 bg-background'>
           {children}
         </div>
       </div>

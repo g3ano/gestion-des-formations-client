@@ -6,6 +6,7 @@ import { Outlet, useNavigation } from 'react-router-dom';
 import { SideBar } from '@/components/layout/default';
 import Icon from '@/components/ui/icon';
 import { Loader2 } from 'lucide-react';
+import { Toaster } from '@/components/ui/toaster';
 
 function Default() {
   const { state } = useNavigation();
@@ -26,7 +27,7 @@ function Default() {
   }
 
   return (
-    <div className='bg-secondary text-foreground w-full'>
+    <div className='bg-background text-foreground w-full'>
       <div className='min-h-full flex items-stretch'>
         <div className='shadow'>
           <SideBar />
@@ -41,6 +42,7 @@ function Default() {
               </TableContextProvider>
             </EmployeeDataTableProvider>
           </FormationDataTableProvider>
+          <Toaster />
         </div>
       </div>
     </div>

@@ -162,10 +162,10 @@ function DirectForm() {
                   </SelectTrigger>
                   <SelectContent align='end'>
                     <SelectItem value='1'>
-                      Actions d'adaptation au poste de travail
+                      Actions d&apojadaptation au poste de travail
                     </SelectItem>
                     <SelectItem value='2'>
-                      Actions liées à l'évolution des métiers & technologies
+                      Actions liées à l&aposévolution des métiers & technologies
                     </SelectItem>
                     <SelectItem value='3'>
                       Actions liées au développement des compétences
@@ -238,7 +238,7 @@ function DirectForm() {
                   onChange={handleChange}
                   placeholder='Entrer Observation...'
                   className={cn(
-                    'resize-none flex w-full rounded-lg border border-input bg-background px-3 py-3 text-sm shadow-sm transition-colors',
+                    'resize-none flex w-full rounded-lg border border-input bg-card px-3 py-3 text-sm shadow-sm transition-colors',
                     'placeholder:text-muted-foreground',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
                   )}
@@ -257,26 +257,34 @@ function DirectForm() {
           </div>
           <div className='flex items-center gap-4'>
             <div className='flex-1 space-y-2'>
-              <label htmlFor='effectif'>Effectif</label>
-              <Input
-                type='number'
-                name='effectif'
-                id='effectif'
-                value={direct.effectif}
-                onChange={handleChange}
-                placeholder='Entrer nombre des effectifs...'
-              />
+              <Label
+                label='effectif'
+                htmlFor='effectif'
+              >
+                <Input
+                  type='number'
+                  name='effectif'
+                  id='effectif'
+                  value={direct.effectif}
+                  onChange={handleChange}
+                  placeholder='Entrer nombre des effectifs...'
+                />
+              </Label>
             </div>
             <div className='flex-1 space-y-2'>
-              <label htmlFor='durree'>Durree</label>
-              <Input
-                type='number'
-                name='durree'
-                id='durree'
-                value={direct.durree}
-                onChange={handleChange}
-                placeholder='Entrer durree...'
-              />
+              <Label
+                label='durree'
+                htmlFor='durree'
+              >
+                <Input
+                  type='number'
+                  name='durree'
+                  id='durree'
+                  value={direct.durree}
+                  onChange={handleChange}
+                  placeholder='Entrer durree...'
+                />
+              </Label>
             </div>
           </div>
         </div>

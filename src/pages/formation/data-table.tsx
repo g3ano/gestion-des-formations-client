@@ -95,7 +95,8 @@ function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     getExpandedRowModel: getExpandedRowModel(),
-    getRowId: (row: any) => row.formation.id,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+    getRowId: (row: any) => String(row.formation.id),
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
   });
@@ -103,7 +104,7 @@ function DataTable<TData, TValue>({
     const id = Number(Object.keys(expanded)?.[0]);
     return (table.getRowModel().rows.find((row) => Number(row.id) === id) ??
       null) as Row<Formation>;
-  }, [Object.keys(expanded)[0]]);
+  }, [expanded, table]);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -111,17 +112,18 @@ function DataTable<TData, TValue>({
     const headers = table.getFlatHeaders();
     const colSizes: Record<string, number> = {};
     for (let i = 0; i < headers.length; i++) {
-      const header = headers[i]!;
+      const header = headers[i];
       colSizes[`--header-${header.id}-size`] = header.getSize();
       colSizes[`--col-${header.column.id}-size`] = header.column.getSize();
     }
     return colSizes;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columnSizing, columnVisibility]);
 
   return (
     <div
       className={cn('grid grid-cols-11 grid-rows-12 gap-4 h-full relative', {
-        'cursor-w-resize': !!table.getState().columnSizingInfo.isResizingColumn,
+        'cursor-w-resize': table.getState().columnSizingInfo.isResizingColumn,
       })}
     >
       <div className='col-span-12 row-span-1 flex items-end flex-col md:flex-row md:justify-between'>
@@ -154,7 +156,7 @@ function DataTable<TData, TValue>({
 
       <ScrollAreaPrimitive.Root
         className={cn(
-          'col-span-12 row-span-10 overflow-auto flex max-h-full max-w-full shadow rounded-lg',
+          'col-span-12 row-span-10 overflow-auto flex max-h-full max-w-full rounded-lg drop-shadow',
           {
             'col-span-8 lg:col-span-9 xl:col-span-9':
               table.getIsSomeRowsExpanded(),
@@ -175,13 +177,13 @@ function DataTable<TData, TValue>({
           >
             <div
               role='table head'
-              className='grid sticky top-0 z-10 bg-background rounded-lg'
+              className='grid sticky top-0 z-10 bg-card rounded-lg shadow-sm'
             >
               {table.getHeaderGroups().map((headerGroup) => (
                 <div
                   role='table row'
                   key={headerGroup.id}
-                  className='w-full flex shadow rounded-lg pr-[2px]'
+                  className='w-full flex rounded pr-[2px]'
                 >
                   {headerGroup.headers.map((header) => {
                     return (
@@ -215,7 +217,7 @@ function DataTable<TData, TValue>({
                 </div>
               ))}
             </div>
-            {!!columnSizingInfo.isResizingColumn ? (
+            {columnSizingInfo.isResizingColumn ? (
               <MemoizedTableBody
                 table={table}
                 containerRef={containerRef}
@@ -240,7 +242,7 @@ function DataTable<TData, TValue>({
           <FormationPreview row={previewRow} />
         </div>
       )}
-      <div className='col-span-12 row-span-1 flex bg-background px-4 w-full shadow rounded-lg'>
+      <div className='col-span-12 row-span-1 flex bg-card px-4 w-full shadow rounded-lg'>
         <Pagination table={table} />
       </div>
     </div>
@@ -269,11 +271,11 @@ function TableBody<TData>({
     overscan: 5,
   });
 
-  return !!virtualizer.getVirtualItems().length ? (
+  return virtualizer.getVirtualItems().length ? (
     <div
       role='table body'
       className={cn('grid relative', {
-        'select-none': !!table.getState().columnSizingInfo.isResizingColumn,
+        'select-none': table.getState().columnSizingInfo.isResizingColumn,
       })}
       style={{
         height: `${virtualizer.getTotalSize()}px`,
@@ -296,9 +298,9 @@ function TableBody<TData>({
           >
             <div
               className={cn(
-                'flex shadow  mt-1 bg-background rounded-lg relative border border-background select-none',
+                'flex mt-1 bg-card rounded-lg relative border border-background select-none',
                 {
-                  'bg-accent/70 border-accent-foreground': row.getIsSelected(),
+                  'bg-primary/25 border-primary/25': row.getIsSelected(),
                   'cursor-pointer':
                     !table.getState().columnSizingInfo.isResizingColumn,
                 }
@@ -308,7 +310,7 @@ function TableBody<TData>({
                 <div
                   role='table cell'
                   key={cell.id}
-                  className='data-table-cell overflow-hidden'
+                  className='data-table-cell overflow-hidden rounded-lg'
                   style={{
                     width: `calc(var(--col-${cell.column.id}-size) * 1px)`,
                   }}
@@ -330,7 +332,7 @@ function TableBody<TData>({
   ) : (
     <div
       role='table row'
-      className='data-table-row flex mt-1.5 bg-background shadow'
+      className='data-table-row flex mt-1.5 bg-card rounded-lg'
     >
       <div
         role='cell'

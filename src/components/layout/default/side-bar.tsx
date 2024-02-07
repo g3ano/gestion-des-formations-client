@@ -6,8 +6,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { LayoutGrid, NotebookText, UsersRound, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { LayoutGrid, NotebookText, Users } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const navigation = [
@@ -30,11 +30,11 @@ const navigation = [
 
 function SideBar() {
   return (
-    <div className='bg-background h-full fixed z-50 w-16 shadow-xl'>
+    <div className='bg-card h-full fixed z-50 w-16 shadow-xl'>
       <div>
         <div className='rounded-lg w-full h-20 flex items-center justify-center'>
           <div className='size-12 rounded-lg flex items-center justify-center'>
-            <Logo className='fill-primary shadow' />
+            <Logo />
           </div>
         </div>
 
@@ -49,9 +49,9 @@ function SideBar() {
                         to={navItem.to}
                         className={({ isActive }) =>
                           cn(
-                            'rounded-lg p-2 flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                            'rounded-lg p-2 flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent',
                             {
-                              'bg-accent text-accent-foreground': isActive,
+                              'bg-primary text-accent-foreground': isActive,
                             }
                           )
                         }

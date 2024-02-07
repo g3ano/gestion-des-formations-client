@@ -4,6 +4,7 @@ import {
   ColumnSizingState,
   ExpandedState,
   PaginationState,
+  RowSelectionState,
   SortingState,
   VisibilityState,
 } from '@tanstack/react-table';
@@ -12,8 +13,8 @@ import { createContext, useContext, useState } from 'react';
 interface DataTableState {
   columnVisibility: VisibilityState;
   setColumnVisibility: React.Dispatch<React.SetStateAction<VisibilityState>>;
-  rowSelection: {};
-  setRowSelection: React.Dispatch<React.SetStateAction<{}>>;
+  rowSelection: RowSelectionState;
+  setRowSelection: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   columnFilters: ColumnFiltersState;
   setColumnFilters: React.Dispatch<React.SetStateAction<ColumnFiltersState>>;
   sorting: SortingState;

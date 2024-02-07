@@ -11,13 +11,11 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { Check, Eye } from 'lucide-react';
 import { useMemo, useRef } from 'react';
 
-interface VisibilityOptionsProps<TData, _TValue> {
+interface VisibilityOptionsProps<TData> {
   table: Table<TData>;
 }
 
-function VisibilityOptions<TData, TValue>({
-  table,
-}: VisibilityOptionsProps<TData, TValue>) {
+function VisibilityOptions<TData>({ table }: VisibilityOptionsProps<TData>) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -39,11 +37,15 @@ function VisibilityOptions<TData, TValue>({
 }
 export default VisibilityOptions;
 
-function VisibilityOptionsList<TData>({ table }: { table: Table<TData> }) {
+function VisibilityOptionsList<TData>({
+  table: { getAllColumns },
+}: {
+  table: Table<TData>;
+}) {
   const parentRef = useRef<HTMLDivElement>(null);
   const columns = useMemo(
-    () => table.getAllColumns().filter((column) => column.getCanHide()),
-    [table.getAllColumns()]
+    () => getAllColumns().filter((column) => column.getCanHide()),
+    [getAllColumns]
   );
   const count = columns.length;
   const virtualizer = useVirtualizer({
@@ -55,48 +57,44 @@ function VisibilityOptionsList<TData>({ table }: { table: Table<TData> }) {
   return (
     <div
       ref={parentRef}
-      className='h-[300px] overflow-y-auto py-2'
+      className='h-[280px] overflow-y-auto py-2'
     >
       <div
+        className='relative w-full'
         style={{
           height: `${virtualizer.getTotalSize()}px`,
-          width: '100%',
-          position: 'relative',
         }}
       >
-        {virtualizer.getVirtualItems().map((vr) => (
-          <div
-            key={vr.key}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: `${vr.size}px`,
-              transform: `translateY(${vr.start}px)`,
-            }}
-            className='absolute top-0 left-0 w-full'
-          >
-            {columns[vr.index].getCanHide() && (
-              <div
-                className='cursor-pointer hover:bg-accent pl-4 pr-2 py-1 flex items-center justify-between gap-1'
-                onClick={() => {
-                  columns[vr.index].toggleVisibility();
-                }}
-              >
-                <p className='truncate flex-1 select-none text-sm'>
-                  {capitalize(columns[vr.index]?.id)}
-                </p>
-                {columns[vr.index].getIsVisible() && (
-                  <Icon
-                    render={Check}
-                    size='sm'
-                  />
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+        {virtualizer.getVirtualItems().map((vc) => {
+          const column = columns[vc.index];
+          return (
+            <div
+              key={column.id}
+              style={{
+                height: `${vc.size}px`,
+                transform: `translateY(${vc.start}px)`,
+              }}
+              className='absolute top-0 left-0 w-full'
+            >
+              {column.getCanHide() && (
+                <div
+                  className='cursor-pointer pl-4 pr-2 py-1 flex items-center justify-between gap-1 hover:bg-accent hover:text-accent-foreground'
+                  onClick={() => column.toggleVisibility()}
+                >
+                  <p className='truncate flex-1 select-none text-sm'>
+                    {capitalize(column?.id)}
+                  </p>
+                  {column.getIsVisible() && (
+                    <Icon
+                      render={Check}
+                      size='sm'
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

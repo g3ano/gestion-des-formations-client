@@ -16,6 +16,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    //many false positives when destructing props
+    'react/prop-types': 'off',
   },
   parserOptions: {
     ecmaVersion: 'latest',

@@ -12,10 +12,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Icon from '@/components/ui/icon';
 import { TableContext } from '@/lib/contexts/table-context';
-import { EmployeeDataTableContext, getEmployees } from '@/pages/employee';
+import {
+  Employee,
+  EmployeeDataTableContext,
+  getEmployees,
+} from '@/pages/employee';
 import columns from '@/pages/employee/columns';
 import DataTable from '@/pages/employee/data-table';
 import { useQuery } from '@tanstack/react-query';
+import { ColumnDef } from '@tanstack/react-table';
 import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -106,18 +111,19 @@ function EmployeeMenu() {
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                columns.map((column: any) => {
+                columns.map((column: ColumnDef<Employee>) => {
                   if (
                     column.id === 'select' ||
-                    column.accessorKey === 'matricule' ||
-                    column.accessorKey === 'nom' ||
-                    column.accessorKey === 'prenom'
+                    column.id === 'expand' ||
+                    column.id === 'matricule' ||
+                    column.id === 'nom' ||
+                    column.id === 'prenom'
                   ) {
                     return;
                   }
                   setColumnVisibility((prev) => ({
                     ...prev,
-                    [column.accessorKey as string]: false,
+                    [column.id as string]: false,
                   }));
                 });
               }}

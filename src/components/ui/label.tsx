@@ -12,7 +12,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         <label
           ref={ref}
           htmlFor={htmlFor}
-          className='inline-block mb-1 truncate'
+          className='inline-block mb-1 truncate text-muted-foreground'
           {...props}
         >
           {capitalize(label)}
@@ -22,3 +22,4 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
     );
   }
 );
+Label.displayName = 'Label';

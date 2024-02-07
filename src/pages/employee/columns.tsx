@@ -1,7 +1,7 @@
 import { Header } from '@/components/data-table/columns';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import { arrEquals } from '@/lib/utils';
+import { arrEquals } from '@/lib/filter-fns';
 import { Employee } from '@/pages/employee';
 import { ColumnDef } from '@tanstack/react-table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
@@ -106,7 +106,7 @@ const columns: ColumnDef<Employee>[] = [
     minSize,
     maxSize,
     size: 275,
-    filterFn: arrEquals,
+    filterFn: arrEquals(),
   },
   {
     accessorKey: 'employee.email',
@@ -154,7 +154,7 @@ const columns: ColumnDef<Employee>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrEquals,
+    filterFn: arrEquals(),
   },
   {
     accessorKey: 'employee.csp',
@@ -170,7 +170,7 @@ const columns: ColumnDef<Employee>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrEquals,
+    filterFn: arrEquals(),
   },
   {
     accessorKey: 'employee.date_naissance',
@@ -186,7 +186,7 @@ const columns: ColumnDef<Employee>[] = [
     minSize,
     maxSize,
     size: 175,
-    filterFn: arrEquals,
+    filterFn: arrEquals(),
   },
   {
     accessorKey: 'employee.lieu_naissance',

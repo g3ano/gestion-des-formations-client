@@ -11,12 +11,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Icon from '@/components/ui/icon';
-import { DataTableContext } from '@/lib/contexts/data-table-context';
 import { TableContext } from '@/lib/contexts/table-context';
-import { getFormations } from '@/pages/formation';
+import {
+  DataTable,
+  Formation,
+  FormationDataTableContext,
+  getFormations,
+} from '@/pages/formation';
 import columns from '@/pages/formation/columns';
-import DataTable from '@/pages/formation/data-table';
 import { useQuery } from '@tanstack/react-query';
+import { ColumnDef } from '@tanstack/react-table';
 import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -68,7 +72,7 @@ const FormationMenu = () => {
     resetFilteringColumns,
   } = TableContext();
   const { columnFilters, setColumnFilters, setColumnVisibility } =
-    DataTableContext();
+    FormationDataTableContext();
 
   return (
     <DropdownMenu>
@@ -111,16 +115,13 @@ const FormationMenu = () => {
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                columns.map((column: any) => {
-                  if (
-                    column.id === 'select' ||
-                    column.accessorKey === 'intitule'
-                  ) {
+                columns.map((column: ColumnDef<Formation>) => {
+                  if (column.id === 'select' || column.id === 'intitule') {
                     return;
                   }
                   setColumnVisibility((prev) => ({
                     ...prev,
-                    [column.accessorKey as string]: false,
+                    [column.id as string]: false,
                   }));
                 });
               }}

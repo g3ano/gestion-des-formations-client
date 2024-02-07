@@ -1,18 +1,30 @@
-import { Table } from '@tanstack/react-table';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import Icon from '@/components/ui/icon';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import Icon from '@/components/ui/icon';
+import { toast } from '@/lib/hooks/use-toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Table } from '@tanstack/react-table';
 import { Download, Loader2, Trash, X } from 'lucide-react';
 
 interface TableControlsProps<TData> {
   table: Table<TData>;
-  queryFn: (ids: (number | string)[]) => Promise<any>;
+  queryFn: (
+    ids: (number | string)[]
+  ) => Promise<{ message: string; effectedRows: number }>;
   queryKey: string;
 }
 
@@ -25,9 +37,13 @@ function Control<TData>({
 
   const mutation = useMutation({
     mutationFn: (ids: (number | string)[]) => queryFn(ids),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+    onSuccess: (data) => {
+      void queryClient.invalidateQueries({ queryKey: [queryKey] });
       table.resetRowSelection();
+      table.resetExpanded();
+      toast({
+        title: `${data.effectedRows} ${data.message}`,
+      });
     },
   });
 
@@ -38,7 +54,7 @@ function Control<TData>({
           <TooltipTrigger asChild>
             <Button
               size='icon'
-              onClick={() => table.resetRowSelection()}
+              onClick={() => {}}
             >
               <Icon
                 render={Download}
@@ -67,35 +83,57 @@ function Control<TData>({
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            size='icon'
+            variant='destructive'
+          >
+            <Icon
+              render={Trash}
+              size='sm'
+            />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className='max-w-xl'>
+          <DialogHeader>
+            <DialogTitle>Êtes-vous sûr de vouloir supprimer?</DialogTitle>
+          </DialogHeader>
+          <div className='mt-6 mb-8'>
+            Cette action ne peut pas être annulée. Cela supprimera
+            définitivement la formation.
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button
+                autoFocus
+                variant='secondary'
+                className='uppercase'
+              >
+                Cancel
+              </Button>
+            </DialogClose>
             <Button
-              size='icon'
-              variant='destructive'
               onClick={() => {
                 const ids = Object.keys(table.getState().rowSelection);
                 mutation.mutate(ids);
               }}
               disabled={mutation.isPending}
+              className='pl-3'
             >
-              {mutation.isPending ? (
-                <Icon
-                  render={Loader2}
-                  className='animate-spin'
-                />
-              ) : (
-                <Icon
-                  render={Trash}
-                  size='sm'
-                />
-              )}
+              <div className='flex items-center gap-2'>
+                {mutation.isPending && (
+                  <Icon
+                    render={Loader2}
+                    className='animate-spin'
+                  />
+                )}
+                Supprimer
+              </div>
             </Button>
-          </TooltipTrigger>
-          <TooltipContent>Supprimer les lignes sélectionnées</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -63,7 +63,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
         </PopoverTrigger>
         <PopoverContent
           align='start'
-          role='auto complete'
+          role='Auto Complete'
           className='px-0'
           style={{
             width: 'var(--radix-popover-trigger-width)',
@@ -80,7 +80,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
             />
           ) : (
             <div
-              className='hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded-lg'
+              className='hover:bg-accent hover:text-accent-foreground px-3 py-2'
               onClick={() => setOpen(false)}
             >
               {value}
@@ -157,7 +157,7 @@ const SearchResultList = ({
                 }}
               >
                 <div className='flex-1 select-none text-sm'>
-                  {!!matchSearch(searchResults[vr.index], String(value)) ? (
+                  {matchSearch(searchResults[vr.index], String(value)) ? (
                     matchSearch(searchResults[vr.index], String(value))?.map(
                       (elem, index) => (
                         <span

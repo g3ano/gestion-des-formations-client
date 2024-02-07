@@ -24,9 +24,9 @@ function EmployeeShow({ row }: EmployeeShowProps) {
         </div>
         <div className='-space-y-1'>
           <div className='flex items-center gap-1'>
-            <p className='font-medium uppercase'>{`${row.getValue(
+            <p className='font-medium uppercase'>{`${row.getValue<string>(
               'nom'
-            )} ${row.getValue('prenom')}`}</p>
+            )} ${row.getValue<string>('prenom')}`}</p>
           </div>
           <p>{row.getValue('email')}</p>
         </div>

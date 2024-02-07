@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 import { Check, Minus } from 'lucide-react';
@@ -7,7 +7,7 @@ import { Check, Minus } from 'lucide-react';
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
+>(({ className, checked, ...props }, ref) => (
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
@@ -18,7 +18,7 @@ const Checkbox = React.forwardRef<
     )}
     {...props}
   >
-    {props.checked === 'indeterminate' ? (
+    {checked === 'indeterminate' ? (
       <CheckboxPrimitive.Indicator className='flex items-center justify-center text-current'>
         <Minus className='size-4' />
       </CheckboxPrimitive.Indicator>

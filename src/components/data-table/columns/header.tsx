@@ -1,4 +1,5 @@
-import { Column, Table } from '@tanstack/react-table';
+import { Filter } from '@/components/data-table/columns';
+import { FilterContext } from '@/components/data-table/columns/filter-context';
 import {
   ContextMenu,
   ContextMenuContent,
@@ -7,8 +8,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
 import { TableContext } from '@/lib/contexts/table-context';
-import { Filter } from '@/components/data-table/columns';
-import { FilterContext } from '@/components/data-table/columns/filter-context';
+import { Column, Table } from '@tanstack/react-table';
 import {
   ArrowDown,
   ArrowUp,

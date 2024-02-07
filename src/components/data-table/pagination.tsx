@@ -10,13 +10,13 @@ import { resolvePageNumber } from '@/lib/utils';
 import { Table } from '@tanstack/react-table';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const PAGE_NUM = 6;
+const DISPLAY_PAGES_NUM = 6;
 
 function Pagination<TData>({ table }: { table: Table<TData> }) {
   const { pages, currentPage, firstPage, lastPage } = resolvePageNumber(
     table.getPageCount(),
     table.getState().pagination.pageIndex,
-    PAGE_NUM
+    DISPLAY_PAGES_NUM
   );
 
   return (

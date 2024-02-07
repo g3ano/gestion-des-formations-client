@@ -41,7 +41,6 @@ function FilterInput<TData, TValue>({
     const typeofFirstValue = typeof table
       .getRowModel()
       .flatRows[0]?.getValue(column.id);
-    //is it a number inside a string
     const isNumericString = !isNaN(
       parseFloat(table.getRowModel().flatRows[0]?.getValue(column.id))
     );
@@ -49,14 +48,17 @@ function FilterInput<TData, TValue>({
     const isNumber = typeofFirstValue === 'number' || isNumericString;
 
     const values: string[] = isString
-      ? Array.from(column.getFacetedUniqueValues().keys()).sort()
+      ? Array.from<string>(column.getFacetedUniqueValues().keys()).sort()
       : isNumber
       ? Array.from(column.getFacetedUniqueValues().keys())
           .sort((a, b) => a - b)
           .map(String)
       : [];
-    return !!values
-      ? !!filterValues
+
+    console.log(column.getFacetedUniqueValues());
+
+    return values.length
+      ? filterValues.length
         ? [
             ...(isString
               ? filterValues.sort()
@@ -65,11 +67,12 @@ function FilterInput<TData, TValue>({
           ]
         : values
       : [];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [column.getFacetedUniqueValues()]);
 
   const searchResults = useMemo(
     () => searchInValues(sortedUniqueValues, searchValue),
-    [searchValue]
+    [searchValue, sortedUniqueValues]
   );
 
   const parentRef = useRef<HTMLDivElement>(null);
@@ -82,7 +85,7 @@ function FilterInput<TData, TValue>({
 
   const items = virtualizer.getVirtualItems();
   const handleCheckChange = (checked: CheckedState, searchResult: string) => {
-    if (!!checked) {
+    if (checked) {
       setFilterValues((prev) => [...prev, searchResult]);
     } else {
       setFilterValues((prev) => {
@@ -95,7 +98,7 @@ function FilterInput<TData, TValue>({
   };
 
   const handleSetColumnFilterValues = () => {
-    if (!!filterValues.length) {
+    if (filterValues.length) {
       column.setFilterValue(filterValues);
     } else {
       const columnFilters = table
@@ -111,7 +114,7 @@ function FilterInput<TData, TValue>({
   };
   const handleSelectAllFilterValues = useCallback(() => {
     setFilterValues((prev) => [...prev, ...searchResults]);
-  }, []);
+  }, [searchResults]);
   const handleClearFilterValues = useCallback(() => {
     setFilterValues([]);
   }, []);
@@ -127,6 +130,7 @@ function FilterInput<TData, TValue>({
             onChange={(e) => setSearchValue(e.target.value)}
             autoFocus
             placeholder={`Rechercher ${column.id.replace('_', ' ')}...`}
+            className='bg-accent'
           />
           <Button
             onClick={() => {
@@ -205,7 +209,7 @@ function FilterInput<TData, TValue>({
               >
                 <label className='rounded-lg m-[2px] flex gap-4 items-center px-2 py-1 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring'>
                   <div className='flex-1 select-none'>
-                    {!!matchSearch(searchResults[vr.index], searchValue) ? (
+                    {matchSearch(searchResults[vr.index], searchValue) ? (
                       matchSearch(searchResults[vr.index], searchValue)?.map(
                         (elem) => (
                           <span

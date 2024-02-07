@@ -76,9 +76,9 @@ const PaginationButton = ({
 }: PaginationButtonProps) => (
   <Button
     variant='ghost'
-    size='icon'
-    className={cn('', className, {
-      'bg-accent text-accent-foreground shadow-sm': isActive,
+    size={size}
+    className={cn(className, {
+      'bg-accent text-accent-foreground': isActive,
     })}
     {...props}
   />

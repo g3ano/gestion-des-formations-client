@@ -15,3 +15,4 @@ export { Formations } from './formation';
 export { FormationCreate } from './create/index';
 export { default as FormationEdit } from './edit/edit';
 export { default as FormationPreview } from './show/show';
+export { default as DataTable } from './data-table';

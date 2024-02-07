@@ -28,8 +28,8 @@ const Icon = ({ className, size, edge, ...props }: IconProps) => {
   return (
     <props.render
       className={cn(iconVariants({ size, className }), {
-        '-translate-x-1/2': edge === 'left',
-        'translate-x-1/2': edge === 'right',
+        '-translate-x-1/4': edge === 'left',
+        'translate-x-1/4': edge === 'right',
       })}
       {...props}
     />

@@ -46,7 +46,7 @@ const ContextMenuSubContent = React.forwardRef<
   <ContextMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-50 min-w-[12rem] overflow-hidden rounded-lg border bg-popover py-1 text-popover-foreground shadow-lg',
+      'z-50 min-w-[12rem] overflow-hidden rounded-lg border bg-popover py-1 text-popover-foreground shadow-2xl',
       className
     )}
     {...props}
@@ -62,7 +62,7 @@ const ContextMenuContent = React.forwardRef<
     <ContextMenuPrimitive.Content
       ref={ref}
       className={cn(
-        'z-50 min-w-[12rem] overflow-hidden rounded-lg border bg-popover py-2 text-popover-foreground shadow-lg',
+        'z-50 min-w-[12rem] overflow-hidden rounded-lg bg-popover py-2 text-popover-foreground shadow-2xl border border-border',
         className
       )}
       {...props}
@@ -89,7 +89,7 @@ const ContextMenuItem = React.forwardRef<
     )}
     {...props}
   >
-    {!!withIcon && (
+    {withIcon && (
       <div className='flex items-center justify-center pr-2'>
         <Icon
           render={icon as LucideIcon}

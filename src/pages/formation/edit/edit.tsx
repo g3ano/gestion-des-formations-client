@@ -2,6 +2,7 @@ import Page from '@/components/layout/page';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
+import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
 import { editFormation, getFormation } from '@/pages/formation';
 import { FormationCreateContext } from '@/pages/formation/create';
@@ -12,10 +13,10 @@ import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function FormationEdit({}: {}) {
+function FormationEdit() {
   const { step, backward, forward, current, total } = useStepper([
-    <DirectForm />,
-    <CoutForm />,
+    <DirectForm key='direct' />,
+    <CoutForm key='cout' />,
   ]);
   const { cout, common, direct, setCommon, setDirect, setCout, reset } =
     FormationCreateContext();
@@ -23,26 +24,27 @@ function FormationEdit({}: {}) {
   const params = useParams();
   const formationId = params.formationId;
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const { data, isSuccess } = useQuery({
-    queryKey: [
-      'formations',
-      {
-        formationId,
-      },
-    ],
-    queryFn: getFormation,
-  });
   const mutation = useMutation({
     mutationKey: ['formations', 'edit', { formationId }],
     mutationFn: editFormation,
-    onSuccess: () => {
+    onSuccess: (data) => {
       reset();
       navigate('/formations');
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: ['formations'],
       });
+      toast({
+        title: 'Success',
+        description: data.message,
+      });
     },
+  });
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ['formations', { formationId }],
+    queryFn: getFormation,
   });
 
   useEffect(() => {
@@ -74,7 +76,8 @@ function FormationEdit({}: {}) {
         transport: relationships.couts.transport,
       });
     }
-  }, [isSuccess]);
+    return () => reset();
+  }, [data, isSuccess, reset, setCommon, setCout, setDirect]);
 
   const handleEdit = () => {
     mutation.mutate({
@@ -92,7 +95,7 @@ function FormationEdit({}: {}) {
       title='Modifier Formation'
       actions={
         <div className='flex items-center justify-end'>
-          <div className='flex items-center gap-1'>
+          <div className='flex items-center gap-2'>
             <Button
               onClick={backward}
               disabled={current === 0}
@@ -130,7 +133,7 @@ function FormationEdit({}: {}) {
               </div>
 
               <div className='space-x-2'>
-                <Button>
+                <Button variant='secondary'>
                   <Icon
                     render={CheckCheck}
                     size='sm'
@@ -138,10 +141,7 @@ function FormationEdit({}: {}) {
                   />
                   <span>Preview</span>
                 </Button>
-                <Button
-                  className='px-5'
-                  onClick={handleEdit}
-                >
+                <Button onClick={handleEdit}>
                   <Icon
                     render={Save}
                     size='sm'

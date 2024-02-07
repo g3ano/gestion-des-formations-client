@@ -34,12 +34,12 @@ function Filter<TData>({ table, column }: FilterProps<TData>) {
         <Button
           size='icon'
           variant='ghost'
-          className='text-muted-foreground flex-shrink-0'
+          className='mx-px text-muted-foreground flex-shrink-0 group'
         >
           <Icon
             render={ListFilter}
             className={cn({
-              'text-accent-foreground': column.getIsFiltered(),
+              'text-primary group-hover:text-inherit': column.getIsFiltered(),
             })}
             size='sm'
           />
@@ -51,24 +51,23 @@ function Filter<TData>({ table, column }: FilterProps<TData>) {
       >
         <ScrollArea>
           <div className='p-0.5'>
-            {!!column.id ? (
-              <>
-                {column.getIsVisible() && column.getCanFilter() && (
-                  <div key={column.id}>
-                    {
-                      <FilterInput
-                        column={column}
-                        table={table}
-                      />
-                    }
-                  </div>
-                )}
-              </>
+            {column.id ? (
+              column.getIsVisible() &&
+              column.getCanFilter() && (
+                <div key={column.id}>
+                  {
+                    <FilterInput
+                      column={column}
+                      table={table}
+                    />
+                  }
+                </div>
+              )
             ) : (
-              <>
+              <div>
                 <div>Aucun filtre trouvé</div>
                 <Bird />
-              </>
+              </div>
             )}
           </div>
         </ScrollArea>

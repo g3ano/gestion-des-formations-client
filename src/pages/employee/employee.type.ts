@@ -16,5 +16,5 @@ export interface Employee {
     email: string;
     created_at: string;
   };
-  relationships: {};
+  relationships: Record<string, never>;
 }
