@@ -26,14 +26,14 @@ function DirectForm() {
 
   return (
     <Step>
-      <div className='space-y-8'>
-        <div className='flex flex-col gap-4'>
+      <div className='space-y-20'>
+        <div className='w-full flex flex-col gap-8'>
           <div className='flex items-center justify-center gap-4'>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-medium text-lg'>Formation</span>
+            <span className='font-medium text-xl'>Formation</span>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
           </div>
-          <div className='space-y-4'>
+          <div className='space-y-8'>
             <div className='flex items-center gap-4'>
               <Label
                 htmlFor='structure'
@@ -222,9 +222,6 @@ function DirectForm() {
                 </Select>
               </Label>
             </div>
-            <div>
-              <CommonForm />
-            </div>
             <div className='flex items-center gap-4'>
               <Label
                 label='observation'
@@ -238,7 +235,7 @@ function DirectForm() {
                   onChange={handleChange}
                   placeholder='Entrer Observation...'
                   className={cn(
-                    'resize-none flex w-full rounded-lg border border-input bg-card px-3 py-3 text-sm shadow-sm transition-colors',
+                    'resize-none flex w-full rounded-lg shadow-black/10 bg-card px-3 py-3 text-sm shadow-sm transition-colors',
                     'placeholder:text-muted-foreground',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
                   )}
@@ -247,45 +244,8 @@ function DirectForm() {
               </Label>
             </div>
           </div>
-        </div>
-
-        <div className='flex flex-col gap-4'>
-          <div className='flex items-center justify-center gap-4'>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-medium text-lg'>Effectif à former</span>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-          </div>
-          <div className='flex items-center gap-4'>
-            <div className='flex-1 space-y-2'>
-              <Label
-                label='effectif'
-                htmlFor='effectif'
-              >
-                <Input
-                  type='number'
-                  name='effectif'
-                  id='effectif'
-                  value={direct.effectif}
-                  onChange={handleChange}
-                  placeholder='Entrer nombre des effectifs...'
-                />
-              </Label>
-            </div>
-            <div className='flex-1 space-y-2'>
-              <Label
-                label='durree'
-                htmlFor='durree'
-              >
-                <Input
-                  type='number'
-                  name='durree'
-                  id='durree'
-                  value={direct.durree}
-                  onChange={handleChange}
-                  placeholder='Entrer durree...'
-                />
-              </Label>
-            </div>
+          <div className='space-y-8'>
+            <CommonForm />
           </div>
         </div>
       </div>

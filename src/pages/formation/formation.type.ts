@@ -1,5 +1,3 @@
-import { FormationCreateState } from '@/pages/formation/create/create-context';
-
 export interface Formation {
   formation: {
     id: number;
@@ -50,5 +48,30 @@ export interface Formation {
   };
 }
 
-export interface FormationInput
-  extends Omit<FormationCreateState, 'setCommon' | 'setDirect' | 'setCout'> {}
+export interface FormationFormData {
+  direct: {
+    structure: string;
+    code_formation: string;
+    mode: string;
+    lieu: string;
+    effectif: string;
+    durree: string;
+    observation: string;
+    categorie_id: string;
+    domaine_id: string;
+    type_id: string;
+  };
+  common: {
+    intitule: string;
+    organisme: string;
+    code_domaine: string;
+  };
+  cout: {
+    pedagogiques: string;
+    hebergement_restauration: string;
+    transport: string;
+    presalaire: string;
+    autres_charges: string;
+    dont_devise: string;
+  };
+}

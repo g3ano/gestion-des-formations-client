@@ -4,13 +4,14 @@ import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
 import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
+import { objCompare } from '@/lib/utils';
 import { editFormation, getFormation } from '@/pages/formation';
 import { FormationCreateContext } from '@/pages/formation/create';
 import CoutForm from '@/pages/formation/create/steps/cout-form';
 import DirectForm from '@/pages/formation/create/steps/direct-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function FormationEdit() {
@@ -36,7 +37,6 @@ function FormationEdit() {
         queryKey: ['formations'],
       });
       toast({
-        title: 'Success',
         description: data.message,
       });
     },
@@ -79,6 +79,39 @@ function FormationEdit() {
     return () => reset();
   }, [data, isSuccess, reset, setCommon, setCout, setDirect]);
 
+  const canBeUpdated = useMemo(() => {
+    if (isSuccess) {
+      const { formation, relationships } = data;
+      const isDirectDirty = !objCompare(direct, {
+        categorie_id: String(relationships.categorie.id),
+        domaine_id: String(relationships.domaine.id),
+        type_id: String(relationships.type.id),
+        code_formation: formation.code_formation,
+        durree: String(formation.durree),
+        effectif: String(formation.effectif),
+        mode: formation.mode,
+        lieu: formation.lieu,
+        observation: formation.observation,
+        structure: formation.structure,
+      });
+      const isCoutDirty = !objCompare(cout, {
+        autres_charges: relationships.couts.autres_charges,
+        pedagogiques: relationships.couts.pedagogiques,
+        presalaire: relationships.couts.presalaire,
+        hebergement_restauration: relationships.couts.hebergement_restauration,
+        dont_devise: relationships.couts.dont_devise,
+        transport: relationships.couts.transport,
+      });
+      const isCommonDirty = !objCompare(common, {
+        intitule: relationships.intitule.intitule,
+        organisme: relationships.organisme.organisme,
+        code_domaine: String(relationships.code_domaine.code_domaine),
+      });
+      return isDirectDirty || isCoutDirty || isCommonDirty;
+    }
+    return false;
+  }, [isSuccess, data, direct, cout, common]);
+
   const handleEdit = () => {
     mutation.mutate({
       formationId,
@@ -107,7 +140,6 @@ function FormationEdit() {
               />
               <p>Back</p>
             </Button>
-
             <Button
               onClick={forward}
               disabled={current === total - 1}
@@ -133,7 +165,7 @@ function FormationEdit() {
               </div>
 
               <div className='space-x-2'>
-                <Button variant='secondary'>
+                <Button variant='outline'>
                   <Icon
                     render={CheckCheck}
                     size='sm'
@@ -141,7 +173,10 @@ function FormationEdit() {
                   />
                   <span>Preview</span>
                 </Button>
-                <Button onClick={handleEdit}>
+                <Button
+                  onClick={handleEdit}
+                  disabled={!canBeUpdated}
+                >
                   <Icon
                     render={Save}
                     size='sm'

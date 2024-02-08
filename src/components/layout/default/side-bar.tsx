@@ -49,10 +49,8 @@ function SideBar() {
                         to={navItem.to}
                         className={({ isActive }) =>
                           cn(
-                            'rounded-lg p-2 flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent',
-                            {
-                              'bg-primary text-accent-foreground': isActive,
-                            }
+                            'rounded-lg p-2 flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:bg-accent',
+                            { 'bg-primary text-accent-foreground': isActive }
                           )
                         }
                       >

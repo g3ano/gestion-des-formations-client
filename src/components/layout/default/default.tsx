@@ -7,6 +7,7 @@ import { SideBar } from '@/components/layout/default';
 import Icon from '@/components/ui/icon';
 import { Loader2 } from 'lucide-react';
 import { Toaster } from '@/components/ui/toaster';
+import { EmployeeCreateProvider } from '@/pages/employee/create';
 
 function Default() {
   const { state } = useNavigation();
@@ -36,9 +37,11 @@ function Default() {
           <FormationDataTableProvider>
             <EmployeeDataTableProvider>
               <TableContextProvider>
-                <FormationCreateProvider>
-                  <Outlet />
-                </FormationCreateProvider>
+                <EmployeeCreateProvider>
+                  <FormationCreateProvider>
+                    <Outlet />
+                  </FormationCreateProvider>
+                </EmployeeCreateProvider>
               </TableContextProvider>
             </EmployeeDataTableProvider>
           </FormationDataTableProvider>

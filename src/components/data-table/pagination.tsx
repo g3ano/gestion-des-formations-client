@@ -40,7 +40,6 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
           <span>sélectionnées</span>
         </div>
       </div>
-
       <div className='flex items-center gap-4'>
         <DataTablePagination>
           <PaginationContent>

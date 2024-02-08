@@ -1,4 +1,4 @@
-import { capitalize } from '@/lib/utils';
+import { capitalize, cn } from '@/lib/utils';
 import React from 'react';
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
@@ -6,19 +6,17 @@ interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
-  ({ label, htmlFor, children, ...props }, ref) => {
+  ({ label, htmlFor, children, className, ...props }, ref) => {
     return (
-      <div className='flex-1'>
-        <label
-          ref={ref}
-          htmlFor={htmlFor}
-          className='inline-block mb-1 truncate text-muted-foreground'
-          {...props}
-        >
-          {capitalize(label)}
-        </label>
-        {children}
-      </div>
+      <label
+        ref={ref}
+        htmlFor={htmlFor}
+        className={cn('flex-1 flex flex-col gap-2 truncate p-0.5', className)}
+        {...props}
+      >
+        <span className='text-muted-foreground '>{capitalize(label)}</span>
+        <span>{children}</span>
+      </label>
     );
   }
 );

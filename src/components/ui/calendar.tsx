@@ -3,8 +3,7 @@ import * as DayPickerPrimitive from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-
+import { ChevronLeft, ChevronRight, ChevronsUpDown } from 'lucide-react';
 export type CalendarProps = React.ComponentProps<
   typeof DayPickerPrimitive.DayPicker
 >;
@@ -23,15 +22,15 @@ function Calendar({
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
-        caption: 'flex justify-center pt-1 relative items-center',
-        caption_label: 'text-sm font-medium',
-        nav: 'space-x-1 flex items-center',
+        caption: 'flex flex-col pt-1 relative items-center',
+        caption_label: 'text-sm font-medium text-center mb-1',
+        nav: 'w-full flex items-center justify-between gap-4 absolute top-0',
         nav_button: cn(
-          buttonVariants({ variant: 'outline' }),
-          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
+          buttonVariants({ variant: 'ghost' }),
+          'h-7 w-7 bg-transparent p-0'
         ),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
+        nav_button_previous: '',
+        nav_button_next: '',
         table: 'w-full border-collapse space-y-1',
         head_row: 'flex',
         head_cell:
@@ -58,6 +57,11 @@ function Calendar({
         day_range_middle:
           'aria-selected:bg-accent aria-selected:text-accent-foreground',
         day_hidden: 'invisible',
+        dropdown: '',
+        caption_dropdowns: 'w-full flex flex-col gap-2',
+        dropdown_year: 'bg-secondary border border-border rounded-lg px-2 py-1',
+        dropdown_month:
+          'bg-secondary border border-border rounded-lg px-2 py-1',
         ...classNames,
       }}
       components={{
@@ -70,6 +74,32 @@ function Calendar({
         IconRight: ({ ...props }) => (
           <ChevronRight
             className='h-4 w-4'
+            {...props}
+          />
+        ),
+        Dropdown: ({
+          value,
+          onChange,
+          children,
+          name,
+          className,
+          ...props
+        }) => {
+          return (
+            <select
+              name={name}
+              value={value}
+              onChange={onChange}
+              className={className}
+              {...props}
+            >
+              {children}
+            </select>
+          );
+        },
+        IconDropdown: (props) => (
+          <ChevronsUpDown
+            className='h-4 w-4 opacity-50'
             {...props}
           />
         ),

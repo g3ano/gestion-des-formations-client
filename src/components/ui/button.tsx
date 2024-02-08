@@ -1,13 +1,13 @@
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-lg text-sm font-medium transition-colors select-none',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50',
   ],
   {
     variants: {
@@ -21,7 +21,7 @@ const buttonVariants = cva(
           'data-[state=open]:bg-destructive/90',
         ],
         outline: [
-          'border-2 border-border text-foreground hover:bg-primary hover:border-primary focus-visible:bg-primary focus-visible:border-primary',
+          'border ring-1 border-border ring-border text-foreground hover:bg-secondary hover:border-secondary hover:ring-secondary focus-visible:bg-primary focus-visible:border-primary focus-visible:ring-primary',
           'data-[state=open]:bg-accent/70 data-[state=open]:text-accent-foreground data-[state=open]:border-accent-foreground',
         ],
         secondary: [
@@ -29,13 +29,13 @@ const buttonVariants = cva(
           'data-[state=open]:bg-accent',
         ],
         ghost: [
-          'text-foreground hover:bg-secondary hover:text-secondary-foreground',
-          'data-[state=open]:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:shadow data-[state=open]:outline data-[state=open]:outline-2 data-[state=open]:outline-primary',
+          'text-foreground hover:bg-secondary hover:text-secondary-foreground shadow-2xl shadow-black',
+          'data-[state=open]:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:shadow-black data-[state=open]:shadow-2xl data-[state=open]:outline data-[state=open]:outline-2 data-[state=open]:outline-primary',
         ],
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-9 px-4 py-2',
+        default: 'h-9 px-3 py-2',
         sm: 'h-8 rounded-lg px-3 text-xs',
         lg: 'h-10 rounded-lg px-8',
         icon: 'h-9 w-9',

@@ -1,5 +1,5 @@
-export type sexe = 'M' | 'F';
-export type csp = 'M' | 'C';
+export type Sexe = 'M' | 'F';
+export type Csp = 'C' | 'M' | 'CS';
 
 export interface Employee {
   employee: {
@@ -8,13 +8,15 @@ export interface Employee {
     nom: string;
     prenom: string;
     localite: string;
-    sexe: sexe;
+    sexe: Sexe;
     direction: string;
-    csp: csp;
+    csp: Csp;
     date_naissance: string;
     lieu_naissance: string;
     email: string;
     created_at: string;
   };
-  relationships: Record<string, never>;
+  relationships: Record<string, unknown>;
 }
+
+export type EmployeeFormData = Omit<Employee['employee'], 'id' | 'created_at'>;

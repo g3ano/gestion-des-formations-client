@@ -1,4 +1,4 @@
-export type { Formation, FormationInput } from './formation.type';
+export type { Formation, FormationFormData } from './formation.type';
 export {
   getFormations,
   deleteFormations,

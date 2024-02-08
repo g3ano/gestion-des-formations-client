@@ -157,3 +157,42 @@ export const resolvePageNumber = (
     pages,
   };
 };
+
+/**
+ * A simple function that compares two given objects literals, it returns true if `obj` is indentical to `target`, false otherwise.
+ * **PS**: if the values are not string/number it return false.
+ * @param obj Object to comapre
+ * @param target Object compared with object
+ */
+export function objCompare<T, P extends T>(
+  obj: Partial<T>,
+  target: Partial<P>
+) {
+  const objKeys = Object.keys(obj).sort();
+  const compareToKeys = Object.keys(target).sort();
+
+  if (objKeys.length !== compareToKeys.length) return false;
+
+  for (let i = 0; i < objKeys.length; i++) {
+    if (objKeys[i] !== compareToKeys[i]) return false;
+
+    let objValue: unknown = obj[objKeys[i] as keyof T];
+    let targetValue: unknown = target[compareToKeys[i] as keyof P];
+    objValue =
+      typeof objValue === 'string'
+        ? objValue.trim()
+        : typeof objValue === 'number'
+        ? objValue
+        : null;
+    targetValue =
+      typeof targetValue === 'string'
+        ? targetValue.trim()
+        : typeof targetValue === 'number'
+        ? targetValue
+        : null;
+
+    if (objValue === null || targetValue === null) return false;
+    if (objValue !== targetValue) return false;
+  }
+  return true;
+}

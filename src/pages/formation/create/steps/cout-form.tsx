@@ -4,26 +4,73 @@ import { Label } from '@/components/ui/label';
 import { FormationCreateContext } from '@/pages/formation/create';
 
 function CoutForm() {
-  const { cout, setCout } = FormationCreateContext();
+  const { cout, setCout, direct, setDirect } = FormationCreateContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCout((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (name in cout) {
+      setCout((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+    if (name in direct) {
+      setDirect((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   return (
     <Step>
-      <div className='space-y-8'>
-        <div className='flex flex-col gap-4'>
-          <div className='flex items-center justify-center gap-4'>
+      <div className='space-y-20'>
+        <div className='flex flex-col gap-8'>
+          <div className='flex items-center justify-center gap-8'>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-medium text-lg'>Coût</span>
+            <span className='font-medium text-xl'>Effectif à former</span>
             <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
           </div>
-          <div className='space-y-4'>
+          <div className='flex items-center gap-4'>
+            <div className='flex-1 space-y-2'>
+              <Label
+                label='effectif'
+                htmlFor='effectif'
+              >
+                <Input
+                  type='number'
+                  name='effectif'
+                  id='effectif'
+                  value={direct.effectif}
+                  onChange={handleChange}
+                  placeholder='Entrer nombre des effectifs...'
+                />
+              </Label>
+            </div>
+            <div className='flex-1 space-y-2'>
+              <Label
+                label='durree'
+                htmlFor='durree'
+              >
+                <Input
+                  type='number'
+                  name='durree'
+                  id='durree'
+                  value={direct.durree}
+                  onChange={handleChange}
+                  placeholder='Entrer durree...'
+                />
+              </Label>
+            </div>
+          </div>
+        </div>
+        <div className='flex flex-col gap-8'>
+          <div className='flex items-center justify-center gap-4'>
+            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
+            <span className='font-medium text-xl'>Coût</span>
+            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
+          </div>
+          <div className='space-y-8'>
             <div className='flex items-center gap-4'>
               <Label
                 htmlFor='pedagogiques'

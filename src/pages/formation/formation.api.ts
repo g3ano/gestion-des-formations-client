@@ -1,5 +1,5 @@
 import axiosClient from '@/lib/axios';
-import type { Formation, FormationInput } from '@/pages/formation';
+import type { Formation, FormationFormData } from '@/pages/formation';
 import { AxiosResponse } from 'axios';
 
 export const getFormations = async (): Promise<Formation[]> => {
@@ -35,13 +35,13 @@ export const getCommonValues = async (): Promise<{
   return res.data.data;
 };
 
-export const createFormation = async (formationsInputs: FormationInput) => {
+export const createFormation = async (formations: FormationFormData) => {
   const res: AxiosResponse<{
     data: {
-      effectedRows: number;
+      effected_row_id: number;
     };
   }> = await axiosClient.post('/formations', {
-    ...formationsInputs,
+    ...formations,
   });
   return res.data;
 };

@@ -1,6 +1,7 @@
 import { Default } from '@/components/layout/default';
 import { Dashboard } from '@/pages/dashboard';
 import { Employees } from '@/pages/employee';
+import { EmployeeCreate } from '@/pages/employee/create';
 import { Formations, FormationCreate, FormationEdit } from '@/pages/formation';
 import { QueryClient } from '@tanstack/react-query';
 import { createBrowserRouter } from 'react-router-dom';
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/employees/create',
-            element: <FormationCreate />,
+            element: <EmployeeCreate />,
           },
         ],
       },

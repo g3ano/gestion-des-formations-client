@@ -238,7 +238,7 @@ function DataTable<TData, TValue>({
       </ScrollAreaPrimitive.Root>
 
       {previewRow?.getIsExpanded() && (
-        <div className='col-span-4 row-span-10 flex lg:col-span-3 xl:col-span-3 rounded-lg duration-100 ease-in-out animate-in slide-in-from-right-6'>
+        <div className='col-span-4 row-span-10 flex lg:col-span-3 xl:col-span-3 rounded-lg'>
           <FormationPreview row={previewRow} />
         </div>
       )}

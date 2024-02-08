@@ -3,6 +3,7 @@ import { ChevronsUpDown, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 import { cn } from '@/lib/utils';
+import Icon from '@/components/ui/icon';
 
 const Select = SelectPrimitive.Root;
 
@@ -19,7 +20,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex min-w-32 h-9 items-center justify-between whitespace-nowrap rounded-lg outline outline-1 outline-input bg-popover px-2 py-1 text-sm shadow-sm',
+      'flex min-w-40 h-9 items-center justify-between whitespace-nowrap rounded-lg bg-popover px-2 py-1 text-sm shadow-black shadow-2xl',
       'placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
       'data-[state=open]:bg-accent',
       className
@@ -89,11 +90,8 @@ const SelectContent = React.forwardRef<
   >
     <SelectScrollUpButton />
     <SelectPrimitive.Viewport
-      className={cn(
-        'py-3',
-        position === 'popper' &&
-          'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
-      )}
+      className='py-2 w-full'
+      style={{ width: 'calc(var(--radix-select-trigger-width) - 2px)' }}
     >
       {children}
     </SelectPrimitive.Viewport>
@@ -121,15 +119,18 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex w-full cursor-default select-none items-center py-1.5 pl-3 pr-8 text-sm outline-none',
+      'relative flex w-full cursor-default select-none items-center py-1.5 pl-10 pr-8 text-sm outline-none',
       'data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className
     )}
     {...props}
   >
-    <span className='absolute right-3 flex h-3.5 w-3.5 items-center justify-center'>
+    <span className='absolute left-3 flex h-3.5 w-3.5 items-center justify-center truncate'>
       <SelectPrimitive.ItemIndicator>
-        <Check className='h-4 w-4' />
+        <Icon
+          render={Check}
+          size='xs'
+        />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -143,7 +144,7 @@ const SelectSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-2 h-px bg-muted', className)}
+    className={cn('-mx-1 my-2 h-px bg-secondary', className)}
     {...props}
   />
 ));

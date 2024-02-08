@@ -4,12 +4,13 @@ import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
 import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
-import { FormationInput, createFormation } from '@/pages/formation';
+import { createFormation } from '@/pages/formation';
 import {
   CoutForm,
   DirectForm,
   FormationCreateContext,
 } from '@/pages/formation/create';
+import type { FormationFormData } from '@/pages/formation';
 import { useMutation } from '@tanstack/react-query';
 import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -24,8 +25,7 @@ function FormationCreate() {
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: (formationsInputs: FormationInput) =>
-      createFormation(formationsInputs),
+    mutationFn: (formation: FormationFormData) => createFormation(formation),
     onSuccess: () => {
       void queryClient.invalidateQueries({
         queryKey: ['formations'],
@@ -77,7 +77,7 @@ function FormationCreate() {
       <div className='h-full flex flex-col justify-between relative'>
         <div className='w-full h-full rounded-lg'>
           <form>{step}</form>
-          <div className='absolute bottom-0 inset-x-0 pb-2'>
+          <div className='absolute bottom-0 inset-x-0'>
             <div className='flex items-end justify-between'>
               <div>
                 {current + 1} / {total}

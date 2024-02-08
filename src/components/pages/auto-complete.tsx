@@ -2,10 +2,12 @@ import Icon from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
+  PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn, matchSearch, searchInValues, unique } from '@/lib/utils';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { ChevronsUpDown } from 'lucide-react';
 import {
   InputHTMLAttributes,
   forwardRef,
@@ -13,8 +15,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { ChevronsUpDown } from 'lucide-react';
-import { useVirtualizer } from '@tanstack/react-virtual';
 
 interface AutoCompleteProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -57,7 +57,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
             <Icon
               render={ChevronsUpDown}
               className='absolute top-1/2 right-0 -translate-y-1/2 mr-2 shrink-0 opacity-50'
-              size='sm'
+              size='xs'
             />
           </div>
         </PopoverTrigger>
