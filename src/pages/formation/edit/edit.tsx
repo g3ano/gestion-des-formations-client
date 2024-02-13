@@ -5,7 +5,11 @@ import useStepper from '@/lib/hooks/use-stepper';
 import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
 import { objCompare } from '@/lib/utils';
-import { editFormation, getFormation } from '@/pages/formation';
+import {
+  FormationFormDataError,
+  editFormation,
+  getFormation,
+} from '@/pages/formation';
 import { FormationCreateContext } from '@/pages/formation/create';
 import CoutForm from '@/pages/formation/create/steps/cout-form';
 import DirectForm from '@/pages/formation/create/steps/direct-form';
@@ -19,8 +23,16 @@ function FormationEdit() {
     <DirectForm key='direct' />,
     <CoutForm key='cout' />,
   ]);
-  const { cout, common, direct, setCommon, setDirect, setCout, reset } =
-    FormationCreateContext();
+  const {
+    cout,
+    common,
+    direct,
+    setCommon,
+    setDirect,
+    setCout,
+    reset,
+    setErrorBag,
+  } = FormationCreateContext();
 
   const params = useParams();
   const formationId = params.formationId;
@@ -40,6 +52,12 @@ function FormationEdit() {
         description: data.message,
       });
     },
+    onError: (error) => {
+      setErrorBag((prev) => ({
+        ...prev,
+        ...(error?.response?.data as FormationFormDataError),
+      }));
+    },
   });
 
   const { data, isSuccess } = useQuery({
@@ -51,10 +69,10 @@ function FormationEdit() {
     if (isSuccess) {
       const { relationships, formation } = data;
       setDirect({
-        categorie_id: String(relationships.categorie.id),
-        domaine_id: String(relationships.domaine.id),
-        type_id: String(relationships.type.id),
-        code_formation: formation.code_formation,
+        categorieId: String(relationships.categorie.id),
+        domaineId: String(relationships.domaine.id),
+        typeId: String(relationships.type.id),
+        codeFormation: formation.codeFormation,
         durree: String(formation.durree),
         effectif: String(formation.effectif),
         mode: formation.mode,
@@ -65,17 +83,20 @@ function FormationEdit() {
       setCommon({
         intitule: relationships.intitule.intitule,
         organisme: relationships.organisme.organisme,
-        code_domaine: String(relationships.code_domaine.code_domaine),
+        codeDomaine: String(relationships.codeDomaine.codeDomaine),
       });
       setCout({
-        autres_charges: relationships.couts.autres_charges,
-        pedagogiques: relationships.couts.pedagogiques,
-        presalaire: relationships.couts.presalaire,
-        hebergement_restauration: relationships.couts.hebergement_restauration,
-        dont_devise: relationships.couts.dont_devise,
-        transport: relationships.couts.transport,
+        autresCharges: String(relationships.cout.autresCharges),
+        pedagogiques: String(relationships.cout.pedagogiques),
+        presalaire: String(relationships.cout.presalaire),
+        hebergementRestauration: String(
+          relationships.cout.hebergementRestauration
+        ),
+        dontDevise: String(relationships.cout.dontDevise),
+        transport: String(relationships.cout.transport),
       });
     }
+
     return () => reset();
   }, [data, isSuccess, reset, setCommon, setCout, setDirect]);
 
@@ -83,10 +104,10 @@ function FormationEdit() {
     if (isSuccess) {
       const { formation, relationships } = data;
       const isDirectDirty = !objCompare(direct, {
-        categorie_id: String(relationships.categorie.id),
-        domaine_id: String(relationships.domaine.id),
-        type_id: String(relationships.type.id),
-        code_formation: formation.code_formation,
+        categorieId: String(relationships.categorie.id),
+        domaineId: String(relationships.domaine.id),
+        typeId: String(relationships.type.id),
+        codeFormation: formation.codeFormation,
         durree: String(formation.durree),
         effectif: String(formation.effectif),
         mode: formation.mode,
@@ -95,22 +116,26 @@ function FormationEdit() {
         structure: formation.structure,
       });
       const isCoutDirty = !objCompare(cout, {
-        autres_charges: relationships.couts.autres_charges,
-        pedagogiques: relationships.couts.pedagogiques,
-        presalaire: relationships.couts.presalaire,
-        hebergement_restauration: relationships.couts.hebergement_restauration,
-        dont_devise: relationships.couts.dont_devise,
-        transport: relationships.couts.transport,
+        autresCharges: String(relationships.cout.autresCharges),
+        pedagogiques: String(relationships.cout.pedagogiques),
+        presalaire: String(relationships.cout.presalaire),
+        hebergementRestauration: String(
+          relationships.cout.hebergementRestauration
+        ),
+        dontDevise: String(relationships.cout.dontDevise),
+        transport: String(relationships.cout.transport),
       });
       const isCommonDirty = !objCompare(common, {
         intitule: relationships.intitule.intitule,
         organisme: relationships.organisme.organisme,
-        code_domaine: String(relationships.code_domaine.code_domaine),
+        codeDomaine: String(relationships.codeDomaine.codeDomaine),
       });
       return isDirectDirty || isCoutDirty || isCommonDirty;
     }
     return false;
   }, [isSuccess, data, direct, cout, common]);
+
+  useEffect(() => () => setErrorBag({}), [setErrorBag]);
 
   const handleEdit = () => {
     mutation.mutate({
@@ -128,28 +153,25 @@ function FormationEdit() {
       title='Modifier Formation'
       actions={
         <div className='flex items-center justify-end'>
-          <div className='flex items-center gap-2'>
-            <Button
-              onClick={backward}
-              disabled={current === 0}
-            >
+          <div className='space-x-2'>
+            <Button variant='outline'>
               <Icon
-                render={ChevronLeft}
+                render={CheckCheck}
                 size='sm'
                 edge='left'
               />
-              <p>Back</p>
+              <span>Preview</span>
             </Button>
             <Button
-              onClick={forward}
-              disabled={current === total - 1}
+              onClick={handleEdit}
+              disabled={!canBeUpdated}
             >
-              <p>Next</p>
               <Icon
-                render={ChevronRight}
+                render={Save}
                 size='sm'
-                edge='right'
+                edge='left'
               />
+              <span>Modifier</span>
             </Button>
           </div>
         </div>
@@ -164,25 +186,28 @@ function FormationEdit() {
                 {current + 1} / {total}
               </div>
 
-              <div className='space-x-2'>
-                <Button variant='outline'>
-                  <Icon
-                    render={CheckCheck}
-                    size='sm'
-                    edge='left'
-                  />
-                  <span>Preview</span>
-                </Button>
+              <div className='flex items-center gap-2'>
                 <Button
-                  onClick={handleEdit}
-                  disabled={!canBeUpdated}
+                  onClick={backward}
+                  disabled={current === 0}
                 >
                   <Icon
-                    render={Save}
+                    render={ChevronLeft}
                     size='sm'
                     edge='left'
                   />
-                  <span>Modifier</span>
+                  <p>Back</p>
+                </Button>
+                <Button
+                  onClick={forward}
+                  disabled={current === total - 1}
+                >
+                  <p>Next</p>
+                  <Icon
+                    render={ChevronRight}
+                    size='sm'
+                    edge='right'
+                  />
                 </Button>
               </div>
             </div>

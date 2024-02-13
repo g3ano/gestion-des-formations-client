@@ -70,7 +70,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
             />
             <Presentation
               column='code formation'
-              rowValue={row.getValue('code_formation')}
+              rowValue={row.getValue('codeFormation')}
               inline
             />
             <Presentation
@@ -96,7 +96,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
             />
             <Presentation
               column='code domaine'
-              rowValue={row.getValue('code_domaine')}
+              rowValue={row.getValue('codeDomaine')}
               isCapitalized={false}
               inline
             />
@@ -117,7 +117,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
             />
             <Presentation
               column='H/J'
-              rowValue={row.getValue('h_j')}
+              rowValue={row.getValue('HJ')}
               isCapitalized={false}
               inline
             />
@@ -132,7 +132,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
             />
             <Presentation
               column='Hébergement restauration'
-              rowValue={row.getValue('hebergement_restauration')}
+              rowValue={row.getValue('hebergementRestauration')}
               isCapitalized={false}
               inline
             />
@@ -144,7 +144,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
             />
             <Presentation
               column='autres charges'
-              rowValue={row.getValue('autres_charges')}
+              rowValue={row.getValue('autresCharges')}
               isCapitalized={false}
               inline
             />

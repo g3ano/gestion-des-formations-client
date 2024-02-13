@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 import { Check, Minus } from 'lucide-react';
+import Icon from '@/components/ui/icon';
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
@@ -16,15 +17,22 @@ const Checkbox = React.forwardRef<
       'data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground',
       className
     )}
+    checked={checked}
     {...props}
   >
     {checked === 'indeterminate' ? (
       <CheckboxPrimitive.Indicator className='flex items-center justify-center text-current'>
-        <Minus className='size-4' />
+        <Icon
+          render={Minus}
+          size='xs'
+        />
       </CheckboxPrimitive.Indicator>
     ) : (
       <CheckboxPrimitive.Indicator className='flex items-center justify-center text-current'>
-        <Check className='size-4' />
+        <Icon
+          render={Check}
+          size='xs'
+        />
       </CheckboxPrimitive.Indicator>
     )}
   </CheckboxPrimitive.Root>

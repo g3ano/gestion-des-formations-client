@@ -73,8 +73,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'relationships.code_domaine.code_domaine',
-    id: 'code_domaine',
+    accessorKey: 'relationships.codeDomaine.codeDomaine',
+    id: 'codeDomaine',
     header: ({ column, table }) => {
       return (
         <Header
@@ -105,8 +105,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'formation.code_formation',
-    id: 'code_formation',
+    accessorKey: 'formation.codeFormation',
+    id: 'codeFormation',
     header: ({ column, table }) => {
       return (
         <Header
@@ -207,8 +207,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'formation.h_j',
-    id: 'h_j',
+    accessorKey: 'formation.HJ',
+    id: 'HJ',
     header: ({ column, table }) => {
       return (
         <Header
@@ -223,7 +223,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'relationships.couts.pedagogiques',
+    accessorKey: 'relationships.cout.pedagogiques',
     id: 'pedagogiques',
     header: ({ column, table }) => {
       return (
@@ -239,8 +239,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'relationships.couts.hebergement_restauration',
-    id: 'hebergement_restauration',
+    accessorKey: 'relationships.cout.hebergementRestauration',
+    id: 'hebergementRestauration',
     header: ({ column, table }) => {
       return (
         <Header
@@ -255,7 +255,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'relationships.couts.transport',
+    accessorKey: 'relationships.cout.transport',
     id: 'transport',
     header: ({ column, table }) => {
       return (
@@ -271,7 +271,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'relationships.couts.presalaire',
+    accessorKey: 'relationships.cout.presalaire',
     id: 'presalaire',
     header: ({ column, table }) => {
       return (
@@ -287,8 +287,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'relationships.couts.autres_charges',
-    id: 'autres_charges',
+    accessorKey: 'relationships.cout.autresCharges',
+    id: 'autresCharges',
     header: ({ column, table }) => {
       return (
         <Header
@@ -319,8 +319,8 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'formation.created_at',
-    id: 'created_at',
+    accessorKey: 'formation.createdAt',
+    id: 'createdAt',
     header: ({ column, table }) => {
       return (
         <Header

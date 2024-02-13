@@ -261,17 +261,17 @@ function TableBody<TData>({
         height: `${virtualizer.getTotalSize()}px`,
       }}
     >
-      {virtualizer.getVirtualItems().map((virtualRow) => {
-        const row = table.getRowModel().rows[virtualRow.index] as Row<Employee>;
+      {virtualizer.getVirtualItems().map((vr) => {
+        const row = table.getRowModel().rows[vr.index] as Row<Employee>;
         return (
           <div
             role='table row'
-            data-index={virtualRow.index}
+            data-index={vr.index}
             ref={(node) => virtualizer.measureElement(node)}
             key={row.id}
             className='w-full flex absolute rounded-lg'
             style={{
-              transform: `translateY(${virtualRow.start}px)`,
+              transform: `translateY(${vr.start}px)`,
             }}
           >
             <div>
@@ -307,7 +307,12 @@ function TableBody<TData>({
                   </div>
                 ))}
               </div>
-              {row.getIsExpanded() && <EmployeePreview row={row} />}
+              {row.getIsExpanded() && (
+                <EmployeePreview
+                  row={row}
+                  currentWidth={virtualizer.scrollRect.width}
+                />
+              )}
             </div>
           </div>
         );

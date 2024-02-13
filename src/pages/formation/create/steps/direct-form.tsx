@@ -1,15 +1,15 @@
 import { Step } from '@/components/layout/step';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { CommonForm, FormationCreateContext } from '@/pages/formation/create';
+import { Label } from '@/pages/formation/input-label';
 
 function DirectForm() {
   const { direct, setDirect } = FormationCreateContext();
@@ -49,22 +49,22 @@ function DirectForm() {
                 />
               </Label>
               <Label
-                htmlFor='code_formation'
+                htmlFor='codeFormation'
                 label='code formation'
               >
                 <Select
-                  name='code_formation'
-                  value={direct.code_formation}
+                  name='codeFormation'
+                  value={direct.codeFormation}
                   onValueChange={(value) =>
                     setDirect((prev) => ({
                       ...prev,
-                      code_formation: value,
+                      codeFormation: value,
                     }))
                   }
                 >
                   <SelectTrigger
                     className='w-full'
-                    id='code_formation'
+                    id='codeFormation'
                   >
                     <SelectValue placeholder='CDI' />
                   </SelectTrigger>
@@ -112,21 +112,21 @@ function DirectForm() {
               </Label>
               <Label
                 label='domaine'
-                htmlFor='domaine_id'
+                htmlFor='domaineId'
               >
                 <Select
-                  name='domaine_id'
-                  value={direct.domaine_id}
+                  name='domaineId'
+                  value={direct.domaineId}
                   onValueChange={(value) =>
                     setDirect((prev) => ({
                       ...prev,
-                      domaine_id: value,
+                      domaineId: value,
                     }))
                   }
                 >
                   <SelectTrigger
                     className='w-full'
-                    id='domaine_id'
+                    id='domaineId'
                   >
                     <SelectValue placeholder='FCM' />
                   </SelectTrigger>
@@ -139,21 +139,21 @@ function DirectForm() {
               </Label>
               <Label
                 label='categorie'
-                htmlFor='categorie_id'
+                htmlFor='categorieId'
               >
                 <Select
-                  name='categorie_id'
-                  value={direct.categorie_id}
+                  name='categorieId'
+                  value={direct.categorieId}
                   onValueChange={(value) =>
                     setDirect((prev) => ({
                       ...prev,
-                      categorie_id: value,
+                      categorieId: value,
                     }))
                   }
                 >
                   <SelectTrigger
                     className='w-full'
-                    id='categorie_id'
+                    id='categorieId'
                   >
                     <SelectValue
                       placeholder="Actions d'adaptation au poste de travail"
@@ -190,21 +190,21 @@ function DirectForm() {
               </Label>
               <Label
                 label='type'
-                htmlFor='type_id'
+                htmlFor='typeId'
               >
                 <Select
-                  name='type_id'
-                  value={direct.type_id}
+                  name='typeId'
+                  value={direct.typeId}
                   onValueChange={(value) =>
                     setDirect((prev) => ({
                       ...prev,
-                      type_id: value,
+                      typeId: value,
                     }))
                   }
                 >
                   <SelectTrigger
                     className='w-full'
-                    id='type_id'
+                    id='typeId'
                   >
                     <SelectValue
                       placeholder='Formation recrutement'

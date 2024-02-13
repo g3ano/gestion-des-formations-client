@@ -173,8 +173,8 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: arrEquals(),
   },
   {
-    accessorKey: 'employee.date_naissance',
-    id: 'date_naissance',
+    accessorKey: 'employee.dateNaissance',
+    id: 'dateNaissance',
     header: ({ column, table }) => {
       return (
         <Header
@@ -189,8 +189,8 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: arrEquals(),
   },
   {
-    accessorKey: 'employee.lieu_naissance',
-    id: 'lieu_naissance',
+    accessorKey: 'employee.lieuNaissance',
+    id: 'lieuNaissance',
     header: ({ column, table }) => {
       return (
         <Header
@@ -205,8 +205,8 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'employee.created_at',
-    id: 'created_at',
+    accessorKey: 'employee.createdAt',
+    id: 'createdAt',
     header: ({ column, table }) => {
       return (
         <Header

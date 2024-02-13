@@ -11,12 +11,13 @@ export interface Employee {
     sexe: Sexe;
     direction: string;
     csp: Csp;
-    date_naissance: string;
-    lieu_naissance: string;
+    dateNaissance: string;
+    lieuNaissance: string;
     email: string;
-    created_at: string;
+    createdAt: string;
   };
   relationships: Record<string, unknown>;
 }
 
-export type EmployeeFormData = Omit<Employee['employee'], 'id' | 'created_at'>;
+export type EmployeeFormData = Omit<Employee['employee'], 'id' | 'createdAt'>;
+export type EmployeeFormDataError = Record<'errors', Partial<EmployeeFormData>>;

@@ -33,7 +33,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
           ? uniqueData.sort((a, b) => +a - +b).map(String)
           : uniqueData.sort().map(String);
       return searchInValues(uniqueSortedData, String(value));
-    }, [value]);
+    }, [data, value]);
 
     return (
       <Popover

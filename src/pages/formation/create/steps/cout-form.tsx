@@ -1,7 +1,7 @@
 import { Step } from '@/components/layout/step';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { FormationCreateContext } from '@/pages/formation/create';
+import { Label } from '@/pages/formation/input-label';
 
 function CoutForm() {
   const { cout, setCout, direct, setDirect } = FormationCreateContext();
@@ -86,15 +86,15 @@ function CoutForm() {
                 />
               </Label>
               <Label
-                htmlFor='hebergement_restauration'
+                htmlFor='hebergementRestauration'
                 label="Frais d'hébergement et restauration"
               >
-                <label htmlFor='hebergement_restauration'></label>
+                <label htmlFor='hebergementRestauration'></label>
                 <Input
-                  name='hebergement_restauration'
-                  id='hebergement_restauration'
+                  name='hebergementRestauration'
+                  id='hebergementRestauration'
                   type='number'
-                  value={cout.hebergement_restauration}
+                  value={cout.hebergementRestauration}
                   onChange={handleChange}
                   placeholder="Entrer frais d'Hébergement & Restauration..."
                 />
@@ -129,27 +129,27 @@ function CoutForm() {
                 />
               </Label>
               <Label
-                htmlFor='autres_charges'
+                htmlFor='autresCharges'
                 label='Autres charges'
               >
                 <Input
-                  name='autres_charges'
-                  id='autres_charges'
+                  name='autresCharges'
+                  id='autresCharges'
                   type='number'
-                  value={cout.autres_charges}
+                  value={cout.autresCharges}
                   onChange={handleChange}
                   placeholder='Entrer autres charges...'
                 />
               </Label>
               <Label
-                htmlFor='dont_device'
+                htmlFor='dontDevise'
                 label='Dont device'
               >
                 <Input
-                  name='dont_devise'
-                  id='dont_devise'
+                  name='dontDevise'
+                  id='dontDevise'
                   type='number'
-                  value={cout.dont_devise}
+                  value={cout.dontDevise}
                   onChange={handleChange}
                   placeholder='Entrer dont device...'
                 />

@@ -33,7 +33,7 @@ function FilterInput<TData, TValue>({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { setOpen } = FilterContext();
   const [filterValues, setFilterValues] = useState<string[]>(
-    (table.getColumn(column.id)?.getFilterValue() as string[]) ?? []
+    (table.getColumn(column.id)?.getFilterValue() as string[]) || []
   );
   const [searchValue, setSearchValue] = useState('');
 
@@ -54,8 +54,6 @@ function FilterInput<TData, TValue>({
           .sort((a, b) => a - b)
           .map(String)
       : [];
-
-    console.log(column.getFacetedUniqueValues());
 
     return values.length
       ? filterValues.length
@@ -130,7 +128,7 @@ function FilterInput<TData, TValue>({
             onChange={(e) => setSearchValue(e.target.value)}
             autoFocus
             placeholder={`Rechercher ${column.id.replace('_', ' ')}...`}
-            className='bg-accent'
+            className='bg-accent shadow-sm shadow-background/45'
           />
           <Button
             onClick={() => {
@@ -213,6 +211,7 @@ function FilterInput<TData, TValue>({
                       matchSearch(searchResults[vr.index], searchValue)?.map(
                         (elem) => (
                           <span
+                            className='[&>b]:text-primary'
                             key={elem}
                             dangerouslySetInnerHTML={{
                               __html: elem,
@@ -243,7 +242,7 @@ function FilterInput<TData, TValue>({
 
       <div className='flex items-center justify-between mt-4'>
         <Button
-          variant='outline'
+          variant='secondary'
           onClick={() =>
             setOpen((prev) => ({
               ...prev,

@@ -2,14 +2,14 @@ export interface Formation {
   formation: {
     id: number;
     structure: string;
-    code_formation: string;
+    codeFormation: string;
     mode: string;
     lieu: string;
     effectif: number;
     durree: number;
-    h_j: number;
+    HJ: number;
     observation: string;
-    created_at: string;
+    createdAt: string;
   };
   relationships: {
     intitule: {
@@ -20,9 +20,9 @@ export interface Formation {
       id: number;
       organisme: string;
     };
-    code_domaine: {
+    codeDomaine: {
       id: number;
-      code_domaine: number;
+      codeDomaine: number;
     };
     categorie: {
       id: number;
@@ -36,14 +36,14 @@ export interface Formation {
       id: number;
       type: string;
     };
-    couts: {
+    cout: {
       id: number;
-      pedagogiques: string;
-      hebergement_restauration: string;
-      transport: string;
-      presalaire: string;
-      autres_charges: string;
-      dont_devise: string;
+      pedagogiques: number;
+      hebergementRestauration: number;
+      transport: number;
+      presalaire: number;
+      autresCharges: number;
+      dontDevise: number;
     };
   };
 }
@@ -51,27 +51,32 @@ export interface Formation {
 export interface FormationFormData {
   direct: {
     structure: string;
-    code_formation: string;
+    codeFormation: string;
     mode: string;
     lieu: string;
     effectif: string;
     durree: string;
     observation: string;
-    categorie_id: string;
-    domaine_id: string;
-    type_id: string;
+    categorieId: string;
+    domaineId: string;
+    typeId: string;
   };
   common: {
     intitule: string;
     organisme: string;
-    code_domaine: string;
+    codeDomaine: string;
   };
   cout: {
     pedagogiques: string;
-    hebergement_restauration: string;
+    hebergementRestauration: string;
     transport: string;
     presalaire: string;
-    autres_charges: string;
-    dont_devise: string;
+    autresCharges: string;
+    dontDevise: string;
   };
 }
+
+export type FormationFormDataError = Record<
+  'errors',
+  Partial<FormationFormData>
+>;

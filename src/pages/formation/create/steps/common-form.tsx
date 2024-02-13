@@ -1,9 +1,9 @@
 import { Step } from '@/components/layout/step';
-import { FormationCreateContext } from '@/pages/formation/create';
-import { getCommonValues } from '@/pages/formation';
-import { useQuery } from '@tanstack/react-query';
 import { AutoComplete } from '@/components/pages/auto-complete';
-import { Label } from '@/components/ui/label';
+import { getCommonValues } from '@/pages/formation';
+import { FormationCreateContext } from '@/pages/formation/create';
+import { Label } from '@/pages/formation/input-label';
+import { useQuery } from '@tanstack/react-query';
 
 function CommonForm() {
   const { common, setCommon } = FormationCreateContext();
@@ -20,9 +20,9 @@ function CommonForm() {
   const keys = {
     intitules: 'intitule',
     organismes: 'organisme',
-    code_domaines: 'code_domaine',
+    codeDomaines: 'codeDomaine',
   } as const;
-  const commonKeys =
+  const commonDataKeys =
     commonData && (Object.keys(commonData) as (keyof typeof keys)[]);
   const handleChange = (name: string, value: string) => {
     setCommon((prev) => ({
@@ -36,7 +36,7 @@ function CommonForm() {
       {isPending && <div>loading...</div>}
       {isSuccess && (
         <div className='flex items-center gap-4'>
-          {commonKeys?.map((key) => {
+          {commonDataKeys?.map((key) => {
             const data = commonData[key];
 
             return (
@@ -45,13 +45,13 @@ function CommonForm() {
                 key={key}
               >
                 <Label
-                  label={keys[key].replace('_', ' ')}
+                  label={keys[key]}
                   htmlFor={keys[key]}
                 >
                   <AutoComplete
                     id={keys[key]}
                     name={keys[key]}
-                    placeholder={`Entrer ${keys[key].replace('_', ' ')}...`}
+                    placeholder={`Entrer ${keys[key]}...`}
                     value={common[keys[key]]}
                     data={data}
                     onChange={handleChange}

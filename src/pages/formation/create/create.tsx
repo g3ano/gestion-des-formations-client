@@ -4,15 +4,16 @@ import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
 import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
-import { createFormation } from '@/pages/formation';
+import type { FormationFormData } from '@/pages/formation';
+import { FormationFormDataError, createFormation } from '@/pages/formation';
 import {
   CoutForm,
   DirectForm,
   FormationCreateContext,
 } from '@/pages/formation/create';
-import type { FormationFormData } from '@/pages/formation';
 import { useMutation } from '@tanstack/react-query';
 import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function FormationCreate() {
@@ -21,22 +22,30 @@ function FormationCreate() {
     <DirectForm key='direct' />,
     <CoutForm key='cout' />,
   ]);
-  const { cout, common, direct, reset } = FormationCreateContext();
+  const { cout, common, direct, reset, setErrorBag } = FormationCreateContext();
   const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: (formation: FormationFormData) => createFormation(formation),
-    onSuccess: () => {
+    onSuccess: (data) => {
       void queryClient.invalidateQueries({
         queryKey: ['formations'],
       });
       reset();
       navigate('/formations');
       toast({
-        title: 'Formation est cree',
+        title: data.message,
       });
     },
+    onError: (error) => {
+      setErrorBag((prev) => ({
+        ...prev,
+        ...(error?.response?.data as FormationFormDataError),
+      }));
+    },
   });
+
+  useEffect(() => () => setErrorBag({}), [setErrorBag]);
 
   const handleCreate = () => {
     mutation.mutate({ direct, common, cout });
@@ -47,28 +56,25 @@ function FormationCreate() {
       title='Nouveau formation'
       actions={
         <div className='flex items-center justify-end'>
-          <div className='flex items-center gap-2'>
-            <Button
-              onClick={backward}
-              disabled={current === 0}
-            >
+          <div className='space-x-2'>
+            <Button variant='outline'>
               <Icon
-                render={ChevronLeft}
+                render={CheckCheck}
                 size='sm'
                 edge='left'
               />
-              <p>Back</p>
+              <span>Preview</span>
             </Button>
             <Button
-              onClick={forward}
-              disabled={current === total - 1}
+              className='px-5'
+              onClick={handleCreate}
             >
-              <p>Next</p>
               <Icon
-                render={ChevronRight}
+                render={Save}
                 size='sm'
-                edge='right'
+                edge='left'
               />
+              <span>Create</span>
             </Button>
           </div>
         </div>
@@ -82,30 +88,30 @@ function FormationCreate() {
               <div>
                 {current + 1} / {total}
               </div>
-
-              {current === total - 1 && (
-                <div className='space-x-2'>
-                  <Button variant='outline'>
-                    <Icon
-                      render={CheckCheck}
-                      size='sm'
-                      edge='left'
-                    />
-                    <span>Preview</span>
-                  </Button>
-                  <Button
-                    className='px-5'
-                    onClick={handleCreate}
-                  >
-                    <Icon
-                      render={Save}
-                      size='sm'
-                      edge='left'
-                    />
-                    <span>Create</span>
-                  </Button>
-                </div>
-              )}
+              <div className='flex items-center gap-2'>
+                <Button
+                  onClick={backward}
+                  disabled={current === 0}
+                >
+                  <Icon
+                    render={ChevronLeft}
+                    size='sm'
+                    edge='left'
+                  />
+                  <p>Back</p>
+                </Button>
+                <Button
+                  onClick={forward}
+                  disabled={current === total - 1}
+                >
+                  <p>Next</p>
+                  <Icon
+                    render={ChevronRight}
+                    size='sm'
+                    edge='right'
+                  />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

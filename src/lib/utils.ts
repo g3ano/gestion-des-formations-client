@@ -159,9 +159,9 @@ export const resolvePageNumber = (
 };
 
 /**
- * A simple function that compares two given objects literals, it returns true if `obj` is indentical to `target`, false otherwise.
+ * A simple function that compares two given objects literals, it returns true if `obj` is identical to `target`, false otherwise.
  * **PS**: if the values are not string/number it return false.
- * @param obj Object to comapre
+ * @param obj Object to compare
  * @param target Object compared with object
  */
 export function objCompare<T, P extends T>(

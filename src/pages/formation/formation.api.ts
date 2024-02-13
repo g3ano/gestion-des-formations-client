@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 
 export const getFormations = async (): Promise<Formation[]> => {
   const res: AxiosResponse<{ data: Formation[] }> = await axiosClient.get(
-    '/formations'
+    '/formations?include[]=intitule&include[]=categorie&include[]=type&include[]=organisme&include[]=codeDomaine&include[]=domaine&include[]=cout'
   );
   return res.data.data;
 };
@@ -23,13 +23,13 @@ export const deleteFormations = async (ids: (number | string)[]) => {
 export const getCommonValues = async (): Promise<{
   intitules: string[];
   organismes: string[];
-  code_domaines: number[];
+  codeDomaines: number[];
 }> => {
   const res: AxiosResponse<{
     data: {
       intitules: string[];
       organismes: string[];
-      code_domaines: number[];
+      codeDomaines: number[];
     };
   }> = await axiosClient.get('/formations/commonValues');
   return res.data.data;
@@ -38,12 +38,13 @@ export const getCommonValues = async (): Promise<{
 export const createFormation = async (formations: FormationFormData) => {
   const res: AxiosResponse<{
     data: {
-      effected_row_id: number;
+      message: string;
+      formationId?: number;
     };
   }> = await axiosClient.post('/formations', {
     ...formations,
   });
-  return res.data;
+  return res.data.data;
 };
 
 export const getFormation = async ({
@@ -55,11 +56,13 @@ export const getFormation = async ({
   const [_, { formationId }] = queryKey;
   const res: AxiosResponse<{
     data: Formation;
-  }> = await axiosClient.get(`/formations/${formationId}`);
+  }> = await axiosClient.get(
+    `/formations/${formationId}?include[]=intitule&include[]=categorie&include[]=type&include[]=organisme&include[]=codeDomaine&include[]=domaine&include[]=cout`
+  );
   return res.data.data;
 };
 
-export const editFormation = async ({
+export const updateFormation = async ({
   formationId,
   body,
 }: {
@@ -69,7 +72,7 @@ export const editFormation = async ({
   const res: AxiosResponse<{
     data: {
       message: string;
-      effectedRows: number;
+      formationId: number;
     };
   }> = await axiosClient.put(`/formations/${formationId ?? ''}`, {
     ...body,
