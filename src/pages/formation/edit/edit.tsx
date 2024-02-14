@@ -4,18 +4,28 @@ import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
 import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
-import { objCompare } from '@/lib/utils';
+import { cn, objCompare } from '@/lib/utils';
+import ErrorPage from '@/pages/error/error';
 import {
+  FormationDataTableContext,
   FormationFormDataError,
-  editFormation,
   getFormation,
+  updateFormation,
 } from '@/pages/formation';
 import { FormationCreateContext } from '@/pages/formation/create';
 import CoutForm from '@/pages/formation/create/steps/cout-form';
 import DirectForm from '@/pages/formation/create/steps/direct-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { AxiosError } from 'axios';
+import {
+  CheckCheck,
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+  RotateCcw,
+  Save,
+} from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function FormationEdit() {
@@ -33,40 +43,41 @@ function FormationEdit() {
     reset,
     setErrorBag,
   } = FormationCreateContext();
+  const { setExpanded } = FormationDataTableContext();
 
-  const params = useParams();
-  const formationId = params.formationId;
+  const { formationId } = useParams() as { formationId: string };
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const mutation = useMutation({
-    mutationKey: ['formations', 'edit', { formationId }],
-    mutationFn: editFormation,
+    mutationFn: updateFormation,
     onSuccess: (data) => {
-      reset();
       navigate('/formations');
-      void queryClient.invalidateQueries({
-        queryKey: ['formations'],
-      });
       toast({
         description: data.message,
       });
+      reset();
+      setExpanded({});
+      void queryClient.invalidateQueries({
+        queryKey: ['formations'],
+      });
     },
-    onError: (error) => {
+    onError: (error: AxiosError<FormationFormDataError>) => {
       setErrorBag((prev) => ({
         ...prev,
-        ...(error?.response?.data as FormationFormDataError),
+        ...error?.response?.data,
       }));
     },
   });
 
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isPending, isError, error } = useQuery({
     queryKey: ['formations', { formationId }],
-    queryFn: getFormation,
+    queryFn: () => getFormation(formationId),
   });
+  const [resetForm, setResetForm] = useState(false);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       const { relationships, formation } = data;
       setDirect({
         categorieId: String(relationships.categorie.id),
@@ -98,9 +109,18 @@ function FormationEdit() {
     }
 
     return () => reset();
-  }, [data, isSuccess, reset, setCommon, setCout, setDirect]);
+  }, [
+    data,
+    isSuccess,
+    reset,
+    setCommon,
+    setCout,
+    setDirect,
+    resetForm,
+    setResetForm,
+  ]);
 
-  const canBeUpdated = useMemo(() => {
+  const isDirty = useMemo(() => {
     if (isSuccess) {
       const { formation, relationships } = data;
       const isDirectDirty = !objCompare(direct, {
@@ -148,6 +168,10 @@ function FormationEdit() {
     });
   };
 
+  if (isError) {
+    return <ErrorPage _error={error} />;
+  }
+
   return (
     <Page
       title='Modifier Formation'
@@ -163,13 +187,27 @@ function FormationEdit() {
               <span>Preview</span>
             </Button>
             <Button
-              onClick={handleEdit}
-              disabled={!canBeUpdated}
+              variant='outline'
+              onClick={() => setResetForm((prev) => !prev)}
+              disabled={!isDirty}
             >
               <Icon
-                render={Save}
+                render={RotateCcw}
                 size='sm'
                 edge='left'
+              />
+              <span>Resté</span>
+            </Button>
+            <Button
+              onClick={handleEdit}
+              disabled={!isDirty || mutation.isPending}
+            >
+              <Icon
+                render={mutation.isPending ? Loader2 : Save}
+                size='sm'
+                className={cn('mr-2', {
+                  'animate-spin': mutation.isPending,
+                })}
               />
               <span>Modifier</span>
             </Button>
@@ -179,7 +217,17 @@ function FormationEdit() {
     >
       <div className='h-full flex flex-col justify-between relative'>
         <div className='w-full h-full rounded-lg'>
-          <form>{step}</form>
+          {isPending && (
+            <div className='flex items-center gap-2'>
+              <Icon
+                render={Loader2}
+                size='sm'
+                className='animate-spin'
+              />
+              <div>Loading...</div>
+            </div>
+          )}
+          {isSuccess && <form>{step}</form>}
           <div className='absolute bottom-0 inset-x-0 pb-2'>
             <div className='flex items-end justify-between'>
               <div>

@@ -161,18 +161,22 @@ function FilterInput<TData, TValue>({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
-            <DropdownMenuItem
-              onClick={handleSelectAllFilterValues}
-              withIcon
-              icon={MousePointerSquareDashed}
-            >
+            <DropdownMenuItem onClick={handleSelectAllFilterValues}>
+              <div className='flex items-center justify-center pr-2'>
+                <Icon
+                  render={MousePointerSquareDashed}
+                  size='xs'
+                />
+              </div>
               Sélectionner Tout
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={handleClearFilterValues}
-              withIcon
-              icon={BoxSelect}
-            >
+            <DropdownMenuItem onClick={handleClearFilterValues}>
+              <div className='flex items-center justify-center pr-2'>
+                <Icon
+                  render={BoxSelect}
+                  size='xs'
+                />
+              </div>
               Clear
             </DropdownMenuItem>
           </DropdownMenuContent>

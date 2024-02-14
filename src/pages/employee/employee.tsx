@@ -21,7 +21,7 @@ import columns from '@/pages/employee/columns';
 import DataTable from '@/pages/employee/data-table';
 import { useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
-import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
+import { Columns, FilterX, Loader2, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 function Employees() {
@@ -46,7 +46,16 @@ function Employees() {
         </div>
       }
     >
-      {isPending && <div>loading...</div>}
+      {isPending && (
+        <div className='flex items-center gap-2'>
+          <Icon
+            render={Loader2}
+            size='sm'
+            className='animate-spin'
+          />
+          <div>Loading...</div>
+        </div>
+      )}
       {isSuccess && (
         <FilterContextProvider>
           <DataTable
@@ -92,17 +101,24 @@ function EmployeeMenu() {
             setColumnFilters([]);
             resetFilteringColumns();
           }}
-          withIcon
-          icon={FilterX}
           disabled={!columnFilters.length}
         >
+          <div className='flex items-center justify-center pr-2'>
+            <Icon
+              render={FilterX}
+              size='xs'
+            />
+          </div>
           Supprimer tout filtres
         </DropdownMenuItem>
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger
-            withIcon
-            icon={Columns}
-          >
+          <DropdownMenuSubTrigger>
+            <div className='flex items-center justify-center pr-2'>
+              <Icon
+                render={Columns}
+                size='xs'
+              />
+            </div>
             Columns Visibility
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
@@ -137,11 +153,13 @@ function EmployeeMenu() {
             </DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
-        <DropdownMenuItem
-          onClick={() => setToggleRowPerPage((prev) => !prev)}
-          withIcon
-          icon={Rows}
-        >
+        <DropdownMenuItem onClick={() => setToggleRowPerPage((prev) => !prev)}>
+          <div className='flex items-center justify-center pr-2'>
+            <Icon
+              render={Rows}
+              size='xs'
+            />
+          </div>
           Line par page
         </DropdownMenuItem>
       </DropdownMenuContent>

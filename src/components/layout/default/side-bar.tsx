@@ -38,19 +38,22 @@ function SideBar() {
           </div>
         </div>
 
-        <div className='h-full py-4 flex justify-center'>
-          <div className='flex flex-col gap-3 px-2'>
+        <div className='h-full py-4 flex justify-center px-2'>
+          <div className='flex w-full flex-col gap-2'>
             {navigation.map((navItem) => (
               <TooltipProvider key={navItem.label}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className='size-10 flex'>
+                    <div className='aspect-square flex w-full'>
                       <NavLink
                         to={navItem.to}
                         className={({ isActive }) =>
                           cn(
-                            'rounded-lg p-2 flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:bg-accent',
-                            { 'bg-primary text-accent-foreground': isActive }
+                            'rounded-lg flex items-center justify-center w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:bg-accent',
+                            {
+                              'bg-primary text-accent-foreground hover:bg-primary/80':
+                                isActive,
+                            }
                           )
                         }
                       >

@@ -112,15 +112,15 @@ export function FormationCreateProvider({
   const reset = useCallback(() => {
     setDirect({
       structure: '',
-      codeFormation: '',
-      mode: '',
+      codeFormation: 'CDI',
+      mode: 'Présentiel',
       lieu: '',
       effectif: '',
       durree: '',
       observation: '',
-      categorieId: '',
-      domaineId: '',
-      typeId: '',
+      categorieId: '1',
+      domaineId: '1',
+      typeId: '1',
     });
     setCommon({
       intitule: '',

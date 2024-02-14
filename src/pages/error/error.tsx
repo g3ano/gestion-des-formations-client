@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import { cn } from '@/lib/utils';
+import { AxiosError, isAxiosError } from 'axios';
 import { Bird } from 'lucide-react';
 import {
   ErrorResponse,
@@ -8,22 +10,43 @@ import {
   useRouteError,
 } from 'react-router-dom';
 
-export default function ErrorPage() {
-  const error = useRouteError() as ErrorResponse;
-  let message = '';
+export default function ErrorPage({ _error }: { _error?: AxiosError }) {
+  const error = (useRouteError() as ErrorResponse) || _error;
+  const body = {
+    status: 200,
+    statusText: '',
+    code: '',
+    message: '',
+  };
 
   if (isRouteErrorResponse(error)) {
+    body.status = error.status;
     if (error.status === 404) {
-      message = "This page doesn't exist!";
+      body.message = "This page doesn't exist!";
     }
 
     if (error.status === 401) {
-      message = "You aren't authorized to see this";
+      body.message = "You aren't authorized to see this";
     }
 
     if (error.status === 503) {
-      message = 'Looks like our API is down';
+      body.message = 'Looks like our API is down';
     }
+  }
+  if (
+    error &&
+    isAxiosError<{
+      errors: Record<string, unknown>;
+    }>(error)
+  ) {
+    body.status = error.response!.status;
+    body.statusText = error.response!.statusText;
+    body.code = error.code!;
+    body.message = error.response?.data.errors.message as string;
+  }
+
+  if (!body.message) {
+    body.message = 'Oops, an error just happened';
   }
 
   return (
@@ -36,20 +59,27 @@ export default function ErrorPage() {
           />
         </div>
         <div className='mx-auto max-w-screen-sm space-y-4'>
-          <div className='flex items-center gap-20'>
-            <h1 className='text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600'>
-              {error.status}
-            </h1>
-            <div className='w-96 flex flex-col gap-8'>
-              <div className='space-y-4'>
-                <p className='text-3xl tracking-tight font-bold md:text-4xl'>
-                  <span>{message}</span>
-                </p>
-                <p className='text-nowrap'>
-                  Sorry, It looks like an error has happened. Will fix this soon
+          <div className='flex gap-20 min-h-40'>
+            <div
+              className={cn('flex flex-col items-center justify-end', {
+                'justify-between': !!body.code,
+              })}
+            >
+              <h1 className='text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600'>
+                {body.status}
+              </h1>
+              {body.code && <p>{body.code}</p>}
+            </div>
+            <div className='w-96 flex flex-col justify-between'>
+              <div className='space-y-4 flex h-full'>
+                <p className='text-pretty text-center my-auto'>
+                  <span className='text-2xl font-medium'>{body.message}</span>
                 </p>
               </div>
-              <Button asChild>
+              <Button
+                variant='secondary'
+                asChild
+              >
                 <Link
                   to='/'
                   replace

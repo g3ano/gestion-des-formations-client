@@ -1,9 +1,9 @@
 import { Default } from '@/components/layout/default';
 import { Dashboard } from '@/pages/dashboard';
-import { Employees } from '@/pages/employee';
+import { EmployeeEdit, Employees } from '@/pages/employee';
 import { EmployeeCreate } from '@/pages/employee/create';
 import ErrorPage from '@/pages/error/error';
-import { Formations, FormationCreate, FormationEdit } from '@/pages/formation';
+import { FormationCreate, FormationEdit, Formations } from '@/pages/formation';
 import { QueryClient } from '@tanstack/react-query';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -51,6 +51,10 @@ const router = createBrowserRouter([
           {
             path: '/employees/create',
             element: <EmployeeCreate />,
+          },
+          {
+            path: '/employees/:employeeId/edit',
+            element: <EmployeeEdit />,
           },
         ],
       },

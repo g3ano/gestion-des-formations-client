@@ -3,12 +3,19 @@ export {
   EmployeeDataTableProvider,
 } from './data-table-context';
 export { default as Employees } from './employee';
-export { deleteEmployees, getEmployees } from './employee.api';
+export {
+  deleteEmployees,
+  getEmployees,
+  createEmployee,
+  getEmployee,
+  updateEmployee,
+} from './employee.api';
 export type {
   Csp,
   Employee,
   EmployeeFormData,
-  Sexe,
   EmployeeFormDataError,
+  Sexe,
 } from './employee.type';
 export { default as EmployeePreview } from './show/show';
+export { default as EmployeeEdit } from './edit/edit';

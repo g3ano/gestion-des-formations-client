@@ -46,6 +46,7 @@ function Control<TData>({
       });
     },
   });
+  const actionElements = Object.keys(table.getState().rowSelection).length;
 
   return (
     <div className='flex items-center gap-1 animate-in slide-in-from-bottom-10 duration-100 ease-in-out'>
@@ -99,9 +100,14 @@ function Control<TData>({
           <DialogHeader>
             <DialogTitle>Êtes-vous sûr de vouloir supprimer?</DialogTitle>
           </DialogHeader>
-          <div className='mt-6 mb-8'>
+          <div className='mt-6 mb-8 text-pretty'>
             Cette action ne peut pas être annulée. Cela supprimera
-            définitivement la formation.
+            définitivement{' '}
+            <span className='font-semibold'>{actionElements}</span>{' '}
+            {actionElements > 1
+              ? queryKey
+              : queryKey.slice(0, queryKey.length - 1)}
+            .
           </div>
           <DialogFooter>
             <DialogClose asChild>

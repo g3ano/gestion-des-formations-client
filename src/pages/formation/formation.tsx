@@ -21,7 +21,7 @@ import {
 import columns from '@/pages/formation/columns';
 import { useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
-import { Columns, FilterX, MoreVertical, Rows } from 'lucide-react';
+import { Columns, FilterX, Loader2, MoreVertical, Rows } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Formations = () => {
@@ -47,19 +47,24 @@ export const Formations = () => {
       }
     >
       <div className='h-full'>
-        {isPending && (
-          <div>
-            <p>Loading...</p>
+        {isPending ? (
+          <div className='flex items-center gap-2'>
+            <Icon
+              render={Loader2}
+              size='sm'
+              className='animate-spin'
+            />
+            <div>Loading...</div>
           </div>
-        )}
-        {isSuccess && (
+        ) : null}
+        {isSuccess ? (
           <FilterContextProvider>
             <DataTable
               data={data}
               columns={columns}
             />
           </FilterContextProvider>
-        )}
+        ) : null}
       </div>
     </Page>
   );
@@ -96,17 +101,24 @@ const FormationMenu = () => {
             setColumnFilters([]);
             resetFilteringColumns();
           }}
-          withIcon
-          icon={FilterX}
           disabled={!columnFilters.length}
         >
+          <div className='flex items-center justify-center pr-2'>
+            <Icon
+              render={FilterX}
+              size='xs'
+            />
+          </div>
           Supprimer tout filtres
         </DropdownMenuItem>
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger
-            withIcon
-            icon={Columns}
-          >
+          <DropdownMenuSubTrigger>
+            <div className='flex items-center justify-center pr-2'>
+              <Icon
+                render={Columns}
+                size='xs'
+              />
+            </div>
             Columns Visibility
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
@@ -135,11 +147,13 @@ const FormationMenu = () => {
             </DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
-        <DropdownMenuItem
-          onClick={() => setToggleRowPerPage((prev) => !prev)}
-          withIcon
-          icon={Rows}
-        >
+        <DropdownMenuItem onClick={() => setToggleRowPerPage((prev) => !prev)}>
+          <div className='flex items-center justify-center pr-2'>
+            <Icon
+              render={Rows}
+              size='xs'
+            />
+          </div>
           Line par page
         </DropdownMenuItem>
       </DropdownMenuContent>

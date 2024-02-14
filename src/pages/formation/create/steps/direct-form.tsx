@@ -162,7 +162,7 @@ function DirectForm() {
                   </SelectTrigger>
                   <SelectContent align='end'>
                     <SelectItem value='1'>
-                      Actions d&apojadaptation au poste de travail
+                      Actions d&apos;adaptation au poste de travail
                     </SelectItem>
                     <SelectItem value='2'>
                       Actions liées à l&aposévolution des métiers & technologies
@@ -207,7 +207,7 @@ function DirectForm() {
                     id='typeId'
                   >
                     <SelectValue
-                      placeholder='Formation recrutement'
+                      placeholder='Formation Recrutement'
                       defaultValue='1'
                     />
                   </SelectTrigger>

@@ -48,11 +48,11 @@
   }
 
   :root {
-    --background: 220 6% 10%;
+    --background: 220 6% 12%;
     --foreground: 0 0% 98%;
     --card: 0 0% 21%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 21%;
+    --popover: 0 0% 24.5%;
     --popover-foreground: 0 0% 98%;
     --primary: 12 100% 63%;
     --primary-foreground: 60 9.1% 97.8%;

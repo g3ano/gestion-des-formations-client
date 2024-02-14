@@ -11,7 +11,7 @@ export interface Employee {
     sexe: Sexe;
     direction: string;
     csp: Csp;
-    dateNaissance: string;
+    dateNaissance: number;
     lieuNaissance: string;
     email: string;
     createdAt: string;

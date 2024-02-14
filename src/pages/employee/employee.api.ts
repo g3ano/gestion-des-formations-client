@@ -23,10 +23,30 @@ export const deleteEmployees = async (ids: (number | string)[]) => {
 export const createEmployee = async (employee: EmployeeFormData) => {
   const res: AxiosResponse<{
     data: {
-      effected_row_id: number;
+      message: string;
+      employeeId: number;
     };
   }> = await axiosClient.post('/employees', {
     ...employee,
   });
   return res.data.data;
+};
+
+export const getEmployee = async (employeeId: string): Promise<Employee> => {
+  const res: AxiosResponse<{
+    data: Employee;
+  }> = await axiosClient.get(`/employees/${employeeId ?? ''}`);
+  return res.data.data;
+};
+
+export const updateEmployee = async ({
+  employeeId,
+  employee,
+}: {
+  employeeId: string;
+  employee: EmployeeFormData;
+}) => {
+  const res: AxiosResponse<{ message: string; employeeId: number }> =
+    await axiosClient.put(`/employees/${employeeId ?? ''}`, { ...employee });
+  return res.data;
 };

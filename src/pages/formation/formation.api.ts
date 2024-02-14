@@ -47,17 +47,13 @@ export const createFormation = async (formations: FormationFormData) => {
   return res.data.data;
 };
 
-export const getFormation = async ({
-  queryKey,
-}: {
-  queryKey: [string, { formationId: string | undefined }];
-}): Promise<Formation> => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, { formationId }] = queryKey;
+export const getFormation = async (formationId: string): Promise<Formation> => {
   const res: AxiosResponse<{
     data: Formation;
   }> = await axiosClient.get(
-    `/formations/${formationId}?include[]=intitule&include[]=categorie&include[]=type&include[]=organisme&include[]=codeDomaine&include[]=domaine&include[]=cout`
+    `/formations/${
+      formationId ?? ''
+    }?include[]=intitule&include[]=categorie&include[]=type&include[]=organisme&include[]=codeDomaine&include[]=domaine&include[]=cout`
   );
   return res.data.data;
 };

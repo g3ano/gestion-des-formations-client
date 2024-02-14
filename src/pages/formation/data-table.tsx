@@ -122,11 +122,11 @@ function DataTable<TData, TValue>({
 
   return (
     <div
-      className={cn('grid grid-cols-11 grid-rows-12 gap-4 h-full relative', {
+      className={cn('grid grid-cols-10 grid-rows-12 gap-4 h-full relative', {
         'cursor-w-resize': table.getState().columnSizingInfo.isResizingColumn,
       })}
     >
-      <div className='col-span-12 row-span-1 flex items-end flex-col md:flex-row md:justify-between'>
+      <div className='col-span-10 row-span-1 flex items-end flex-col md:flex-row md:justify-between'>
         <div className='w-full md:w-1/4'>
           <GlobalFilter
             globalFilter={globalFilter}
@@ -156,9 +156,9 @@ function DataTable<TData, TValue>({
 
       <ScrollAreaPrimitive.Root
         className={cn(
-          'col-span-12 row-span-10 overflow-auto flex max-h-full max-w-full rounded-lg drop-shadow',
+          'col-span-10 row-span-10 overflow-auto flex max-h-full max-w-full rounded-lg drop-shadow',
           {
-            'col-span-8 lg:col-span-9 xl:col-span-9':
+            'col-span-7 lg:col-span-8 xl:col-span-8':
               table.getIsSomeRowsExpanded(),
           }
         )}
@@ -238,11 +238,11 @@ function DataTable<TData, TValue>({
       </ScrollAreaPrimitive.Root>
 
       {previewRow?.getIsExpanded() && (
-        <div className='col-span-4 row-span-10 flex lg:col-span-3 xl:col-span-3 rounded-lg'>
+        <div className='col-span-3 row-span-10 flex lg:col-span-2 xl:col-span-2 rounded-lg'>
           <FormationPreview row={previewRow} />
         </div>
       )}
-      <div className='col-span-12 row-span-1 flex bg-card px-4 w-full shadow rounded-lg'>
+      <div className='col-span-10 row-span-1 flex bg-card px-4 w-full shadow rounded-lg'>
         <Pagination table={table} />
       </div>
     </div>

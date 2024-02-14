@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import Icon from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Popover,
   PopoverContent,
@@ -18,13 +17,13 @@ import {
 import { cn } from '@/lib/utils';
 import { Csp, Sexe } from '@/pages/employee';
 import { EmployeeCreateContext } from '@/pages/employee/create';
-import { format, getYear } from 'date-fns';
+import { Label } from '@/pages/employee/input-label';
+import { format, fromUnixTime, getUnixTime, getYear } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { useState } from 'react';
 
 function EmployeeForm() {
-  const [selectedDate, setSelectedDate] = useState<Date>();
   const { employee, setEmployee } = EmployeeCreateContext();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEmployee((prev) => ({
@@ -35,7 +34,7 @@ function EmployeeForm() {
 
   return (
     <div className='space-y-8'>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-8'>
         <div className='flex items-center justify-center gap-4'>
           <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
           <span className='font-medium text-xl'>Employee</span>
@@ -58,7 +57,7 @@ function EmployeeForm() {
             </Label>
             <Label
               label='direction'
-              htmlFor='Direction'
+              htmlFor='direction'
             >
               <Input
                 name='direction'
@@ -181,7 +180,7 @@ function EmployeeForm() {
               />
             </Label>
             <Label
-              htmlFor='date_naissance'
+              htmlFor='dateNaissance'
               label='Date naissance'
               className='flex flex-col flex-none'
             >
@@ -190,16 +189,16 @@ function EmployeeForm() {
                   <Button
                     variant='ghost'
                     className={cn(
-                      'min-w-64 justify-start gap-2 text-left font-normal bg-card normal-case px-2',
-                      { 'text-muted-foreground': !selectedDate }
+                      'min-w-64 justify-start gap-2 text-left font-normal bg-card normal-case px-2 text-muted-foreground',
+                      { 'text-foreground': employee.dateNaissance }
                     )}
                   >
                     <Icon
                       render={CalendarIcon}
                       size='sm'
                     />
-                    {selectedDate ? (
-                      format(selectedDate, 'y-MM-dd')
+                    {employee.dateNaissance || employee.dateNaissance === 0 ? (
+                      format(fromUnixTime(employee.dateNaissance), 'dd/MM/y')
                     ) : (
                       <span>Choisir un date</span>
                     )}
@@ -211,13 +210,13 @@ function EmployeeForm() {
                 >
                   <Calendar
                     mode='single'
-                    selected={selectedDate}
+                    defaultMonth={fromUnixTime(employee.dateNaissance)}
+                    selected={fromUnixTime(employee.dateNaissance)}
                     onDayClick={(date) => {
                       if (date) {
-                        setSelectedDate(date);
                         setEmployee((prev) => ({
                           ...prev,
-                          date_naissance: format(date, 'y-MM-dd'),
+                          dateNaissance: getUnixTime(format(date, 'y-MM-dd')),
                         }));
                       }
                     }}
@@ -226,7 +225,7 @@ function EmployeeForm() {
                       after: new Date(),
                     }}
                     captionLayout='dropdown-buttons'
-                    fromYear={1945}
+                    fromYear={1970}
                     toYear={getYear(new Date())}
                     toMonth={new Date()}
                   />
@@ -234,20 +233,19 @@ function EmployeeForm() {
               </Popover>
             </Label>
             <Label
-              htmlFor='lieu_naissance'
+              htmlFor='lieuNaissance'
               label='Lieu naissance'
             >
               <Input
-                name='lieu_naissance'
-                id='lieu_naissance'
-                value={employee.lieu_naissance}
+                name='lieuNaissance'
+                id='lieuNaissance'
+                value={employee.lieuNaissance}
                 onChange={handleChange}
                 placeholder="Entrer lieu naissance d'employee..."
                 maxLength={255}
               />
             </Label>
           </div>
-          <div></div>
         </div>
       </div>
     </div>

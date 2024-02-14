@@ -4,6 +4,7 @@ import Icon from '@/components/ui/icon';
 import { arrEquals } from '@/lib/filter-fns';
 import { Employee } from '@/pages/employee';
 import { ColumnDef } from '@tanstack/react-table';
+import { format, fromUnixTime } from 'date-fns';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 
 const minSize = 175;
@@ -181,6 +182,11 @@ const columns: ColumnDef<Employee>[] = [
           column={column}
           table={table}
         />
+      );
+    },
+    cell: (row) => {
+      return (
+        <span>{format(fromUnixTime(row.getValue() as number), 'y-MM-dd')}</span>
       );
     },
     minSize,

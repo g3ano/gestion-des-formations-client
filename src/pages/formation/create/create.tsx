@@ -4,6 +4,7 @@ import Icon from '@/components/ui/icon';
 import useStepper from '@/lib/hooks/use-stepper';
 import { useToast } from '@/lib/hooks/use-toast';
 import { queryClient } from '@/lib/router';
+import { cn } from '@/lib/utils';
 import type { FormationFormData } from '@/pages/formation';
 import { FormationFormDataError, createFormation } from '@/pages/formation';
 import {
@@ -12,7 +13,15 @@ import {
   FormationCreateContext,
 } from '@/pages/formation/create';
 import { useMutation } from '@tanstack/react-query';
-import { CheckCheck, ChevronLeft, ChevronRight, Save } from 'lucide-react';
+import { AxiosError } from 'axios';
+import {
+  CheckCheck,
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+  RotateCcw,
+  Save,
+} from 'lucide-react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,15 +46,16 @@ function FormationCreate() {
         title: data.message,
       });
     },
-    onError: (error) => {
+    onError: (error: AxiosError<FormationFormDataError>) => {
       setErrorBag((prev) => ({
         ...prev,
-        ...(error?.response?.data as FormationFormDataError),
+        ...error?.response?.data,
       }));
     },
   });
 
-  useEffect(() => () => setErrorBag({}), [setErrorBag]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => setErrorBag({}), []);
 
   const handleCreate = () => {
     mutation.mutate({ direct, common, cout });
@@ -66,15 +76,28 @@ function FormationCreate() {
               <span>Preview</span>
             </Button>
             <Button
-              className='px-5'
-              onClick={handleCreate}
+              variant='outline'
+              onClick={() => reset()}
             >
               <Icon
-                render={Save}
+                render={RotateCcw}
                 size='sm'
                 edge='left'
               />
-              <span>Create</span>
+              <span>Resté</span>
+            </Button>
+            <Button
+              onClick={handleCreate}
+              disabled={mutation.isPending}
+            >
+              <Icon
+                render={mutation.isPending ? Loader2 : Save}
+                size='sm'
+                className={cn('mr-2', {
+                  'animate-spin': mutation.isPending,
+                })}
+              />
+              <span>Modifier</span>
             </Button>
           </div>
         </div>

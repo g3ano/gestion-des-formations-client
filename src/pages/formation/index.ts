@@ -9,7 +9,7 @@ export { Formations } from './formation';
 export {
   createFormation,
   deleteFormations,
-  updateFormation as editFormation,
+  updateFormation,
   getCommonValues,
   getFormation,
   getFormations,

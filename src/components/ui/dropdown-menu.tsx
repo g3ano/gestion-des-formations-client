@@ -96,7 +96,7 @@ const DropdownMenuItem = React.forwardRef<
     withIcon?: boolean;
     icon?: LucideIcon;
   }
->(({ className, inset, withIcon, icon, ...props }, ref) => (
+>(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
@@ -107,14 +107,6 @@ const DropdownMenuItem = React.forwardRef<
     )}
     {...props}
   >
-    {!!withIcon && (
-      <div className='flex items-center justify-center pr-2'>
-        <Icon
-          render={icon as LucideIcon}
-          size='xs'
-        />
-      </div>
-    )}
     {props.children}
   </DropdownMenuPrimitive.Item>
 ));
@@ -193,7 +185,7 @@ const DropdownMenuSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-2 h-px bg-muted', className)}
+    className={cn('-mx-1 my-2 h-px bg-secondary', className)}
     {...props}
   />
 ));

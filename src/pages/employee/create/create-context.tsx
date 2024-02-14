@@ -1,10 +1,12 @@
-import { EmployeeFormData } from '@/pages/employee';
+import { EmployeeFormData, EmployeeFormDataError } from '@/pages/employee';
 import { createContext, useCallback, useContext, useState } from 'react';
 
 interface EmployeeCreateContextState {
   employee: EmployeeFormData;
   setEmployee: React.Dispatch<React.SetStateAction<EmployeeFormData>>;
   reset: () => void;
+  errorBag: EmployeeFormDataError;
+  setErrorBag: React.Dispatch<React.SetStateAction<EmployeeFormDataError>>;
 }
 
 const _EmployeeCreateContext = createContext<EmployeeCreateContextState>({
@@ -14,14 +16,16 @@ const _EmployeeCreateContext = createContext<EmployeeCreateContextState>({
     sexe: 'M',
     direction: '',
     csp: 'C',
-    date_naissance: '',
-    lieu_naissance: '',
+    dateNaissance: 0,
+    lieuNaissance: '',
     email: '',
     matricule: '',
     nom: '',
   },
   setEmployee: () => {},
   reset: () => {},
+  errorBag: { errors: {} },
+  setErrorBag: () => {},
 });
 
 export function EmployeeCreateProvider({
@@ -36,10 +40,13 @@ export function EmployeeCreateProvider({
     sexe: 'M',
     direction: '',
     csp: 'C',
-    date_naissance: '',
-    lieu_naissance: '',
+    dateNaissance: 0,
+    lieuNaissance: '',
     email: '',
     matricule: '',
+  });
+  const [errorBag, setErrorBag] = useState<EmployeeFormDataError>({
+    errors: {},
   });
   const reset = useCallback(() => {
     setEmployee({
@@ -49,8 +56,8 @@ export function EmployeeCreateProvider({
       sexe: 'M',
       direction: '',
       csp: 'C',
-      date_naissance: '',
-      lieu_naissance: '',
+      dateNaissance: 0,
+      lieuNaissance: '',
       email: '',
       matricule: '',
     });
@@ -60,6 +67,8 @@ export function EmployeeCreateProvider({
     employee,
     setEmployee,
     reset,
+    errorBag,
+    setErrorBag,
   };
 
   return (
