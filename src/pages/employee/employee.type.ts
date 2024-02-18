@@ -1,3 +1,5 @@
+import { Action } from '@/pages/action';
+
 export type Sexe = 'M' | 'F';
 export type Csp = 'C' | 'M' | 'CS';
 
@@ -16,7 +18,9 @@ export interface Employee {
     email: string;
     createdAt: string;
   };
-  relationships: Record<string, unknown>;
+  relationships: {
+    actions: Action[];
+  };
 }
 
 export type EmployeeFormData = Omit<Employee['employee'], 'id' | 'createdAt'>;

@@ -15,7 +15,9 @@ export const searchInValues = (values: string[], searchValue: string) => {
 };
 
 export const capitalize = (input: string) => {
-  return `${input.charAt(0).toUpperCase()}${input.slice(1)}`;
+  return `${input.charAt(0).toUpperCase()}${input
+    .slice(1)
+    .toLocaleLowerCase()}`;
 };
 
 export const unique = <T>(values: T[]) => {

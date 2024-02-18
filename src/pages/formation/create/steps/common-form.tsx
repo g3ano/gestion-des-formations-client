@@ -1,5 +1,5 @@
 import { Step } from '@/components/layout/step';
-import { AutoComplete } from '@/components/pages/auto-complete';
+import { AutoComplete } from '@/components/ui/auto-complete';
 import { getCommonValues } from '@/pages/formation';
 import { FormationCreateContext } from '@/pages/formation/create';
 import { Label } from '@/pages/formation/input-label';

@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { LayoutGrid, NotebookText, Users } from 'lucide-react';
+import { Blocks, LayoutGrid, NotebookText, Users } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const navigation = [
@@ -26,16 +26,19 @@ const navigation = [
     icon: Users,
     to: '/employees',
   },
+  {
+    label: 'Actions',
+    icon: Blocks,
+    to: '/actions?view=compact',
+  },
 ];
 
 function SideBar() {
   return (
     <div className='bg-card h-full fixed z-50 w-16 shadow-xl'>
       <div>
-        <div className='rounded-lg w-full h-20 flex items-center justify-center'>
-          <div className='size-12 rounded-lg flex items-center justify-center'>
-            <Logo />
-          </div>
+        <div className='rounded-sm w-full h-20 flex items-center justify-center overflow-hidden'>
+          <Logo />
         </div>
 
         <div className='h-full py-4 flex justify-center px-2'>

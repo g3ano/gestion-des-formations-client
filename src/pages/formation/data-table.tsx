@@ -1,3 +1,18 @@
+import GlobalFilter from '@/components/data-table/global-search';
+import Pagination from '@/components/data-table/pagination';
+import Control from '@/components/data-table/rows/control';
+import RowPerPage from '@/components/data-table/rows/row-per-page';
+import VisibilityOptions from '@/components/data-table/visibility-options';
+import { ScrollBar } from '@/components/ui/scroll-area';
+import { TableContext } from '@/lib/contexts/table-context';
+import { cn } from '@/lib/utils';
+import {
+  Formation,
+  FormationDataTableContext,
+  FormationPreview,
+  deleteFormations,
+} from '@/pages/formation';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import {
   ColumnDef,
   ExpandedState,
@@ -14,23 +29,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { memo, useMemo, useRef } from 'react';
-import {
-  Formation,
-  FormationDataTableContext,
-  FormationPreview,
-  deleteFormations,
-} from '@/pages/formation';
-import { cn } from '@/lib/utils';
-import GlobalFilter from '@/components/data-table/global-search';
-import VisibilityOptions from '@/components/data-table/visibility-options';
-import Pagination from '@/components/data-table/pagination';
-import Control from '@/components/data-table/rows/control';
-import RowPerPage from '@/components/data-table/rows/row-per-page';
-import { TableContext } from '@/lib/contexts/table-context';
-import { ScrollBar } from '@/components/ui/scroll-area';
 
 interface DataTableProps<TData, TValue> {
   data: TData[];
@@ -183,7 +183,7 @@ function DataTable<TData, TValue>({
                 <div
                   role='table row'
                   key={headerGroup.id}
-                  className='w-full flex rounded pr-[2px]'
+                  className='w-full flex shadow rounded-lg pr-[2px]'
                 >
                   {headerGroup.headers.map((header) => {
                     return (

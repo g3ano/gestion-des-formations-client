@@ -207,9 +207,9 @@ function FilterInput<TData, TValue>({
                 key={vr.key}
                 data-index={vr.index}
                 ref={virtualizer.measureElement}
-                className='group hover:bg-accent hover:text-accent-foreground rounded-lg'
+                className='group hover:bg-accent hover:text-accent-foreground rounded-sm'
               >
-                <label className='rounded-lg m-[2px] flex gap-4 items-center px-2 py-1 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring'>
+                <label className='rounded-sm m-[2px] flex gap-4 items-center px-2 py-1 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring'>
                   <div className='flex-1 select-none'>
                     {matchSearch(searchResults[vr.index], searchValue) ? (
                       matchSearch(searchResults[vr.index], searchValue)?.map(

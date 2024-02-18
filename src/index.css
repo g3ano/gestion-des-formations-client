@@ -66,8 +66,8 @@
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 23.92%;
     --input: 240 3.7% 15.9%;
-    --ring: 24.6 95% 53.1%;
-    --radius: 0.25rem;
+    --ring: var(--primary);
+    --radius: 0.75rem;
   }
 }
 
@@ -91,12 +91,12 @@
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 rounded-lg;
+    @apply bg-secondary rounded-lg;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-500;
+    @apply bg-secondary;
   }
 }
 

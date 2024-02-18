@@ -34,13 +34,13 @@ function Calendar({
         table: 'w-full border-collapse space-y-1',
         head_row: 'flex',
         head_cell:
-          'text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]',
+          'text-muted-foreground rounded-sm w-8 font-normal text-[0.8rem]',
         row: 'flex w-full mt-2',
         cell: cn(
-          'relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md',
+          'relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-sm',
           mode === 'range'
-            ? '[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md'
-            : '[&:has([aria-selected])]:rounded-md'
+            ? '[&:has(>.day-range-end)]:rounded-r-sm [&:has(>.day-range-start)]:rounded-l-sm first:[&:has([aria-selected])]:rounded-l-sm last:[&:has([aria-selected])]:rounded-r-sm'
+            : '[&:has([aria-selected])]:rounded-sm'
         ),
         day: cn(
           buttonVariants({ variant: 'ghost' }),
@@ -59,9 +59,10 @@ function Calendar({
         day_hidden: 'invisible',
         dropdown: '',
         caption_dropdowns: 'w-full flex flex-col gap-2',
-        dropdown_year: 'bg-secondary border border-border rounded-lg px-2 py-1',
+        dropdown_year:
+          'bg-secondary border border-border rounded-sm px-2 py-1 focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
         dropdown_month:
-          'bg-secondary border border-border rounded-lg px-2 py-1',
+          'bg-secondary border border-border rounded-sm px-2 py-1 focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
         ...classNames,
       }}
       components={{

@@ -19,23 +19,25 @@ const Page = ({ title, actions, children }: PageProps) => {
   return (
     <div className='w-full h-screen overflow-hidden'>
       <div className='flex flex-col h-full'>
-        <div className='w-full max-w-[1750px] self-center min-h-20 h-20 flex items-center justify-center px-6'>
-          <div className='h-full w-full flex items-center gap-4'>
-            <div className='flex items-center gap-4'>
-              <Button
-                size='icon'
-                variant='ghost'
-                onClick={handleBack}
-              >
-                <Icon render={ArrowLeft} />
-              </Button>
-              <p className='text-2xl font-medium tracking-tight'>{title}</p>
+        <div className='w-full min-h-20 h-20 px-6'>
+          <div className='max-w-[1750px] h-full flex items-center justify-center mx-auto'>
+            <div className='h-full w-full flex items-center gap-4'>
+              <div className='flex items-center gap-4'>
+                <Button
+                  size='icon'
+                  variant='ghost'
+                  onClick={handleBack}
+                >
+                  <Icon render={ArrowLeft} />
+                </Button>
+                <p className='text-2xl font-medium tracking-tight'>{title}</p>
+              </div>
+              <div className='flex-1'>{actions}</div>
             </div>
-            <div className='flex-1'>{actions}</div>
           </div>
         </div>
-        <div className='w-full max-w-[1750px] self-center py-4 h-full overflow-y-auto px-6 bg-background mb-2'>
-          {children}
+        <div className='w-full self-center py-4 h-full overflow-y-auto px-6 bg-background mb-2'>
+          <div className='max-w-[1750px] mx-auto h-full'>{children}</div>
         </div>
       </div>
     </div>

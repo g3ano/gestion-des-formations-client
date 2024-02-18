@@ -201,11 +201,12 @@ function FormationEdit() {
             <Button
               onClick={handleEdit}
               disabled={!isDirty || mutation.isPending}
+              className='-ml-2'
             >
               <Icon
                 render={mutation.isPending ? Loader2 : Save}
                 size='sm'
-                className={cn('mr-2', {
+                className={cn('mr-1', {
                   'animate-spin': mutation.isPending,
                 })}
               />

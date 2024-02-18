@@ -1,3 +1,5 @@
+import { Action } from '@/pages/action';
+
 export interface Formation {
   formation: {
     id: number;
@@ -45,6 +47,7 @@ export interface Formation {
       autresCharges: number;
       dontDevise: number;
     };
+    actions: Action[];
   };
 }
 

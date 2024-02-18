@@ -1,3 +1,18 @@
+import GlobalFilter from '@/components/data-table/global-search';
+import Pagination from '@/components/data-table/pagination';
+import Control from '@/components/data-table/rows/control';
+import RowPerPage from '@/components/data-table/rows/row-per-page';
+import VisibilityOptions from '@/components/data-table/visibility-options';
+import { ScrollBar } from '@/components/ui/scroll-area';
+import { TableContext } from '@/lib/contexts/table-context';
+import { cn } from '@/lib/utils';
+import {
+  Employee,
+  EmployeeDataTableContext,
+  EmployeePreview,
+  deleteEmployees,
+} from '@/pages/employee';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import {
   ColumnDef,
   Row,
@@ -13,23 +28,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
-import { ScrollBar } from '@/components/ui/scroll-area';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { memo, useMemo, useRef } from 'react';
-import { cn } from '@/lib/utils';
-import { TableContext } from '@/lib/contexts/table-context';
-import GlobalFilter from '@/components/data-table/global-search';
-import VisibilityOptions from '@/components/data-table/visibility-options';
-import Pagination from '@/components/data-table/pagination';
-import Control from '@/components/data-table/rows/control';
-import RowPerPage from '@/components/data-table/rows/row-per-page';
-import {
-  Employee,
-  EmployeeDataTableContext,
-  EmployeePreview,
-  deleteEmployees,
-} from '@/pages/employee';
 
 interface DataTableProps<TData, TValue> {
   data: TData[];
@@ -321,7 +321,7 @@ function TableBody<TData>({
   ) : (
     <div
       role='table row'
-      className='data-table-row flex mt-1.5 bg-card shadow'
+      className='data-table-row flex mt-1.5 bg-card shadow rounded-sm'
     >
       <div
         role='cell'

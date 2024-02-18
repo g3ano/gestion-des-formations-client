@@ -121,14 +121,14 @@ function EmployeeEdit() {
               <span>Resté</span>
             </Button>
             <Button
-              className='px-5'
+              className='pr-4'
               onClick={handleEdit}
               disabled={!isDirty || mutation.isPending}
             >
               <Icon
                 render={mutation.isPending ? Loader2 : Save}
                 size='sm'
-                className={cn('mr-2', {
+                className={cn('mr-1', {
                   'animate-spin': mutation.isPending,
                 })}
               />

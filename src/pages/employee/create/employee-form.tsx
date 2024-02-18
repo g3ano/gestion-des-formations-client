@@ -19,6 +19,7 @@ import { Csp, Sexe } from '@/pages/employee';
 import { EmployeeCreateContext } from '@/pages/employee/create';
 import { Label } from '@/pages/employee/input-label';
 import { format, fromUnixTime, getUnixTime, getYear } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 
 function EmployeeForm() {
@@ -189,7 +190,7 @@ function EmployeeForm() {
                   <Button
                     variant='ghost'
                     className={cn(
-                      'min-w-64 justify-start gap-2 text-left font-normal bg-card normal-case px-2 text-muted-foreground',
+                      'min-w-64 justify-start gap-2 text-left font-normal bg-card normal-case px-2 text-muted-foreground shadow-black/10 shadow',
                       { 'text-foreground': employee.dateNaissance }
                     )}
                   >
@@ -210,6 +211,8 @@ function EmployeeForm() {
                 >
                   <Calendar
                     mode='single'
+                    locale={fr}
+                    weekStartsOn={0}
                     defaultMonth={fromUnixTime(employee.dateNaissance)}
                     selected={fromUnixTime(employee.dateNaissance)}
                     onDayClick={(date) => {
