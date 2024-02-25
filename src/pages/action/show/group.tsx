@@ -2,39 +2,47 @@ import Icon from '@/components/ui/icon';
 import { capitalize, cn } from '@/lib/utils';
 import { Action, getActions } from '@/pages/action';
 import { useQuery } from '@tanstack/react-query';
-import { Loader2, MapPin, UserRound } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { MapPin, UserRound } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
 
 function ActionGroup() {
+  const [searchParams] = useSearchParams();
+  const filterParams: [string, string][] = [];
+
+  for (const [key, value] of searchParams.entries()) {
+    if (key !== 'view') {
+      filterParams.push([key, value]);
+    }
+  }
   const {
     data: actions,
     isSuccess,
     isPending,
   } = useQuery({
-    queryKey: ['actions', 'Group'],
-    queryFn: getActions,
+    queryKey: ['actions', 'group', filterParams],
+
+    queryFn: () => getActions(filterParams),
   });
 
   return (
     <>
       {isPending ? (
-        <div className='flex items-center gap-2'>
-          <Icon
-            render={Loader2}
-            size='sm'
-            className='animate-spin'
-          />
+        <div className='flex gap-2'>
           <div>Loading...</div>
         </div>
       ) : null}
-      {isSuccess &&
-        actions.map((action) => (
-          <CardGroup
-            key={action.action.id}
-            action={action}
-          />
-        ))}
-      <div></div>
+      {isSuccess ? (
+        actions.length ? (
+          actions.map((action) => (
+            <CardGroup
+              key={action.action.id}
+              action={action}
+            />
+          ))
+        ) : (
+          <div className='col-span-12'>Aucune action n&apos;a été trouvée</div>
+        )
+      ) : null}
     </>
   );
 }
@@ -45,7 +53,7 @@ function CardGroup({ action: { action, relationships } }: { action: Action }) {
   return (
     <div
       className={cn(
-        'col-span-4 bg-card rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate hover:scale-105 transition-transform duration-300 delay-300 cursor-pointer'
+        'h-[9.975rem] max-h-min col-span-4 bg-card rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate hover:scale-105 transition-transform duration-300 delay-300 cursor-pointer'
       )}
     >
       <Link

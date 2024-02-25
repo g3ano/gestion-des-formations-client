@@ -36,7 +36,7 @@ const Page = ({ title, actions, children }: PageProps) => {
             </div>
           </div>
         </div>
-        <div className='w-full self-center py-4 h-full overflow-y-auto px-6 bg-background mb-2'>
+        <div className='w-full self-center py-4 h-full overflow-y-auto px-6 bg-background'>
           <div className='max-w-[1750px] mx-auto h-full'>{children}</div>
         </div>
       </div>

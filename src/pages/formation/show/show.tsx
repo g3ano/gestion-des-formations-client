@@ -261,10 +261,16 @@ const FormationPreviewMenu = ({ row }: { row: Row<Formation> }) => {
           </DropdownMenuItem>
 
           <DropdownMenuItem
-            onClick={() => row.toggleSelected()}
+            onClick={() => {
+              if (row.getIsSelected()) {
+                row.toggleSelected(false);
+              } else {
+                row.toggleSelected(true);
+              }
+            }}
             inset
           >
-            Sélectionner
+            {row.getIsSelected() ? 'Désélectionner' : 'Sélectionner'}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem

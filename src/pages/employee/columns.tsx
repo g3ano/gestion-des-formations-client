@@ -18,7 +18,7 @@ const columns: ColumnDef<Employee>[] = [
         variant='ghost'
         size='icon'
         onClick={() => table.toggleAllRowsExpanded()}
-        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0'
+        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0 rounded-none rounded-tf-lg'
       >
         <Icon
           render={table.getIsSomeRowsExpanded() ? ChevronDown : ChevronRight}
@@ -30,7 +30,7 @@ const columns: ColumnDef<Employee>[] = [
         variant='ghost'
         size='icon'
         onClick={() => row.toggleExpanded()}
-        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0'
+        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0 rounded-none'
       >
         <Icon render={row.getIsExpanded() ? ChevronDown : ChevronRight} />
       </Button>

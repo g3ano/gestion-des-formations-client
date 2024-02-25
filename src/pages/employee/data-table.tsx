@@ -166,13 +166,13 @@ function DataTable<TData, TValue>({
           >
             <div
               role='table head'
-              className='grid sticky top-0 z-10 bg-card rounded-lg'
+              className='grid sticky top-0 z-10 bg-card rounded-t-lg'
             >
               {table.getHeaderGroups().map((headerGroup) => (
                 <div
                   role='table row'
                   key={headerGroup.id}
-                  className='w-full flex shadow rounded-lg pr-[2px]'
+                  className='w-full flex shadow rounded-t-lg pr-[2px]'
                 >
                   {headerGroup.headers.map((header) => {
                     return (
@@ -269,7 +269,7 @@ function TableBody<TData>({
             data-index={vr.index}
             ref={(node) => virtualizer.measureElement(node)}
             key={row.id}
-            className='w-full flex absolute rounded-lg'
+            className='w-full flex absolute'
             style={{
               transform: `translateY(${vr.start}px)`,
             }}
@@ -277,7 +277,7 @@ function TableBody<TData>({
             <div>
               <div
                 className={cn(
-                  'flex mt-1 bg-card rounded-lg relative border border-background select-none',
+                  'flex mt-1 bg-card relative border border-background select-none',
                   {
                     'bg-primary/25 border-primary/25': row.getIsSelected(),
                     'cursor-pointer':

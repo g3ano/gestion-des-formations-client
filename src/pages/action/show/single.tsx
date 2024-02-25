@@ -7,13 +7,16 @@ import { getUnixTime } from 'date-fns';
 import { Loader2, MapPin, UserRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// const csp = ['C', 'M', 'CS'];
+// const sexe = ['masculin', 'féminin'];
+
 function ActionSingle() {
   const {
     data: participants,
     isSuccess,
     isPending,
   } = useQuery({
-    queryKey: ['actions'],
+    queryKey: ['actions', 'single'],
     queryFn: getParticipants,
   });
 
@@ -45,7 +48,7 @@ const getProgress = (startDate: number, endDate: number) => {
   const now = getUnixTime(new Date());
   const progress = (now - startDate) / (endDate - startDate);
 
-  return progress > 1 ? 100 : Math.round(progress * 100);
+  return progress >= 1 ? 100 : Math.round(progress * 100);
 };
 
 function CardSingle({
@@ -58,7 +61,7 @@ function CardSingle({
   return (
     <div
       className={cn(
-        'col-span-4 bg-card rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate hover:scale-105 transition-transform duration-300 delay-300 cursor-pointer',
+        'min-h-[9.975rem] col-span-4 bg-card rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate hover:scale-105 transition-transform duration-300 delay-300 cursor-pointer',
         progress === 100 ? 'bg-green-600/10' : 'bg-red-600/10'
       )}
     >
@@ -96,9 +99,9 @@ function CardSingle({
                   size='sm'
                 />
                 <span>
-                  {capitalize(action.relationships.formation.formation.lieu)}
+                  {capitalize(action.relationships.formation.formation.lieu)}.
                 </span>
-                A,
+                à
                 <span>
                   {capitalize(
                     action.relationships.formation.relationships.organisme

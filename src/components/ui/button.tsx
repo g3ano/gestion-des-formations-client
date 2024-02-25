@@ -22,7 +22,7 @@ const buttonVariants = cva(
         ],
         outline: [
           'border ring-1 border-border ring-border text-foreground hover:bg-secondary hover:border-secondary hover:ring-secondary focus-visible:bg-primary focus-visible:border-primary focus-visible:ring-primary',
-          'data-[state=open]:bg-accent/70 data-[state=open]:text-accent-foreground data-[state=open]:border-accent-foreground',
+          'data-[state=open]:bg-accent/70 data-[state=open]:text-accent-foreground data-[state=open]:border-accent',
         ],
         secondary: [
           'bg-secondary text-secondary-foreground shadow hover:bg-primary focus-visible:ring-ring',

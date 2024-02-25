@@ -20,7 +20,7 @@ import { Employee, deleteEmployees } from '@/pages/employee';
 import { useMutation } from '@tanstack/react-query';
 import { Row } from '@tanstack/react-table';
 import { format, fromUnixTime } from 'date-fns';
-import { Loader2, MoreVertical, UserRound } from 'lucide-react';
+import { Loader2, MoreVertical } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -42,11 +42,11 @@ function EmployeeShow({ row, currentWidth }: EmployeeShowProps) {
       <div className='flex flex-col justify-center gap-6 px-20 py-8 group'>
         <div className='flex items-center gap-8'>
           <div className='flex items-center gap-4'>
-            <div className='size-12 bg-accent rounded-lg flex items-center justify-center shadow-inner'>
-              <Icon
-                render={UserRound}
-                size='sm'
-              />
+            <div className='size-12 bg-accent rounded-lg flex items-center justify-center shadow-inner space-x-1'>
+              <span className='font-medium text-xl'>
+                {row.getValue<string>('nom').slice(0, 1).toLocaleUpperCase()}
+                {row.getValue<string>('prenom').slice(0, 1).toLocaleUpperCase()}
+              </span>
             </div>
             <div className='-space-y-1'>
               <div className='flex items-center gap-1'>
@@ -162,10 +162,16 @@ const EmployeePreviewMenu = ({ row }: { row: Row<Employee> }) => {
           </DropdownMenuItem>
 
           <DropdownMenuItem
-            onClick={() => row.toggleSelected()}
+            onClick={() => {
+              if (row.getIsSelected()) {
+                row.toggleSelected(false);
+              } else {
+                row.toggleSelected(true);
+              }
+            }}
             inset
           >
-            Sélectionner
+            {row.getIsSelected() ? 'Désélectionner' : 'Sélectionner'}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem

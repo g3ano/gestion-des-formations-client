@@ -29,7 +29,7 @@ const navigation = [
   {
     label: 'Actions',
     icon: Blocks,
-    to: '/actions?view=compact',
+    to: '/actions?view=group',
   },
 ];
 
@@ -52,7 +52,7 @@ function SideBar() {
                         to={navItem.to}
                         className={({ isActive }) =>
                           cn(
-                            'rounded-lg flex items-center justify-center w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:bg-accent',
+                            'rounded-sm flex items-center justify-center w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:bg-accent',
                             {
                               'bg-primary text-accent-foreground hover:bg-primary/80':
                                 isActive,

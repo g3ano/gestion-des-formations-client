@@ -4,6 +4,7 @@ import Icon from '@/components/ui/icon';
 import axiosClient from '@/lib/axios';
 import { queryClient } from '@/lib/router';
 import { cn } from '@/lib/utils';
+import FilterActions from '@/pages/action/show/filter-action';
 import ActionGroup from '@/pages/action/show/group';
 import ActionSingle from '@/pages/action/show/single';
 import { useMutation } from '@tanstack/react-query';
@@ -21,9 +22,10 @@ function Actions() {
 
   useEffect(() => {
     if (view !== 'group' && view !== 'single') {
-      return navigate('/actions?view=group');
+      navigate('/actions?view=group');
     }
-  }, [navigate, view]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]);
 
   const mutation = useMutation({
     mutationFn: async (body: unknown) => {
@@ -107,17 +109,12 @@ function Actions() {
         </div>
       }
     >
-      <div className='h-full mt-8'>
-        <div className='grid grid-cols-12 gap-4'>
-          <div className='rounded-lg col-span-4 lg:col-span-2 h-full'>
-            <Button
-              className='w-full justify-start'
-              variant='ghost'
-            >
-              Latest
-            </Button>
+      <div className='h-full'>
+        <div className='flex gap-4'>
+          <div className='rounded-lg basis-2/6 lg:basis-1/5 h-full'>
+            <FilterActions />
           </div>
-          <div className='grid grid-cols-12 col-span-8 lg:col-span-10 gap-4'>
+          <div className='h-fit grid grid-cols-12 basis-4/6 lg:basis-4/5 gap-4 pb-8'>
             {view === 'group' && <ActionGroup />}
             {view === 'single' && <ActionSingle />}
           </div>

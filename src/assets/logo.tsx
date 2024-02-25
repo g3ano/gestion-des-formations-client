@@ -7,7 +7,7 @@ const Logo = ({ className, ...props }: LogoProps) => {
     <svg
       viewBox='153.6 165.1 334.4 334.4'
       xmlns='http://www.w3.org/2000/svg'
-      className={cn('size-10 rounded-sm fill-primary', className)}
+      className={cn('size-10 rounded fill-primary', className)}
       {...props}
     >
       <path

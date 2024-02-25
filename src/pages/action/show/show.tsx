@@ -51,6 +51,23 @@ function ActionPreview() {
             <div>
               {action.relationships.formation.relationships.intitule.intitule}
             </div>
+            <div>{action.relationships.formation.relationships.type.type}</div>
+            <div>{action.relationships.employees[0].employee.sexe}</div>
+            <div className='space-y-2'>
+              <p>Employees</p>
+              {action.relationships.employees.map((employee) => (
+                <div
+                  key={employee.employee.id}
+                  className='pl-8'
+                >
+                  <p>
+                    <span>{employee.employee.nom}</span>
+                    <span>{employee.employee.prenom}</span>
+                  </p>
+                  <p>{employee.employee.sexe}</p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

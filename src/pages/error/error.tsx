@@ -22,15 +22,16 @@ export default function ErrorPage({ _error }: { _error?: AxiosError }) {
   if (isRouteErrorResponse(error)) {
     body.status = error.status;
     if (error.status === 404) {
-      body.message = "This page doesn't exist!";
+      body.message = "Cette page n'existe pas!";
     }
 
     if (error.status === 401) {
-      body.message = "You aren't authorized to see this";
+      body.message =
+        "Oups ! Il semble que vous n'ayez pas l'autorisation nécessaire pour accéder à cette page!";
     }
 
     if (error.status === 503) {
-      body.message = 'Looks like our API is down';
+      body.message = 'Il semble que notre API soit hors service';
     }
   }
   if (
