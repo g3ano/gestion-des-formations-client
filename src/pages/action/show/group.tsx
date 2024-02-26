@@ -53,7 +53,7 @@ function CardGroup({ action: { action, relationships } }: { action: Action }) {
   return (
     <div
       className={cn(
-        'h-[9.975rem] max-h-min col-span-4 bg-card rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate hover:scale-105 transition-transform duration-300 delay-300 cursor-pointer'
+        'h-[9.975rem] max-h-min col-span-4 bg-card rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate hover:bg-accent transition-transform duration-300 delay-300 cursor-pointer'
       )}
     >
       <Link

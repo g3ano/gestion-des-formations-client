@@ -1,107 +1,103 @@
 import { Button } from '@/components/ui/button';
-import { capitalize, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { useSearchParams } from 'react-router-dom';
 
 const types = [
-  'formation corporate',
-  'formation induction',
-  'formation de reconversion',
-  'perfectionnement',
-  'stages fournisseurs',
-  'formation/recrutement',
+  'Formation corporate',
+  'Formation induction',
+  'Formation de reconversion',
+  'Perfectionnement',
+  'Stages fournisseurs',
+  'Formation/recrutement',
 ];
 const domaines = ['FST', 'FCM', 'FSP'];
 const codeFormations = ['CDA', 'CDI', 'CDE', 'LDA', 'LDI', 'LDE'];
 const modes = ['Blended', 'Distanciel', 'Présentiel'];
 
 function FilterActions() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const handleButtonClick = (key: string, value: string) => {
-    setSearchParams((prev) => {
-      const _searchParams = new URLSearchParams(prev);
-      _searchParams.set(key, encodeURIComponent(value));
-      return _searchParams;
-    });
-  };
-
   return (
     <div className='flex flex-col gap-8'>
-      <div className='flex flex-col gap-2'>
-        <p className='font-bold uppercase'>type</p>
-        <div className='flex flex-wrap gap-2'>
-          {types.map((type) => (
-            <Button
-              key={type}
-              variant='outline'
-              className={cn('justify-start', {
-                'bg-accent text-accent-foreground border-accent':
-                  decodeURIComponent(searchParams.get('type')!) === type,
-              })}
-              onClick={() => handleButtonClick('type', type)}
-            >
-              {capitalize(type)}
-            </Button>
-          ))}
-        </div>
-      </div>
-      <div className='flex flex-col gap-2'>
-        <p className='font-medium uppercase'>domaine</p>
-        <div className='flex flex-wrap gap-2'>
-          {domaines.map((domaine) => (
-            <Button
-              key={domaine}
-              variant='outline'
-              className={cn('justify-start', {
-                'bg-accent text-accent-foreground border-accent':
-                  decodeURIComponent(searchParams.get('domaine')!) === domaine,
-              })}
-              onClick={() => handleButtonClick('domaine', domaine)}
-            >
-              {domaine}
-            </Button>
-          ))}
-        </div>
-      </div>
-      <div className='flex flex-col gap-2'>
-        <p className='font-medium uppercase'>code formation</p>
-        <div className='flex flex-wrap gap-2'>
-          {codeFormations.map((codeFormation) => (
-            <Button
-              key={codeFormation}
-              variant='outline'
-              className={cn('justify-start', {
-                'bg-accent text-accent-foreground border-accent':
-                  decodeURIComponent(searchParams.get('codeFormation')!) ===
-                  codeFormation,
-              })}
-              onClick={() => handleButtonClick('codeFormation', codeFormation)}
-            >
-              {codeFormation}
-            </Button>
-          ))}
-        </div>
-      </div>
-      <div className='flex flex-col gap-2'>
-        <p className='font-medium uppercase'>mode</p>
-        <div className='flex flex-wrap gap-2'>
-          {modes.map((mode) => (
-            <Button
-              key={mode}
-              variant='outline'
-              className={cn('justify-start', {
-                'bg-accent text-accent-foreground border-accent':
-                  decodeURIComponent(searchParams.get('mode')!) === mode,
-              })}
-              onClick={() => handleButtonClick('mode', mode)}
-            >
-              {mode}
-            </Button>
-          ))}
-        </div>
-      </div>
+      <FilterLayout
+        title='type'
+        filterValues={types}
+      />
+      <FilterLayout
+        title='domaine'
+        filterValues={domaines}
+      />
+      <FilterLayout
+        title='code formation'
+        filterValues={codeFormations}
+      />
+      <FilterLayout
+        title='mode'
+        filterValues={modes}
+      />
     </div>
   );
 }
 
 export default FilterActions;
+
+function FilterLayout({
+  title,
+  filterValues,
+}: {
+  title: string;
+  filterValues: string[];
+}) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const handleButtonClick = (key: string, value: string) => {
+    setSearchParams((prev) => {
+      const _searchParams = new URLSearchParams(prev);
+      const oldValue = _searchParams.get(key);
+      const _value = encodeURIComponent(value);
+
+      if (oldValue && oldValue === _value) {
+        _searchParams.delete(key);
+      } else {
+        _searchParams.set(key, _value);
+      }
+
+      return _searchParams;
+    });
+  };
+
+  return (
+    <div className='flex flex-col gap-2'>
+      <p className='font-medium uppercase'>{title}</p>
+      <div className='flex flex-wrap gap-2'>
+        {filterValues.map((filterValue) => (
+          <Button
+            key={filterValue}
+            variant='outline'
+            className={cn('justify-start', {
+              'bg-accent text-accent-foreground border-accent ring-accent':
+                decodeURIComponent(
+                  searchParams.get(
+                    title.replace(
+                      /(\s)(.)/,
+                      (_fullMatch, _firstMatch, secondMatch: string) =>
+                        secondMatch.toUpperCase()
+                    )
+                  )!
+                ) === filterValue,
+            })}
+            onClick={() =>
+              handleButtonClick(
+                title.replace(
+                  /(\s)(.)/,
+                  (_fullMatch, _firstMatch, secondMatch: string) =>
+                    secondMatch.toUpperCase()
+                ),
+                filterValue
+              )
+            }
+          >
+            {filterValue}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+}

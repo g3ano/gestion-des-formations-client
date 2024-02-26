@@ -61,8 +61,10 @@ function CardSingle({
   return (
     <div
       className={cn(
-        'min-h-[9.975rem] col-span-4 bg-card rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate hover:scale-105 transition-transform duration-300 delay-300 cursor-pointer',
-        progress === 100 ? 'bg-green-600/10' : 'bg-red-600/10'
+        'min-h-[9.975rem] col-span-4 rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate transition-transform duration-300 delay-300 cursor-pointer',
+        progress === 100
+          ? 'bg-green-600/10 hover:bg-green-600/25'
+          : 'bg-red-600/10 hover:bg-red-600/25'
       )}
     >
       <Link

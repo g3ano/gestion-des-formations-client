@@ -1,6 +1,7 @@
 import Page from '@/components/layout/page';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import axiosClient from '@/lib/axios';
 import { queryClient } from '@/lib/router';
 import { cn } from '@/lib/utils';
@@ -110,14 +111,18 @@ function Actions() {
       }
     >
       <div className='h-full'>
-        <div className='flex gap-4'>
-          <div className='rounded-lg basis-2/6 lg:basis-1/5 h-full'>
+        <div className='flex h-full pb-2 gap-4'>
+          <div className='h-full max-w-fit rounded-lg basis-1/12 lg:basis-1/4'>
             <FilterActions />
           </div>
-          <div className='h-fit grid grid-cols-12 basis-4/6 lg:basis-4/5 gap-4 pb-8'>
-            {view === 'group' && <ActionGroup />}
-            {view === 'single' && <ActionSingle />}
-          </div>
+          <ScrollArea className='rounded-lg basis-11/12'>
+            <div className='h-full basis-4/6 lg:basis-4/5'>
+              <div className='grid grid-cols-12 gap-4'>
+                {view === 'group' && <ActionGroup />}
+                {view === 'single' && <ActionSingle />}
+              </div>
+            </div>
+          </ScrollArea>
         </div>
       </div>
     </Page>
