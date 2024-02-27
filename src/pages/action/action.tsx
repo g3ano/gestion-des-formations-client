@@ -5,6 +5,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import axiosClient from '@/lib/axios';
 import { queryClient } from '@/lib/router';
 import { cn } from '@/lib/utils';
+import { View } from '@/pages/action';
 import FilterActions from '@/pages/action/show/filter-action';
 import ActionGroup from '@/pages/action/show/group';
 import ActionSingle from '@/pages/action/show/single';
@@ -13,8 +14,6 @@ import { addDays, getUnixTime, subDays } from 'date-fns';
 import { LayoutGrid, LayoutList } from 'lucide-react';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
-type View = 'group' | 'single' | null;
 
 function Actions() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -79,7 +78,7 @@ function Actions() {
               <Button
                 size='icon'
                 variant='secondary'
-                className={cn('h-full', {
+                className={cn('h-full hover:bg-primary/50', {
                   'bg-card': view === 'single',
                 })}
                 onClick={() => setSearchParams({ view: 'single' })}
@@ -92,7 +91,7 @@ function Actions() {
               <Button
                 size='icon'
                 variant='secondary'
-                className={cn('h-full', {
+                className={cn('h-full hover:bg-primary/50', {
                   'bg-popover': view === 'group',
                 })}
                 onClick={() => setSearchParams({ view: 'group' })}

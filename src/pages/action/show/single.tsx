@@ -1,44 +1,48 @@
 import Icon from '@/components/ui/icon';
 import { capitalize, cn } from '@/lib/utils';
-import { getParticipants } from '@/pages/action/action.api';
-import { Participant } from '@/pages/action/action.type';
+import { Participant, getParticipants } from '@/pages/action';
 import { useQuery } from '@tanstack/react-query';
 import { getUnixTime } from 'date-fns';
-import { Loader2, MapPin, UserRound } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-// const csp = ['C', 'M', 'CS'];
-// const sexe = ['masculin', 'féminin'];
+import { MapPin, UserRound } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
 
 function ActionSingle() {
+  const [searchParams] = useSearchParams();
+  const filterParams: [string, string][] = [];
+
+  for (const [key, value] of searchParams.entries()) {
+    if (key !== 'view') {
+      filterParams.push([key, value]);
+    }
+  }
   const {
     data: participants,
     isSuccess,
     isPending,
   } = useQuery({
-    queryKey: ['actions', 'single'],
-    queryFn: getParticipants,
+    queryKey: ['actions', 'single', filterParams],
+    queryFn: () => getParticipants(filterParams),
   });
 
   return (
     <>
       {isPending ? (
         <div className='flex items-center gap-2'>
-          <Icon
-            render={Loader2}
-            size='sm'
-            className='animate-spin'
-          />
           <div>Loading...</div>
         </div>
       ) : null}
-      {isSuccess &&
-        participants.map((participant) => (
-          <CardSingle
-            key={`${participant.employee.employee.id}${participant.action.action.id}`}
-            participant={participant}
-          />
-        ))}
+      {isSuccess ? (
+        participants.length ? (
+          participants.map((participant) => (
+            <CardSingle
+              key={`${participant.employee.employee.id}${participant.action.action.id}`}
+              participant={participant}
+            />
+          ))
+        ) : (
+          <div className='col-span-12'>Aucune action n&apos;a été trouvée</div>
+        )
+      ) : null}
     </>
   );
 }

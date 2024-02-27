@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { View } from '@/pages/action';
 import { useSearchParams } from 'react-router-dom';
 
 const types = [
@@ -14,7 +15,13 @@ const domaines = ['FST', 'FCM', 'FSP'];
 const codeFormations = ['CDA', 'CDI', 'CDE', 'LDA', 'LDI', 'LDE'];
 const modes = ['Blended', 'Distanciel', 'Présentiel'];
 
+const csp = ['C', 'M', 'CS'];
+const sexe = ['Masculin', 'Féminin'];
+
 function FilterActions() {
+  const [searchParams] = useSearchParams();
+  const view = searchParams.get('view') as View;
+
   return (
     <div className='flex flex-col gap-8'>
       <FilterLayout
@@ -33,6 +40,18 @@ function FilterActions() {
         title='mode'
         filterValues={modes}
       />
+      {view === 'single' && (
+        <>
+          <FilterLayout
+            title='csp'
+            filterValues={csp}
+          />
+          <FilterLayout
+            title='sexe'
+            filterValues={sexe}
+          />
+        </>
+      )}
     </div>
   );
 }
@@ -72,7 +91,7 @@ function FilterLayout({
             key={filterValue}
             variant='outline'
             className={cn('justify-start', {
-              'bg-accent text-accent-foreground border-accent ring-accent':
+              'bg-accent text-accent-foreground border-accent-border ring-accent':
                 decodeURIComponent(
                   searchParams.get(
                     title.replace(

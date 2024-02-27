@@ -1,6 +1,5 @@
 import axiosClient from '@/lib/axios';
-import { Action } from '@/pages/action';
-import { Participant } from '@/pages/action/action.type';
+import { Action, Participant } from '@/pages/action';
 import { AxiosResponse } from 'axios';
 
 export const getActions = async (
@@ -8,8 +7,8 @@ export const getActions = async (
 ): Promise<Action[]> => {
   let searchString = '';
   if (filterParams.length) {
-    for (const filter of filterParams) {
-      searchString += `&${filter[0]}=${filter[1]}`;
+    for (const [filter, filterValue] of filterParams) {
+      searchString += `&${filter}=${filterValue}`;
     }
   }
   const res: AxiosResponse<{ data: Action[] }> = await axiosClient.get(
@@ -18,11 +17,24 @@ export const getActions = async (
   return res.data.data;
 };
 
-export const getParticipants = async (): Promise<Participant[]> => {
+export const getParticipants = async (
+  filterParams: [string, string][]
+): Promise<Participant[]> => {
+  console.log(filterParams);
+  let searchString = '';
+  if (filterParams.length) {
+    for (const [filter, filterValue] of filterParams) {
+      if (filter === 'sexe') {
+        searchString += `&${filter}=${filterValue[0]}`;
+      } else {
+        searchString += `&${filter}=${filterValue}`;
+      }
+    }
+  }
   const res: AxiosResponse<{
     data: Participant[];
   }> = await axiosClient.get(
-    '/participants?include[]=action.formation.intitule&include[]=action.formation.organisme&include[]=action.formation.type&include[]=employee'
+    `/participants?include[]=action.formation.intitule&include[]=action.formation.organisme&include[]=action.formation.type&include[]=employee${searchString}`
   );
   return res.data.data;
 };

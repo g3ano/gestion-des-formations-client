@@ -20,7 +20,6 @@ function ActionGroup() {
     isPending,
   } = useQuery({
     queryKey: ['actions', 'group', filterParams],
-
     queryFn: () => getActions(filterParams),
   });
 

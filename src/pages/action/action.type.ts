@@ -19,3 +19,5 @@ export interface Participant {
   action: Action;
   employee: Employee;
 }
+
+export type View = 'group' | 'single' | null;

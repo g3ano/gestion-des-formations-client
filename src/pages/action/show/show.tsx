@@ -52,7 +52,7 @@ function ActionPreview() {
               {action.relationships.formation.relationships.intitule.intitule}
             </div>
             <div>{action.relationships.formation.relationships.type.type}</div>
-            <div>{action.relationships.employees[0].employee.sexe}</div>
+            <div>{action.relationships.employees[0].employee.csp}</div>
             <div className='space-y-2'>
               <p>Employees</p>
               {action.relationships.employees.map((employee) => (
