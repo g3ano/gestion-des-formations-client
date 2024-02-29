@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface PageProps {
-  title: string;
+  title?: string;
   actions?: React.ReactNode;
   className?: string;
   children: React.ReactNode;

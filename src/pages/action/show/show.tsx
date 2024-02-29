@@ -5,14 +5,18 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { getAction, useProgress } from '@/pages/action';
 import { useQuery } from '@tanstack/react-query';
-import { format, fromUnixTime, isBefore } from 'date-fns';
+import { format, fromUnixTime } from 'date-fns';
 import { Calendar, CalendarCheck, Goal } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
 function ActionPreview() {
   const { actionId } = useParams() as { actionId: string };
 
-  const { data: action, isSuccess } = useQuery({
+  const {
+    data: action,
+    isSuccess,
+    isPending,
+  } = useQuery({
     queryKey: ['employees', { actionId }, 'edit'],
     queryFn: () => getAction(actionId),
   });
@@ -24,7 +28,6 @@ function ActionPreview() {
 
   return (
     <Page
-      title=''
       actions={
         <div className='flex items-center justify-end gap-2'>
           <div className='flex items-center gap-4'>
@@ -43,6 +46,7 @@ function ActionPreview() {
       <div className='h-full'>
         <div className='flex h-full pb-2 gap-8 lg:gap-16'>
           <ScrollArea className='w-full h-full rounded-lg'>
+            {isPending && <div>Loading...</div>}
             {isSuccess && (
               <div className='h-full basis-4/6 lg:basis-4/5'>
                 <div className='w-full'>
@@ -95,12 +99,7 @@ function ActionPreview() {
                           />
                           <div className='flex justify-center gap-1'>
                             <p>
-                              {isBefore(
-                                new Date(),
-                                fromUnixTime(action.action.dateFin)
-                              )
-                                ? 'Terminera le'
-                                : 'Terminée le'}
+                              {progress < 100 ? 'Terminera le' : 'Terminée le'}
                             </p>
                             <p className='line-clamp-2 flex-1'>
                               {format(

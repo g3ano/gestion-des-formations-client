@@ -49,7 +49,8 @@ function Actions() {
         dateFin: getUnixTime(
           addDays(new Date(), Math.round(Math.random() * 9) + 1)
         ),
-        prevision: 'Lorem ipsum dolor',
+        prevision:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum commodi, quibusdam iste atque odio eius autem, tempore qui illum perspiciatis hic, fuga et consequuntur. Dicta quia doloremque molestias harum vel',
       },
       participants: [
         {
@@ -78,7 +79,7 @@ function Actions() {
               <Button
                 size='icon'
                 variant='secondary'
-                className={cn('h-full hover:bg-primary/50', {
+                className={cn('h-full hover:bg-primary', {
                   'bg-card': view === 'single',
                 })}
                 onClick={() => setSearchParams({ view: 'single' })}
@@ -91,7 +92,7 @@ function Actions() {
               <Button
                 size='icon'
                 variant='secondary'
-                className={cn('h-full hover:bg-primary/50', {
+                className={cn('h-full hover:bg-primary', {
                   'bg-popover': view === 'group',
                 })}
                 onClick={() => setSearchParams({ view: 'group' })}
