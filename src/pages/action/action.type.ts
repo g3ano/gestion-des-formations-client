@@ -7,7 +7,7 @@ export interface Action {
     dateDebut: number;
     dateFin: number;
     prevision: string;
-    createdAt: string;
+    createdAt: number;
   };
   relationships: {
     formation: Formation;

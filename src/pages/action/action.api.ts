@@ -20,7 +20,6 @@ export const getActions = async (
 export const getParticipants = async (
   filterParams: [string, string][]
 ): Promise<Participant[]> => {
-  console.log(filterParams);
   let searchString = '';
   if (filterParams.length) {
     for (const [filter, filterValue] of filterParams) {

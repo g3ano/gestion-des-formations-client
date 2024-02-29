@@ -1,8 +1,8 @@
 import Icon from '@/components/ui/icon';
+import { Progress } from '@/components/ui/progress';
 import { capitalize, cn } from '@/lib/utils';
-import { Participant, getParticipants } from '@/pages/action';
+import { Participant, getParticipants, useProgress } from '@/pages/action';
 import { useQuery } from '@tanstack/react-query';
-import { getUnixTime } from 'date-fns';
 import { MapPin, UserRound } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 
@@ -48,19 +48,12 @@ function ActionSingle() {
 }
 export default ActionSingle;
 
-const getProgress = (startDate: number, endDate: number) => {
-  const now = getUnixTime(new Date());
-  const progress = (now - startDate) / (endDate - startDate);
-
-  return progress >= 1 ? 100 : Math.round(progress * 100);
-};
-
 function CardSingle({
   participant: { action, employee },
 }: {
   participant: Participant;
 }) {
-  const progress = getProgress(action.action.dateDebut, action.action.dateFin);
+  const progress = useProgress(action.action.dateDebut, action.action.dateFin);
 
   return (
     <div
@@ -117,12 +110,13 @@ function CardSingle({
               </p>
             </div>
             <div className='absolute bottom-0 inset-x-0 h-1'>
-              <div
-                className={
+              <Progress
+                value={progress}
+                className='w-full bg-inherit'
+                indicatorClassName={
                   progress === 100 ? 'h-full bg-green-700' : 'h-full bg-red-700'
                 }
-                style={{ width: `${progress}%` }}
-              ></div>
+              />
             </div>
           </div>
         </div>

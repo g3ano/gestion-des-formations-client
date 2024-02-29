@@ -66,7 +66,7 @@ function FilterLayout({
   filterValues: string[];
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const handleButtonClick = (key: string, value: string) => {
+  const handleClick = (key: string, value: string) => {
     setSearchParams((prev) => {
       const _searchParams = new URLSearchParams(prev);
       const oldValue = _searchParams.get(key);
@@ -103,7 +103,7 @@ function FilterLayout({
                 ) === filterValue,
             })}
             onClick={() =>
-              handleButtonClick(
+              handleClick(
                 title.replace(
                   /(\s)(.)/,
                   (_fullMatch, _firstMatch, secondMatch: string) =>

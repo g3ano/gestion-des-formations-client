@@ -3,6 +3,8 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router-dom';
 import '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { fr } from 'date-fns/locale';
+import { setDefaultOptions } from 'date-fns';
 
 declare module '@tanstack/react-query' {
   interface Register {
@@ -11,6 +13,9 @@ declare module '@tanstack/react-query' {
     }>;
   }
 }
+
+setDefaultOptions({ locale: fr, weekStartsOn: 0 });
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>

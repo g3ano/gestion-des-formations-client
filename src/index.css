@@ -36,7 +36,7 @@
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted-foreground: 240 3.8% 88.1%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
@@ -59,7 +59,7 @@
     --secondary: 0 0% 31%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 17%;
-    --muted-foreground: 0 0% 75%;
+    --muted-foreground: 0 0% 78%;
     --accent: 0 0% 31%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
@@ -103,5 +103,10 @@
 @layer components {
   .data-table-cell {
     @apply flex items-center px-4 py-2 w-full;
+  }
+  .progress-ring-circle {
+    transition: stroke-dashoffset 0.35s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
   }
 }

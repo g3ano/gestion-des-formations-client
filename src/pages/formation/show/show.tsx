@@ -28,8 +28,8 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
   return (
     <div className='w-full flex rounded-lg'>
       <ScrollArea className='-mb-0.5 rounded-lg drop-shadow w-full'>
-        <div className='flex flex-col justify-between gap-4'>
-          <div className='bg-card rounded-lg space-y-1.5'>
+        <div className='flex flex-col justify-between gap-1'>
+          <div className='bg-card rounded-[5px] space-y-1.5'>
             <div className='flex min-h-12 items-center justify-between bg-accent px-4 py-1 absolute inset-x-0 top-0 z-10 rounded-t-lg'>
               <div className=''>
                 <FormationPreviewMenu row={row} />
@@ -56,10 +56,15 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               </p>
             </div>
           </div>
-          <div className='bg-card rounded-lg p-4 space-y-1.5'>
+          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
             <p className='font-medium line-clamp-2 pb-1 text-muted-foreground'>
               Formation
             </p>
+            <Presentation
+              column='lieu'
+              rowValue={row.getValue('lieu')}
+              inline
+            />
             <Presentation
               column='structure'
               rowValue={row.getValue('structure')}
@@ -73,30 +78,9 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               isUpperCase
             />
             <Presentation
-              column='lieu'
-              rowValue={row.getValue('lieu')}
-              inline
-            />
-            <Presentation
               column='code formation'
               rowValue={row.getValue('codeFormation')}
               inline
-            />
-            <Presentation
-              column='organisme'
-              rowValue={row.getValue('organisme')}
-              inline
-            />
-            <Presentation
-              column='type'
-              rowValue={row.getValue('type')}
-              inline
-            />
-            <Presentation
-              column='domaine'
-              rowValue={row.getValue('domaine')}
-              inline
-              isUpperCase
             />
             <Presentation
               column='code domaine'
@@ -105,15 +89,29 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-card rounded-lg p-4 space-y-1.5 mb-0.5'>
-            <p className='font-medium line-clamp-2 text-muted-foreground'>
-              Categorie
-            </p>
-            <p className='line-clamp-4 pt-1'>
-              {capitalize(row.getValue('categorie'))}
-            </p>
+          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
+            <Presentation
+              column='organisme'
+              rowValue={row.getValue('organisme')}
+              multiline
+            />
+            <Presentation
+              column='categorie'
+              rowValue={row.getValue('categorie')}
+              multiline
+            />
+            <Presentation
+              column='type'
+              rowValue={row.getValue('type')}
+              multiline
+            />
+            <Presentation
+              column='domaine'
+              rowValue={row.getValue('domaine')}
+              multiline
+            />
           </div>
-          <div className='bg-card rounded-lg p-4 space-y-1.5'>
+          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
             <p className='font-medium line-clamp-2 pb-1 text-muted-foreground'>
               Effectif à former
             </p>
@@ -136,7 +134,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-card rounded-lg p-4 space-y-1.5'>
+          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
             <p className='font-medium line-clamp-2 pb-1 text-muted-foreground'>
               Coût
             </p>
@@ -171,7 +169,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-card rounded-lg p-4 space-y-1.5 mb-0.5'>
+          <div className='bg-card rounded-b-lg rounded-t-[5px] p-4 space-y-1.5 mb-0.5'>
             <p className='font-medium line-clamp-2 text-muted-foreground'>
               Observation
             </p>
@@ -193,20 +191,23 @@ const Presentation = ({
   isCapitalized = true,
   isUpperCase = false,
   inline = false,
+  multiline = false,
 }: {
   column: string;
   rowValue: string;
   isCapitalized?: boolean;
   isUpperCase?: boolean;
   inline?: boolean;
+  multiline?: boolean;
 }) => (
   <div
     className={cn('flex flex-col', {
       'flex-row justify-between gap-4': inline,
+      'flex-col gap-1': multiline,
     })}
   >
     <p className='flex-1 line-clamp-1 2xl:line-clamp-none text-muted-foreground'>
-      {capitalize(column)}:
+      {capitalize(column)}
     </p>
     {isCapitalized && (
       <p className={cn('line-clamp-2 flex-1', { uppercase: isUpperCase })}>
@@ -248,7 +249,6 @@ const FormationPreviewMenu = ({ row }: { row: Row<Formation> }) => {
             />
           </Button>
         </DropdownMenuTrigger>
-
         <DropdownMenuContent
           align='start'
           className='w-64'
@@ -259,7 +259,6 @@ const FormationPreviewMenu = ({ row }: { row: Row<Formation> }) => {
           >
             <Link to={`/formations/${row.id}/edit`}>Modifier</Link>
           </DropdownMenuItem>
-
           <DropdownMenuItem
             onClick={() => {
               if (row.getIsSelected()) {
