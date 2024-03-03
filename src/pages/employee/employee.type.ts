@@ -16,9 +16,9 @@ export interface Employee {
     dateNaissance: number;
     lieuNaissance: string;
     email: string;
-    createdAt: string;
+    createdAt: number;
   };
-  relationships: {
+  relationships?: {
     actions: Action[];
   };
 }

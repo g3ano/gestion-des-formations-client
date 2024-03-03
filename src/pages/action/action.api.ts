@@ -44,7 +44,7 @@ export const getAction = async (actionId: string) => {
   }> = await axiosClient.get(
     `/actions/${
       actionId ?? ''
-    }?include[]=formation.intitule&include[]=formation.type&include[]=formation.organisme&include[]=employees`
+    }?include[]=formation.intitule&include[]=formation.type&include[]=formation.categorie&include[]=formation.organisme&include[]=formation.cout&include[]=formation.code_domaine&include[]=formation.domaine&include[]=formation.type&include[]=employees`
   );
   return res.data.data;
 };

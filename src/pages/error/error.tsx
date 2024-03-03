@@ -10,7 +10,13 @@ import {
   useRouteError,
 } from 'react-router-dom';
 
-export default function ErrorPage({ _error }: { _error?: AxiosError }) {
+export default function ErrorPage({
+  _error,
+  global = false,
+}: {
+  _error?: AxiosError;
+  global?: boolean;
+}) {
   const error = (useRouteError() as ErrorResponse) || _error;
   const body = {
     status: 200,
@@ -51,7 +57,11 @@ export default function ErrorPage({ _error }: { _error?: AxiosError }) {
   }
 
   return (
-    <section className='w-full h-screen flex items-center'>
+    <section
+      className={cn('w-full h-full flex items-center', {
+        'h-screen': global,
+      })}
+    >
       <div className='mx-auto max-w-screen-xl'>
         <div className='-z-10 fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'>
           <Icon

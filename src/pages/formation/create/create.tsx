@@ -93,11 +93,11 @@ function FormationCreate() {
               <Icon
                 render={mutation.isPending ? Loader2 : Save}
                 size='sm'
-                className={cn('mr-2', {
+                className={cn('mr-1', {
                   'animate-spin': mutation.isPending,
                 })}
               />
-              <span>Modifier</span>
+              <span>Crée</span>
             </Button>
           </div>
         </div>

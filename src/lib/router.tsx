@@ -19,7 +19,7 @@ export const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     element: <Default />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage global />,
     children: [
       {
         path: '/',
