@@ -16,6 +16,8 @@ export interface Employee {
     dateNaissance: number;
     lieuNaissance: string;
     email: string;
+    isActive?: boolean;
+    startedAt?: number;
     createdAt: number;
   };
   relationships?: {

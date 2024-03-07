@@ -2,6 +2,7 @@ import { Header } from '@/components/data-table/columns';
 import { arrEquals, arrIncludeSomeNumber } from '@/lib/filter-fns';
 import { Formation } from '@/pages/formation';
 import { ColumnDef } from '@tanstack/react-table';
+import { format, fromUnixTime } from 'date-fns';
 
 const minSize = 175;
 const maxSize = 500;
@@ -327,6 +328,11 @@ const columns: ColumnDef<Formation>[] = [
           column={column}
           table={table}
         />
+      );
+    },
+    cell: (row) => {
+      return (
+        <span>{format(fromUnixTime(row.getValue() as number), 'dd-MM-y')}</span>
       );
     },
     enableSorting: false,

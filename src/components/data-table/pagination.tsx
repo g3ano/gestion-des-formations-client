@@ -60,7 +60,7 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
               >
                 {page === lastPage && pages.length > 4 && (
                   <PaginationItem>
-                    <PaginationEllipsis />
+                    <PaginationEllipsis className='flex items-end' />
                   </PaginationItem>
                 )}
                 <PaginationItem>
@@ -73,7 +73,7 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
                 </PaginationItem>
                 {page === firstPage && pages.length > 4 && (
                   <PaginationItem>
-                    <PaginationEllipsis />
+                    <PaginationEllipsis className='flex items-end' />
                   </PaginationItem>
                 )}
               </div>

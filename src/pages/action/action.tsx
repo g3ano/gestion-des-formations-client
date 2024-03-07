@@ -2,18 +2,14 @@ import Page from '@/components/layout/page';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import axiosClient from '@/lib/axios';
-import { queryClient } from '@/lib/router';
 import { cn } from '@/lib/utils';
 import { View } from '@/pages/action';
-import FilterActions from '@/pages/action/show/filter-action';
-import ActionGroup from '@/pages/action/show/group';
-import ActionSingle from '@/pages/action/show/single';
-import { useMutation } from '@tanstack/react-query';
-import { addDays, getUnixTime, subDays } from 'date-fns';
+import FilterActions from '@/pages/action/components/filter-action';
+import ActionGroup from '@/pages/action/layout/group';
+import ActionSingle from '@/pages/action/layout/single';
 import { LayoutGrid, LayoutList } from 'lucide-react';
 import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 function Actions() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,48 +22,6 @@ function Actions() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view]);
-
-  const mutation = useMutation({
-    mutationFn: async (body: unknown) => {
-      const res: unknown = await axiosClient.post('/actions', body);
-      return res;
-    },
-    onSuccess: () => {
-      void queryClient.invalidateQueries({
-        queryKey: ['actions'],
-      });
-    },
-  });
-
-  const handleActionCreate = () => {
-    mutation.mutate({
-      action: {
-        formationId: Math.round(Math.random() * 100) + 1,
-        dateDebut: getUnixTime(
-          subDays(new Date(), Math.round(Math.random() * 9) + 1)
-        ),
-        dateFin: getUnixTime(
-          addDays(new Date(), Math.round(Math.random() * 9) + 1)
-        ),
-        prevision:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum commodi, quibusdam iste atque odio eius autem, tempore qui illum perspiciatis hic, fuga et consequuntur. Dicta quia doloremque molestias harum vel',
-      },
-      participants: [
-        {
-          employeeId: Math.round(Math.random() * 100) + 1,
-          observation: 'Lorem ipsum dolor sit',
-        },
-        {
-          employeeId: Math.round(Math.random() * 100) + 1,
-          observation: 'Lorem ipsum dolor sit',
-        },
-        {
-          employeeId: Math.round(Math.random() * 100) + 1,
-          observation: 'Lorem ipsum dolor sit',
-        },
-      ],
-    });
-  };
 
   return (
     <Page
@@ -103,8 +57,10 @@ function Actions() {
                 />
               </Button>
             </div>
-            <Button onClick={handleActionCreate}>
-              <span>Nouveau Action</span>
+            <Button asChild>
+              <Link to='/actions/create'>
+                <span>Nouveau Action</span>
+              </Link>
             </Button>
           </div>
         </div>

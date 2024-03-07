@@ -1,5 +1,5 @@
 import { Default } from '@/components/layout/default';
-import { ActionPreview, Actions } from '@/pages/action';
+import { ActionCreate, ActionPreview, Actions } from '@/pages/action';
 import { Dashboard } from '@/pages/dashboard';
 import { EmployeeEdit, Employees } from '@/pages/employee';
 import { EmployeeCreate } from '@/pages/employee/create';
@@ -65,6 +65,10 @@ const router = createBrowserRouter([
           {
             path: '/actions',
             element: <Actions />,
+          },
+          {
+            path: '/actions/create',
+            element: <ActionCreate />,
           },
           {
             path: '/actions/:actionId',

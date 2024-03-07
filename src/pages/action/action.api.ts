@@ -1,5 +1,5 @@
 import axiosClient from '@/lib/axios';
-import { Action, Participant } from '@/pages/action';
+import { Action, ActionFormData, Participant } from '@/pages/action';
 import { AxiosResponse } from 'axios';
 
 export const getActions = async (
@@ -47,4 +47,15 @@ export const getAction = async (actionId: string) => {
     }?include[]=formation.intitule&include[]=formation.type&include[]=formation.categorie&include[]=formation.organisme&include[]=formation.cout&include[]=formation.code_domaine&include[]=formation.domaine&include[]=formation.type&include[]=employees`
   );
   return res.data.data;
+};
+
+export const createAction = async (action: ActionFormData) => {
+  const res: {
+    data: {
+      message: string;
+      actionId: number;
+    };
+  } = await axiosClient.post('/actions', action);
+
+  return res.data;
 };

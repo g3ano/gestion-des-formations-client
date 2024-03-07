@@ -186,7 +186,7 @@ const columns: ColumnDef<Employee>[] = [
     },
     cell: (row) => {
       return (
-        <span>{format(fromUnixTime(row.getValue() as number), 'y-MM-dd')}</span>
+        <span>{format(fromUnixTime(row.getValue() as number), 'dd-MM-y')}</span>
       );
     },
     minSize,
@@ -219,6 +219,11 @@ const columns: ColumnDef<Employee>[] = [
           column={column}
           table={table}
         />
+      );
+    },
+    cell: (row) => {
+      return (
+        <span>{format(fromUnixTime(row.getValue() as number), 'dd-MM-y')}</span>
       );
     },
     enableSorting: false,

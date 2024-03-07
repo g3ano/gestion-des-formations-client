@@ -8,7 +8,6 @@ export interface Action {
     dateFin: number;
     prevision: string;
     createdAt: number;
-    activeEmployees?: ActiveEmployee[];
   };
   relationships: {
     formation: Formation;
@@ -21,9 +20,17 @@ export interface Participant {
   employee: Employee;
 }
 
-export type ActiveEmployee = {
-  id: number;
-  startedAt: number;
-};
-
 export type View = 'group' | 'single' | null;
+
+export interface ActionFormData {
+  action: {
+    dateDebut: number;
+    dateFin: number;
+    prevision?: string;
+    formationId: number;
+  };
+  participants: {
+    employeeId: number;
+    observation?: string;
+  }[];
+}
