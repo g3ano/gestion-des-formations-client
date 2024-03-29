@@ -20,8 +20,8 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
   );
 
   return (
-    <div className='w-full flex items-center justify-between'>
-      <div className='w-1/2 flex items-center gap-4'>
+    <div className='flex w-full items-center justify-between'>
+      <div className='flex w-1/2 items-center gap-4'>
         <div className='flex items-center justify-center gap-1'>
           <span>Page</span>
           <span className='font-bold'>
@@ -54,10 +54,7 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
               </PaginationButton>
             </PaginationItem>
             {pages.map((page) => (
-              <div
-                key={page}
-                className='flex items-center gap-1'
-              >
+              <div key={page} className='flex items-center gap-1'>
                 {page === lastPage && pages.length > 4 && (
                   <PaginationItem>
                     <PaginationEllipsis className='flex items-end' />

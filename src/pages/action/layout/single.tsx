@@ -34,10 +34,7 @@ function ActionSingle() {
       {isSuccess ? (
         participants.length ? (
           participants.map((participant) => (
-            <CardSingle
-              key={`${participant.employee.employee.id}${participant.action.action.id}`}
-              participant={participant}
-            />
+            <CardSingle key={participant.id} participant={participant} />
           ))
         ) : (
           <div className='col-span-12'>Aucune action n&apos;a été trouvée</div>
@@ -53,36 +50,38 @@ function CardSingle({
 }: {
   participant: Participant;
 }) {
-  const progress = useProgress(action.action.dateDebut, action.action.dateFin);
+  const progress = useProgress(
+    action?.action.dateDebut,
+    action?.action.dateFin
+  );
 
   return (
     <div
       className={cn(
-        'min-h-[9.975rem] col-span-4 rounded-lg px-4 py-3 pb-4 relative overflow-hidden group isolate transition-transform duration-300 delay-300 cursor-pointer',
-        progress === 100
+        'group relative isolate col-span-4 min-h-[9.975rem] cursor-pointer overflow-hidden rounded-lg px-4 py-3 pb-4 transition-transform delay-300 duration-300',
+        progress && progress === 100
           ? 'bg-green-600/10 hover:bg-green-600/25'
           : 'bg-red-600/10 hover:bg-red-600/25'
       )}
     >
       <Link
-        to={`/actions/${action.action.id}`}
+        to={`/actions/${action?.action.id}`}
         className='absolute inset-0'
       ></Link>
-      <div className='bg-card/75 absolute -z-50 inset-0'></div>
+      <div className='absolute inset-0 -z-50 bg-card/75'></div>
       <div className='flex h-full'>
-        <div className='flex flex-col justify-between flex-1'>
-          <h3 className='text-lg mb-4 line-clamp-2'>
-            {capitalize(
-              action.relationships.formation.relationships.intitule.intitule
-            )}
-          </h3>
+        <div className='flex flex-1 flex-col justify-between'>
+          {action?.relationships.formation && (
+            <h3 className='mb-4 line-clamp-2 text-lg'>
+              {capitalize(
+                action?.relationships.formation.relationships.intitule.intitule
+              )}
+            </h3>
+          )}
           <div className='flex items-center gap-1'>
             <div className='space-y-1'>
               <p className='flex items-center gap-1'>
-                <Icon
-                  render={UserRound}
-                  size='sm'
-                />
+                <Icon render={UserRound} size='sm' />
                 {employee ? (
                   <>
                     <span>{employee.employee.nom ?? 'John'}</span>
@@ -92,24 +91,23 @@ function CardSingle({
                   <span className='opacity-70'>No participant</span>
                 )}
               </p>
-              <p className='flex items-center gap-1'>
-                <Icon
-                  render={MapPin}
-                  size='sm'
-                />
-                <span>
-                  {capitalize(action.relationships.formation.formation.lieu)}.
-                </span>
-                à
-                <span>
-                  {capitalize(
-                    action.relationships.formation.relationships.organisme
-                      .organisme
-                  )}
-                </span>
-              </p>
+              {action?.relationships.formation && (
+                <p className='flex items-center gap-1'>
+                  <Icon render={MapPin} size='sm' />
+                  <span>
+                    {capitalize(action.relationships.formation.formation.lieu)}.
+                  </span>
+                  à
+                  <span>
+                    {capitalize(
+                      action.relationships.formation.relationships.organisme
+                        .organisme
+                    )}
+                  </span>
+                </p>
+              )}
             </div>
-            <div className='absolute bottom-0 inset-x-0 h-1'>
+            <div className='absolute inset-x-0 bottom-0 h-1'>
               <Progress
                 value={progress}
                 className='w-full bg-inherit'

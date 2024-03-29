@@ -20,16 +20,10 @@ function VisibilityOptions<TData>({ table }: VisibilityOptionsProps<TData>) {
     <Popover>
       <PopoverTrigger asChild>
         <Button size='icon'>
-          <Icon
-            render={Eye}
-            size='sm'
-          />
+          <Icon render={Eye} size='sm' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        align='end'
-        className='h-full p-0'
-      >
+      <PopoverContent align='end' className='h-full p-0'>
         <VisibilityOptionsList table={table} />
       </PopoverContent>
     </Popover>
@@ -55,10 +49,7 @@ function VisibilityOptionsList<TData>({
   });
 
   return (
-    <div
-      ref={parentRef}
-      className='h-[280px] overflow-y-auto py-2'
-    >
+    <div ref={parentRef} className='h-[280px] overflow-y-auto py-2'>
       <div
         className='relative w-full'
         style={{
@@ -74,22 +65,17 @@ function VisibilityOptionsList<TData>({
                 height: `${vc.size}px`,
                 transform: `translateY(${vc.start}px)`,
               }}
-              className='absolute top-0 left-0 w-full'
+              className='absolute left-0 top-0 w-full'
             >
               {column.getCanHide() && (
                 <div
-                  className='cursor-pointer pl-4 pr-2 py-1 flex items-center justify-between gap-1 hover:bg-accent hover:text-accent-foreground'
+                  className='flex cursor-pointer items-center justify-between gap-1 py-1 pl-4 pr-2 hover:bg-accent hover:text-accent-foreground'
                   onClick={() => column.toggleVisibility()}
                 >
-                  <p className='truncate flex-1 select-none text-sm'>
+                  <p className='flex-1 select-none truncate text-sm'>
                     {capitalize(column?.id)}
                   </p>
-                  {column.getIsVisible() && (
-                    <Icon
-                      render={Check}
-                      size='sm'
-                    />
-                  )}
+                  {column.getIsVisible() && <Icon render={Check} size='sm' />}
                 </div>
               )}
             </div>

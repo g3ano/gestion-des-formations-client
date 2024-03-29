@@ -31,17 +31,14 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         ref={ref}
         htmlFor={htmlFor}
         className={cn(
-          'flex-1 flex flex-col gap-2 truncate p-0.5 relative',
+          'relative flex flex-1 flex-col gap-2 truncate p-0.5',
           className
         )}
         {...props}
       >
         <span className='text-muted-foreground '>{capitalize(label)}</span>
 
-        <Popover
-          open={!!error}
-          onOpenChange={() => setError('')}
-        >
+        <Popover open={!!error} onOpenChange={() => setError('')}>
           <PopoverTrigger asChild>
             <span>{children}</span>
           </PopoverTrigger>
@@ -49,7 +46,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
             <PopoverContent
               side='top'
               align='end'
-              className='flex items-center justify-center px-2 bg-destructive border-red-800'
+              className='flex items-center justify-center border-red-800 bg-destructive px-2'
               sideOffset={10}
             >
               <span>{error}</span>

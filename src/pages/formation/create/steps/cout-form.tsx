@@ -27,16 +27,13 @@ function CoutForm() {
       <div className='space-y-20'>
         <div className='flex flex-col gap-8'>
           <div className='flex items-center justify-center gap-8'>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-medium text-xl'>Effectif à former</span>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
+            <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
+            <span className='text-xl font-medium'>Effectif à former</span>
+            <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
           </div>
           <div className='flex items-center gap-4'>
             <div className='flex-1 space-y-2'>
-              <Label
-                label='effectif'
-                htmlFor='effectif'
-              >
+              <Label label='effectif' htmlFor='effectif'>
                 <Input
                   type='number'
                   name='effectif'
@@ -48,10 +45,7 @@ function CoutForm() {
               </Label>
             </div>
             <div className='flex-1 space-y-2'>
-              <Label
-                label='durree'
-                htmlFor='durree'
-              >
+              <Label label='durree' htmlFor='durree'>
                 <Input
                   type='number'
                   name='durree'
@@ -66,16 +60,13 @@ function CoutForm() {
         </div>
         <div className='flex flex-col gap-8'>
           <div className='flex items-center justify-center gap-4'>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-medium text-xl'>Coût</span>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
+            <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
+            <span className='text-xl font-medium'>Coût</span>
+            <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
           </div>
           <div className='space-y-8'>
             <div className='flex items-center gap-4'>
-              <Label
-                htmlFor='pedagogiques'
-                label='Frais pédagogiques'
-              >
+              <Label htmlFor='pedagogiques' label='Frais pédagogiques'>
                 <Input
                   name='pedagogiques'
                   id='pedagogiques'
@@ -99,10 +90,7 @@ function CoutForm() {
                   placeholder="Entrer frais d'Hébergement & Restauration..."
                 />
               </Label>
-              <Label
-                htmlFor='transport'
-                label='Frais de transport'
-              >
+              <Label htmlFor='transport' label='Frais de transport'>
                 <Input
                   name='transport'
                   id='transport'
@@ -115,10 +103,7 @@ function CoutForm() {
             </div>
 
             <div className='flex items-center gap-4'>
-              <Label
-                htmlFor='presalaire'
-                label='Présalaire'
-              >
+              <Label htmlFor='presalaire' label='Présalaire'>
                 <Input
                   name='presalaire'
                   id='presalaire'
@@ -128,10 +113,7 @@ function CoutForm() {
                   placeholder='Entrer presalaire..'
                 />
               </Label>
-              <Label
-                htmlFor='autresCharges'
-                label='Autres charges'
-              >
+              <Label htmlFor='autresCharges' label='Autres charges'>
                 <Input
                   name='autresCharges'
                   id='autresCharges'
@@ -141,10 +123,7 @@ function CoutForm() {
                   placeholder='Entrer autres charges...'
                 />
               </Label>
-              <Label
-                htmlFor='dontDevise'
-                label='Dont device'
-              >
+              <Label htmlFor='dontDevise' label='Dont device'>
                 <Input
                   name='dontDevise'
                   id='dontDevise'

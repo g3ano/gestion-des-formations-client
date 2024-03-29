@@ -27,20 +27,14 @@ function RowPerPage<TData>({ table }: { table: Table<TData> }) {
                 <SelectValue placeholder='100' />
               </SelectTrigger>
             </TooltipTrigger>
-            <TooltipContent
-              side='top'
-              sideOffset={20}
-            >
+            <TooltipContent side='top' sideOffset={20}>
               Sélectionner combien de ligne par page
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <SelectContent align='end'>
           {[25, 50, 100, 200, 500].map((item) => (
-            <SelectItem
-              key={item}
-              value={String(item)}
-            >
+            <SelectItem key={item} value={String(item)}>
               {item}
             </SelectItem>
           ))}

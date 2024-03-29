@@ -29,7 +29,7 @@ function Actions() {
       actions={
         <div className='flex items-center justify-end gap-2'>
           <div className='flex items-center gap-4'>
-            <div className='flex items-center gap-1 bg-secondary p-1  h-9 rounded-lg'>
+            <div className='flex h-9 items-center gap-1 rounded-lg  bg-secondary p-1'>
               <Button
                 size='icon'
                 variant='secondary'
@@ -38,10 +38,7 @@ function Actions() {
                 })}
                 onClick={() => setSearchParams({ view: 'single' })}
               >
-                <Icon
-                  render={LayoutList}
-                  size='sm'
-                />
+                <Icon render={LayoutList} size='sm' />
               </Button>
               <Button
                 size='icon'
@@ -51,10 +48,7 @@ function Actions() {
                 })}
                 onClick={() => setSearchParams({ view: 'group' })}
               >
-                <Icon
-                  render={LayoutGrid}
-                  size='sm'
-                />
+                <Icon render={LayoutGrid} size='sm' />
               </Button>
             </div>
             <Button asChild>
@@ -67,11 +61,11 @@ function Actions() {
       }
     >
       <div className='h-full'>
-        <div className='flex h-full pb-2 gap-4'>
-          <div className='h-full max-w-fit rounded-lg basis-1/12 lg:basis-1/4'>
+        <div className='flex h-full gap-4 pb-2'>
+          <div className='h-full max-w-fit basis-1/12 rounded-lg lg:basis-1/4'>
             <FilterActions />
           </div>
-          <ScrollArea className='rounded-lg basis-11/12'>
+          <ScrollArea className='basis-11/12 rounded-lg'>
             <div className='h-full basis-4/6 lg:basis-4/5'>
               <div className='grid grid-cols-12 gap-4'>
                 {view === 'group' && <ActionGroup />}

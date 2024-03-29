@@ -18,7 +18,7 @@ const columns: ColumnDef<Employee>[] = [
         variant='ghost'
         size='icon'
         onClick={() => table.toggleAllRowsExpanded()}
-        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0 rounded-none rounded-tf-lg'
+        className='rounded-tf-lg h-full w-full cursor-pointer rounded-none focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0'
       >
         <Icon
           render={table.getIsSomeRowsExpanded() ? ChevronDown : ChevronRight}
@@ -30,7 +30,7 @@ const columns: ColumnDef<Employee>[] = [
         variant='ghost'
         size='icon'
         onClick={() => row.toggleExpanded()}
-        className='cursor-pointer w-full h-full focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0 rounded-none'
+        className='h-full w-full cursor-pointer rounded-none focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-0'
       >
         <Icon render={row.getIsExpanded() ? ChevronDown : ChevronRight} />
       </Button>
@@ -46,12 +46,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.matricule',
     id: 'matricule',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -63,12 +58,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.nom',
     id: 'nom',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     enableHiding: false,
     minSize,
@@ -80,12 +70,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.prenom',
     id: 'prenom',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     enableHiding: false,
     minSize,
@@ -97,12 +82,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.localite',
     id: 'localite',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -113,12 +93,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.email',
     id: 'email',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -129,12 +104,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.direction',
     id: 'direction',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -145,12 +115,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.sexe',
     id: 'sexe',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -161,12 +126,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.csp',
     id: 'csp',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -177,12 +137,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.dateNaissance',
     id: 'dateNaissance',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     cell: (row) => {
       return (
@@ -198,12 +153,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.lieuNaissance',
     id: 'lieuNaissance',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -214,12 +164,7 @@ const columns: ColumnDef<Employee>[] = [
     accessorKey: 'employee.createdAt',
     id: 'createdAt',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     cell: (row) => {
       return (

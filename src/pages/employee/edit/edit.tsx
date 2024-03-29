@@ -101,11 +101,7 @@ function EmployeeEdit() {
         <div className='flex items-end justify-end'>
           <div className='space-x-2'>
             <Button variant='outline'>
-              <Icon
-                render={CheckCheck}
-                size='sm'
-                edge='left'
-              />
+              <Icon render={CheckCheck} size='sm' edge='left' />
               <span>Preview</span>
             </Button>
             <Button
@@ -113,11 +109,7 @@ function EmployeeEdit() {
               onClick={() => setResetForm((prev) => !prev)}
               disabled={!isDirty}
             >
-              <Icon
-                render={RotateCcw}
-                size='sm'
-                edge='left'
-              />
+              <Icon render={RotateCcw} size='sm' edge='left' />
               <span>Resté</span>
             </Button>
             <Button
@@ -138,15 +130,11 @@ function EmployeeEdit() {
         </div>
       }
     >
-      <div className='h-full flex flex-col justify-between relative'>
-        <div className='w-full h-full rounded-lg'>
+      <div className='relative flex h-full flex-col justify-between'>
+        <div className='h-full w-full rounded-lg'>
           {isPending && (
             <div className='flex items-center gap-2'>
-              <Icon
-                render={Loader2}
-                size='sm'
-                className='animate-spin'
-              />
+              <Icon render={Loader2} size='sm' className='animate-spin' />
               <div>Loading...</div>
             </div>
           )}

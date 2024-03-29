@@ -67,16 +67,10 @@ function Calendar({
       }}
       components={{
         IconLeft: ({ ...props }) => (
-          <ChevronLeft
-            className='h-4 w-4'
-            {...props}
-          />
+          <ChevronLeft className='h-4 w-4' {...props} />
         ),
         IconRight: ({ ...props }) => (
-          <ChevronRight
-            className='h-4 w-4'
-            {...props}
-          />
+          <ChevronRight className='h-4 w-4' {...props} />
         ),
         Dropdown: ({
           value,
@@ -99,10 +93,7 @@ function Calendar({
           );
         },
         IconDropdown: (props) => (
-          <ChevronsUpDown
-            className='h-4 w-4 opacity-50'
-            {...props}
-          />
+          <ChevronsUpDown className='h-4 w-4 opacity-50' {...props} />
         ),
       }}
       {...props}

@@ -20,18 +20,14 @@ const Page = ({ title, actions, className, children }: PageProps) => {
 
   return (
     <div
-      className={cn('w-full h-screen overflow-hidden bg-background', className)}
+      className={cn('h-screen w-full overflow-hidden bg-background', className)}
     >
-      <div className='flex flex-col h-full'>
-        <div className='w-full min-h-20 h-20 px-8'>
-          <div className='max-w-[1750px] h-full flex items-center justify-center mx-auto'>
-            <div className='h-full w-full flex items-center gap-4'>
+      <div className='flex h-full flex-col'>
+        <div className='h-20 min-h-20 w-full px-8'>
+          <div className='mx-auto flex h-full max-w-[1750px] items-center justify-center'>
+            <div className='flex h-full w-full items-center gap-4'>
               <div className='flex items-center gap-4'>
-                <Button
-                  size='icon'
-                  variant='ghost'
-                  onClick={handleBack}
-                >
+                <Button size='icon' variant='ghost' onClick={handleBack}>
                   <Icon render={ArrowLeft} />
                 </Button>
                 <p className='text-2xl font-medium tracking-tight'>{title}</p>
@@ -40,8 +36,8 @@ const Page = ({ title, actions, className, children }: PageProps) => {
             </div>
           </div>
         </div>
-        <div className='w-full self-center py-4 h-full overflow-y-auto px-8 bg-inherit'>
-          <div className='max-w-[1750px] mx-auto h-full'>{children}</div>
+        <div className='h-full w-full self-center overflow-y-auto bg-inherit px-8 py-4'>
+          <div className='mx-auto h-full max-w-[1750px]'>{children}</div>
         </div>
       </div>
     </div>

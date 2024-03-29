@@ -31,11 +31,7 @@ const PaginationItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<'li'>
 >(({ className, ...props }, ref) => (
-  <li
-    ref={ref}
-    className={cn('', className)}
-    {...props}
-  />
+  <li ref={ref} className={cn('', className)} {...props} />
 ));
 PaginationItem.displayName = 'PaginationItem';
 
@@ -95,10 +91,7 @@ const PaginationPrevious = ({
     className={cn('gap-1 pl-2.5', className)}
     {...props}
   >
-    <Icon
-      render={ChevronLeft}
-      size='sm'
-    />
+    <Icon render={ChevronLeft} size='sm' />
     <span>Previous</span>
   </PaginationLink>
 );
@@ -115,10 +108,7 @@ const PaginationNext = ({
     {...props}
   >
     <span>Next</span>
-    <Icon
-      render={ChevronRight}
-      size='sm'
-    />
+    <Icon render={ChevronRight} size='sm' />
   </PaginationLink>
 );
 PaginationNext.displayName = 'PaginationNext';
@@ -132,10 +122,7 @@ const PaginationEllipsis = ({
     className={cn('flex h-9 w-9 items-center justify-center', className)}
     {...props}
   >
-    <Icon
-      render={MoreHorizontal}
-      size='sm'
-    />
+    <Icon render={MoreHorizontal} size='sm' />
     <span className='sr-only'>More pages</span>
   </span>
 );

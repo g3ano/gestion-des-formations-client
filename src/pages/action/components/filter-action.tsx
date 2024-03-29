@@ -24,32 +24,14 @@ function FilterActions() {
 
   return (
     <div className='flex flex-col gap-8'>
-      <FilterLayout
-        title='type'
-        filterValues={types}
-      />
-      <FilterLayout
-        title='domaine'
-        filterValues={domaines}
-      />
-      <FilterLayout
-        title='code formation'
-        filterValues={codeFormations}
-      />
-      <FilterLayout
-        title='mode'
-        filterValues={modes}
-      />
+      <FilterLayout title='type' filterValues={types} />
+      <FilterLayout title='domaine' filterValues={domaines} />
+      <FilterLayout title='code formation' filterValues={codeFormations} />
+      <FilterLayout title='mode' filterValues={modes} />
       {view === 'single' && (
         <>
-          <FilterLayout
-            title='csp'
-            filterValues={csp}
-          />
-          <FilterLayout
-            title='sexe'
-            filterValues={sexe}
-          />
+          <FilterLayout title='csp' filterValues={csp} />
+          <FilterLayout title='sexe' filterValues={sexe} />
         </>
       )}
     </div>
@@ -91,7 +73,7 @@ function FilterLayout({
             key={filterValue}
             variant='outline'
             className={cn('justify-start', {
-              'bg-accent text-accent-foreground border-accent-border ring-accent':
+              'border-accent-border bg-accent text-accent-foreground ring-accent':
                 decodeURIComponent(
                   searchParams.get(
                     title.replace(

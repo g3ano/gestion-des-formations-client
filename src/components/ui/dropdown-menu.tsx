@@ -28,7 +28,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      'flex cursor-default select-none items-center text-sm outline-none relative px-3 py-1.5 transition-colors',
+      'relative flex cursor-default select-none items-center px-3 py-1.5 text-sm outline-none transition-colors',
       'focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground',
       inset && 'pl-9',
       className
@@ -37,17 +37,11 @@ const DropdownMenuSubTrigger = React.forwardRef<
   >
     {!!withIcon && (
       <div className='flex items-center justify-center pr-2'>
-        <Icon
-          render={icon as LucideIcon}
-          size='xs'
-        />
+        <Icon render={icon as LucideIcon} size='xs' />
       </div>
     )}
     {children}
-    <Icon
-      render={ChevronRight}
-      className='ml-auto h-4 w-4'
-    />
+    <Icon render={ChevronRight} className='ml-auto h-4 w-4' />
   </DropdownMenuPrimitive.SubTrigger>
 ));
 DropdownMenuSubTrigger.displayName =
@@ -79,7 +73,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'z-50 min-w-52 overflow-hidden rounded-lg border py-3 bg-popover text-popover-foreground shadow-xl shadow-black/10 border-border',
+        'z-50 min-w-52 overflow-hidden rounded-lg border border-border bg-popover py-3 text-popover-foreground shadow-xl shadow-black/10',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[side=bottom]:slide-in-from-top-5 data-[side=left]:slide-in-from-right-5 data-[side=right]:slide-in-from-left-5 data-[side=top]:slide-in-from-bottom-5',
         className
       )}
@@ -150,10 +144,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   >
     <span className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
       <DropdownMenuPrimitive.ItemIndicator>
-        <Icon
-          render={Dot}
-          className='h-4 w-4 fill-current'
-        />
+        <Icon render={Dot} className='h-4 w-4 fill-current' />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

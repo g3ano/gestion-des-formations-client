@@ -48,20 +48,13 @@ function Employees() {
     >
       {isPending && (
         <div className='flex items-center gap-2'>
-          <Icon
-            render={Loader2}
-            size='sm'
-            className='animate-spin'
-          />
+          <Icon render={Loader2} size='sm' className='animate-spin' />
           <div>Loading...</div>
         </div>
       )}
       {isSuccess && (
         <FilterContextProvider>
-          <DataTable
-            data={data}
-            columns={columns}
-          />
+          <DataTable data={data} columns={columns} />
         </FilterContextProvider>
       )}
     </Page>
@@ -82,20 +75,11 @@ function EmployeeMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          size='icon'
-          variant='ghost'
-        >
-          <Icon
-            render={MoreVertical}
-            size='sm'
-          />
+        <Button size='icon' variant='ghost'>
+          <Icon render={MoreVertical} size='sm' />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align='end'
-        className='w-64'
-      >
+      <DropdownMenuContent align='end' className='w-64'>
         <DropdownMenuItem
           onClick={() => {
             setColumnFilters([]);
@@ -104,20 +88,14 @@ function EmployeeMenu() {
           disabled={!columnFilters.length}
         >
           <div className='flex items-center justify-center pr-2'>
-            <Icon
-              render={FilterX}
-              size='xs'
-            />
+            <Icon render={FilterX} size='xs' />
           </div>
           Supprimer tout filtres
         </DropdownMenuItem>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             <div className='flex items-center justify-center pr-2'>
-              <Icon
-                render={Columns}
-                size='xs'
-              />
+              <Icon render={Columns} size='xs' />
             </div>
             Columns Visibility
           </DropdownMenuSubTrigger>
@@ -155,10 +133,7 @@ function EmployeeMenu() {
         </DropdownMenuSub>
         <DropdownMenuItem onClick={() => setToggleRowPerPage((prev) => !prev)}>
           <div className='flex items-center justify-center pr-2'>
-            <Icon
-              render={Rows}
-              size='xs'
-            />
+            <Icon render={Rows} size='xs' />
           </div>
           Line par page
         </DropdownMenuItem>

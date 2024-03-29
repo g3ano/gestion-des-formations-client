@@ -12,12 +12,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.intitule.intitule',
     id: 'intitule',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -29,12 +24,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.categorie.categorie',
     id: 'categorie',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -45,12 +35,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.type.type',
     id: 'type',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -61,12 +46,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.organisme.organisme',
     id: 'organisme',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -77,12 +57,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.codeDomaine.codeDomaine',
     id: 'codeDomaine',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -93,12 +68,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.structure',
     id: 'structure',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -109,12 +79,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.codeFormation',
     id: 'codeFormation',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -125,12 +90,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.mode',
     id: 'mode',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     cell: (row) => (
       <span className='uppercase'>{row.getValue() as string}</span>
@@ -144,12 +104,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.lieu',
     id: 'lieu',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -160,12 +115,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.domaine.domaine',
     id: 'domaine',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     cell: (row) => (
       <span className='uppercase'>{row.getValue() as string}</span>
@@ -179,12 +129,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.effectif',
     id: 'effectif',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -195,12 +140,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.durree',
     id: 'durree',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -211,12 +151,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.HJ',
     id: 'HJ',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -227,12 +162,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.cout.pedagogiques',
     id: 'pedagogiques',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -243,12 +173,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.cout.hebergementRestauration',
     id: 'hebergementRestauration',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -259,12 +184,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.cout.transport',
     id: 'transport',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -275,12 +195,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.cout.presalaire',
     id: 'presalaire',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -291,12 +206,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'relationships.cout.autresCharges',
     id: 'autresCharges',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -307,12 +217,7 @@ const columns: ColumnDef<Formation>[] = [
     id: 'observation',
     accessorKey: 'formation.observation',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     minSize,
     maxSize,
@@ -323,12 +228,7 @@ const columns: ColumnDef<Formation>[] = [
     accessorKey: 'formation.createdAt',
     id: 'createdAt',
     header: ({ column, table }) => {
-      return (
-        <Header
-          column={column}
-          table={table}
-        />
-      );
+      return <Header column={column} table={table} />;
     },
     cell: (row) => {
       return (

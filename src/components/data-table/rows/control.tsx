@@ -49,18 +49,12 @@ function Control<TData>({
   const actionElements = Object.keys(table.getState().rowSelection).length;
 
   return (
-    <div className='flex items-center gap-1 animate-in slide-in-from-bottom-10 duration-100 ease-in-out'>
+    <div className='flex items-center gap-1 duration-100 ease-in-out animate-in slide-in-from-bottom-10'>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              size='icon'
-              onClick={() => {}}
-            >
-              <Icon
-                render={Download}
-                size='sm'
-              />
+            <Button size='icon' onClick={() => {}}>
+              <Icon render={Download} size='sm' />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Annuler la sélection actuelle</TooltipContent>
@@ -69,14 +63,8 @@ function Control<TData>({
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              size='icon'
-              onClick={() => table.resetRowSelection()}
-            >
-              <Icon
-                render={X}
-                size='sm'
-              />
+            <Button size='icon' onClick={() => table.resetRowSelection()}>
+              <Icon render={X} size='sm' />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -86,21 +74,15 @@ function Control<TData>({
       </TooltipProvider>
       <Dialog>
         <DialogTrigger asChild>
-          <Button
-            size='icon'
-            variant='destructive'
-          >
-            <Icon
-              render={Trash}
-              size='sm'
-            />
+          <Button size='icon' variant='destructive'>
+            <Icon render={Trash} size='sm' />
           </Button>
         </DialogTrigger>
         <DialogContent className='max-w-xl'>
           <DialogHeader>
             <DialogTitle>Êtes-vous sûr de vouloir supprimer?</DialogTitle>
           </DialogHeader>
-          <div className='mt-6 mb-8 text-pretty'>
+          <div className='mb-8 mt-6 text-pretty'>
             Cette action ne peut pas être annulée. Cela supprimera
             définitivement{' '}
             <span className='font-semibold'>{actionElements}</span>{' '}
@@ -111,11 +93,7 @@ function Control<TData>({
           </div>
           <DialogFooter>
             <DialogClose asChild>
-              <Button
-                autoFocus
-                variant='secondary'
-                className='uppercase'
-              >
+              <Button autoFocus variant='secondary' className='uppercase'>
                 Cancel
               </Button>
             </DialogClose>
@@ -129,10 +107,7 @@ function Control<TData>({
             >
               <div className='flex items-center gap-2'>
                 {mutation.isPending && (
-                  <Icon
-                    render={Loader2}
-                    className='animate-spin'
-                  />
+                  <Icon render={Loader2} className='animate-spin' />
                 )}
                 Supprimer
               </div>

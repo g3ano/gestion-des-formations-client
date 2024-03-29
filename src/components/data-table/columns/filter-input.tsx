@@ -50,10 +50,10 @@ function FilterInput<TData, TValue>({
     const values: string[] = isString
       ? Array.from<string>(column.getFacetedUniqueValues().keys()).sort()
       : isNumber
-      ? Array.from(column.getFacetedUniqueValues().keys())
-          .sort((a, b) => a - b)
-          .map(String)
-      : [];
+        ? Array.from(column.getFacetedUniqueValues().keys())
+            .sort((a, b) => a - b)
+            .map(String)
+        : [];
 
     return values.length
       ? filterValues.length
@@ -120,7 +120,7 @@ function FilterInput<TData, TValue>({
   return (
     <div className='space-y-4'>
       <div className='flex'>
-        <div className='inline-block flex-1 relative'>
+        <div className='relative inline-block flex-1'>
           <Input
             ref={inputRef}
             name='searchValue'
@@ -149,33 +149,20 @@ function FilterInput<TData, TValue>({
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              size='icon'
-              variant='ghost'
-              className='ml-2'
-            >
-              <Icon
-                render={MoreVertical}
-                size='sm'
-              />
+            <Button size='icon' variant='ghost' className='ml-2'>
+              <Icon render={MoreVertical} size='sm' />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuItem onClick={handleSelectAllFilterValues}>
               <div className='flex items-center justify-center pr-2'>
-                <Icon
-                  render={MousePointerSquareDashed}
-                  size='xs'
-                />
+                <Icon render={MousePointerSquareDashed} size='xs' />
               </div>
               Sélectionner Tout
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleClearFilterValues}>
               <div className='flex items-center justify-center pr-2'>
-                <Icon
-                  render={BoxSelect}
-                  size='xs'
-                />
+                <Icon render={BoxSelect} size='xs' />
               </div>
               Clear
             </DropdownMenuItem>
@@ -191,13 +178,13 @@ function FilterInput<TData, TValue>({
         }}
       >
         <div
-          className='w-full relative'
+          className='relative w-full'
           style={{
             height: virtualizer.getTotalSize(),
           }}
         >
           <div
-            className='absolute top-0 left-0 w-full space-y-1'
+            className='absolute left-0 top-0 w-full space-y-1'
             style={{
               transform: `translateY(${items[0]?.start ?? 0}px)`,
             }}
@@ -207,9 +194,9 @@ function FilterInput<TData, TValue>({
                 key={vr.key}
                 data-index={vr.index}
                 ref={virtualizer.measureElement}
-                className='group hover:bg-accent hover:text-accent-foreground rounded-sm'
+                className='group rounded-sm hover:bg-accent hover:text-accent-foreground'
               >
-                <label className='rounded-sm m-[2px] flex gap-4 items-center px-2 py-1 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring'>
+                <label className='m-[2px] flex items-center gap-4 rounded-sm px-2 py-1 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring'>
                   <div className='flex-1 select-none'>
                     {matchSearch(searchResults[vr.index], searchValue) ? (
                       matchSearch(searchResults[vr.index], searchValue)?.map(
@@ -244,7 +231,7 @@ function FilterInput<TData, TValue>({
         </div>
       </div>
 
-      <div className='flex items-center justify-between mt-4'>
+      <div className='mt-4 flex items-center justify-between'>
         <Button
           variant='secondary'
           onClick={() =>

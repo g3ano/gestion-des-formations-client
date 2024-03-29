@@ -22,65 +22,65 @@ function FormationInfo({ formation }: { formation: Formation }) {
 
   return (
     <>
-      <div className='bg-card flex flex-col gap-6 rounded-lg pt-6 pb-4'>
+      <div className='flex flex-col gap-6 rounded-lg bg-card pb-4 pt-6'>
         <div className='px-6'>
           <h3 className='text-2xl font-bold'>Formation</h3>
         </div>
-        <div className='h-full flex flex-col justify-between gap-6'>
+        <div className='flex h-full flex-col justify-between gap-6'>
           <div className='px-6'>
             <SectionTitle>Formation Prévu</SectionTitle>
             <div className='space-y-2 *:flex *:justify-between *:gap-8'>
               <div>
                 <span>Structure</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {capitalize(formation.formation.structure)}
                 </span>
               </div>
               <div>
                 <span>Mode</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {capitalize(formation.formation.mode)}
                 </span>
               </div>
               <div>
                 <span>Code formation</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {formation.formation.codeFormation}
                 </span>
               </div>
               <div>
                 <span>Lieu</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {formation.formation.lieu}
                 </span>
               </div>
               <div>
                 <span>Code domaine</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {formation.relationships.codeDomaine.codeDomaine}
                 </span>
               </div>
               <div>
                 <span>Domaine</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {capitalize(formation.relationships.domaine.domaine)}
                 </span>
               </div>
               <div>
                 <span>Organisme</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {capitalize(formation.relationships.organisme.organisme)}
                 </span>
               </div>
               <div>
                 <span>Type</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {capitalize(formation.relationships.type.type)}
                 </span>
               </div>
               <div>
                 <span>Categorie</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {capitalize(formation.relationships.categorie.categorie)}
                 </span>
               </div>
@@ -89,38 +89,35 @@ function FormationInfo({ formation }: { formation: Formation }) {
 
           <div className='px-6'>
             <SectionTitle>Effectif a former</SectionTitle>
-            <div className='space-y-2 *:flex *:justify-between *:items-center *:gap-8'>
+            <div className='space-y-2 *:flex *:items-center *:justify-between *:gap-8'>
               <div>
                 <span>Durée</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {formation.formation.durree}
                 </span>
               </div>
               <div>
                 <span>Effectifs</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {formation.formation.effectif}
                 </span>
               </div>
               <div>
                 <span>H/J</span>
-                <span className='text-muted-foreground text-right line-clamp-2'>
+                <span className='line-clamp-2 text-right text-muted-foreground'>
                   {formation.formation.HJ}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className='h-full flex flex-col flex-1'>
+          <div className='flex h-full flex-1 flex-col'>
             <SectionTitle>Cout</SectionTitle>
             <div className='divide-y divide-secondary'>
               {coutKeys.map((key, index) => (
-                <div
-                  key={key}
-                  className='flex justify-between px-6 *:py-2'
-                >
-                  <p className='flex-1 flex items-center'>{capitalize(key)}</p>
-                  <p className='flex-1 flex justify-center items-center'>
+                <div key={key} className='flex justify-between px-6 *:py-2'>
+                  <p className='flex flex-1 items-center'>{capitalize(key)}</p>
+                  <p className='flex flex-1 items-center justify-center'>
                     {coutValues[index]}
                   </p>
                 </div>

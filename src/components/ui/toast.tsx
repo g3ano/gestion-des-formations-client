@@ -75,7 +75,7 @@ const Toast = React.forwardRef<
     >
       {props.children}
       <div
-        className='absolute transition-transform duration-100 ease-linear translate-x-1/2 -left-10 h-1 z-50 inset-x-0 bottom-0 bg-destructive'
+        className='absolute inset-x-0 -left-10 bottom-0 z-50 h-1 translate-x-1/2 bg-destructive transition-transform duration-100 ease-linear'
         style={{
           transform: `translateX(${progress.percentage}%)`,
         }}
@@ -113,10 +113,7 @@ const ToastClose = React.forwardRef<
     toast-close=''
     {...props}
   >
-    <Icon
-      render={X}
-      size='sm'
-    />
+    <Icon render={X} size='sm' />
   </ToastPrimitives.Close>
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;

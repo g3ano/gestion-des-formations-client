@@ -58,43 +58,34 @@ export default function ErrorPage({
 
   return (
     <section
-      className={cn('w-full h-full flex items-center', {
+      className={cn('flex h-full w-full items-center', {
         'h-screen': global,
       })}
     >
       <div className='mx-auto max-w-screen-xl'>
-        <div className='-z-10 fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'>
-          <Icon
-            render={Bird}
-            className='md:size-[600px] opacity-5'
-          />
+        <div className='fixed left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2'>
+          <Icon render={Bird} className='opacity-5 md:size-[600px]' />
         </div>
         <div className='mx-auto max-w-screen-sm space-y-4'>
-          <div className='flex gap-20 min-h-40'>
+          <div className='flex min-h-40 gap-20'>
             <div
               className={cn('flex flex-col items-center justify-end', {
                 'justify-between': !!body.code,
               })}
             >
-              <h1 className='text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600'>
+              <h1 className='text-primary-600 text-7xl font-extrabold tracking-tight lg:text-9xl'>
                 {body.status}
               </h1>
               {body.code && <p>{body.code}</p>}
             </div>
-            <div className='w-96 flex flex-col justify-between'>
-              <div className='space-y-4 flex h-full'>
-                <p className='text-pretty text-center my-auto'>
+            <div className='flex w-96 flex-col justify-between'>
+              <div className='flex h-full space-y-4'>
+                <p className='my-auto text-pretty text-center'>
                   <span className='text-2xl font-medium'>{body.message}</span>
                 </p>
               </div>
-              <Button
-                variant='secondary'
-                asChild
-              >
-                <Link
-                  to='/'
-                  replace
-                >
+              <Button variant='secondary' asChild>
+                <Link to='/' replace>
                   Page d&apos;accueil
                 </Link>
               </Button>

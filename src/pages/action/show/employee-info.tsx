@@ -34,9 +34,9 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
   }, [employees]);
 
   return (
-    <div className='flex gap-1 h-full'>
+    <div className='flex h-full gap-1'>
       <div
-        className={cn('bg-card h-full flex flex-col gap-6 py-6 rounded-r', {
+        className={cn('flex h-full flex-col gap-6 rounded-r bg-card py-6', {
           'w-full rounded-lg': !employees.length,
         })}
       >
@@ -55,7 +55,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                         <div
                           key={employee.id}
                           className={cn(
-                            'min-w-72 py-2 isolate relative rounded-lg cursor-pointer',
+                            'relative isolate min-w-72 cursor-pointer rounded-lg py-2',
                             {
                               'bg-secondary':
                                 employee.id === currentEmployee.employee.id,
@@ -64,13 +64,13 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                           onClick={() => setCurrentEmployee({ employee })}
                         >
                           {employee.id === currentEmployee.employee.id && (
-                            <div className='absolute inset-0 ps-0.5 py-0.5 -z-10 bg-secondary -translate-x-6 '>
-                              <div className='w-0.5 h-full bg-primary rounded-lg'></div>
+                            <div className='absolute inset-0 -z-10 -translate-x-6 bg-secondary py-0.5 ps-0.5 '>
+                              <div className='h-full w-0.5 rounded-lg bg-primary'></div>
                             </div>
                           )}
 
                           <div className='flex items-center gap-4'>
-                            <div className='size-12 bg-background flex items-center justify-center relative rounded-sm p-2'>
+                            <div className='relative flex size-12 items-center justify-center rounded-sm bg-background p-2'>
                               <p className='font-medium uppercase'>
                                 {employee.nom.slice(0, 1)}
                               </p>
@@ -81,13 +81,10 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                               <TooltipProvider>
                                 <Tooltip>
                                   <TooltipTrigger asChild>
-                                    <div className='absolute bottom-0 right-0 size-2 rounded-full bg-green-500 z-10'></div>
+                                    <div className='absolute bottom-0 right-0 z-10 size-2 rounded-full bg-green-500'></div>
                                   </TooltipTrigger>
-                                  <TooltipContent
-                                    side='right'
-                                    sideOffset={20}
-                                  >
-                                    <div className='max-w-40 leading-5 text-center'>
+                                  <TooltipContent side='right' sideOffset={20}>
+                                    <div className='max-w-40 text-center leading-5'>
                                       Cet employé est engagé dans l&apos;action
                                       en cours
                                     </div>
@@ -96,8 +93,8 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                               </TooltipProvider>
                             </div>
 
-                            <div className='flex-1 flex flex-col justify-center'>
-                              <div className='line-clamp-1 pe-4 flex items-center gap-1 text-nowrap'>
+                            <div className='flex flex-1 flex-col justify-center'>
+                              <div className='line-clamp-1 flex items-center gap-1 text-nowrap pe-4'>
                                 <p>{employee.nom}</p>
                                 <p>{employee.prenom}</p>
                               </div>
@@ -127,7 +124,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                         <div
                           key={employee.id}
                           className={cn(
-                            'min-w-72 py-2 isolate relative rounded-lg cursor-pointer',
+                            'relative isolate min-w-72 cursor-pointer rounded-lg py-2',
                             {
                               'bg-secondary':
                                 employee.id === currentEmployee.employee.id,
@@ -136,13 +133,13 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                           onClick={() => setCurrentEmployee({ employee })}
                         >
                           {employee.id === currentEmployee.employee.id && (
-                            <div className='absolute inset-0 ps-0.5 py-0.5 -z-10 bg-secondary -translate-x-6 '>
-                              <div className='w-0.5 h-full bg-primary rounded-lg'></div>
+                            <div className='absolute inset-0 -z-10 -translate-x-6 bg-secondary py-0.5 ps-0.5 '>
+                              <div className='h-full w-0.5 rounded-lg bg-primary'></div>
                             </div>
                           )}
 
                           <div className='flex items-center gap-4'>
-                            <div className='size-12 bg-background flex items-center justify-center relative rounded-sm p-2'>
+                            <div className='relative flex size-12 items-center justify-center rounded-sm bg-background p-2'>
                               <p className='font-medium uppercase'>
                                 {employee.nom.slice(0, 1)}
                               </p>
@@ -151,8 +148,8 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                               </p>
                             </div>
 
-                            <div className='flex-1 flex flex-col justify-center'>
-                              <div className='line-clamp-1 pe-4 flex items-center gap-1 text-nowrap'>
+                            <div className='flex flex-1 flex-col justify-center'>
+                              <div className='line-clamp-1 flex items-center gap-1 text-nowrap pe-4'>
                                 <p>{employee.nom}</p>
                                 <p>{employee.prenom}</p>
                               </div>
@@ -169,21 +166,21 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
               ) : null}
             </>
           ) : (
-            <p>Aucun employé n&apos;est trouvé</p>
+            <p className='px-6'>Aucun employé n&apos;est trouvé</p>
           )}
         </ScrollArea>
       </div>
       {employees.length ? (
-        <ScrollArea className='flex-1 bg-card w-full h-full rounded-r-lg rounded-l p-6'>
+        <ScrollArea className='h-full w-full flex-1 rounded-l rounded-r-lg bg-card p-6'>
           <div className='space-y-4'>
-            <div className='text-xl flex flex-col'>
-              <div className='text-nowrap space-x-1'>
+            <div className='flex flex-col text-xl'>
+              <div className='space-x-1 text-nowrap'>
                 <span className='select-none'>Matricule</span>
                 <span className='font-medium'>
                   {currentEmployee.employee.matricule}
                 </span>
               </div>
-              <div className='text-muted-foreground text-base'>
+              <div className='text-base text-muted-foreground'>
                 <span>Depuis</span>{' '}
                 <span>
                   {format(
@@ -195,23 +192,23 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
             </div>
 
             <div className='flex flex-col gap-4 *:flex-1'>
-              <div className='space-y-2 p-4 rounded-lg border border-secondary flex-1'>
+              <div className='flex-1 space-y-2 rounded-lg border border-secondary p-4'>
                 <h4 className='font-medium'>Détails General</h4>
-                <div className='flex justify-between gap-4 *:max-w-48 *:min-w-32'>
+                <div className='flex justify-between gap-4 *:min-w-32 *:max-w-48'>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>Nom</p>
+                    <p className='text-nowrap text-muted-foreground'>Nom</p>
                     <p className='line-clamp-2 break-words'>
                       {capitalize(currentEmployee.employee.nom)}
                     </p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>Prenom</p>
+                    <p className='text-nowrap text-muted-foreground'>Prenom</p>
                     <p className='line-clamp-2'>
                       {capitalize(currentEmployee.employee.prenom)}
                     </p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>
+                    <p className='text-nowrap text-muted-foreground'>
                       Adresse email
                     </p>
                     <p className='line-clamp-2 break-words'>
@@ -220,7 +217,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                   </div>
                   {currentEmployee.employee.isActive && (
                     <div>
-                      <p className='text-muted-foreground text-nowrap'>
+                      <p className='text-nowrap text-muted-foreground'>
                         Date de début
                       </p>
                       {currentEmployee.employee.startedAt ? (
@@ -235,11 +232,11 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                   )}
                 </div>
               </div>
-              <div className='space-y-2 p-4 rounded-lg border border-secondary'>
+              <div className='space-y-2 rounded-lg border border-secondary p-4'>
                 <h4 className='font-medium'>Détails personnel</h4>
-                <div className='flex justify-between gap-4 *:max-w-48 *:min-w-32'>
+                <div className='flex justify-between gap-4 *:min-w-32 *:max-w-48'>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>Sexe</p>
+                    <p className='text-nowrap text-muted-foreground'>Sexe</p>
                     <p className='line-clamp-2 break-words'>
                       {currentEmployee.employee.sexe === 'F'
                         ? 'Féminin'
@@ -247,13 +244,13 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                     </p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>
+                    <p className='text-nowrap text-muted-foreground'>
                       Localité
                     </p>
                     <p>{currentEmployee.employee.localite}</p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>
+                    <p className='text-nowrap text-muted-foreground'>
                       Date de naissance
                     </p>
                     <p className='line-clamp-2 break-words'>
@@ -264,7 +261,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                     </p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>
+                    <p className='text-nowrap text-muted-foreground'>
                       Lieu de naissance
                     </p>
                     <p className='line-clamp-3 break-words'>
@@ -273,11 +270,11 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                   </div>
                 </div>
               </div>
-              <div className='space-y-2 p-4 rounded-lg border border-secondary'>
+              <div className='space-y-2 rounded-lg border border-secondary p-4'>
                 <h4 className='font-medium'>Détails emploi</h4>
-                <div className='flex justify-between gap-4 *:max-w-48 *:min-w-32'>
+                <div className='flex justify-between gap-4 *:min-w-32 *:max-w-48'>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>
+                    <p className='text-nowrap text-muted-foreground'>
                       Direction
                     </p>
                     <p className='line-clamp-2 break-words'>
@@ -285,22 +282,22 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                     </p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>Csp</p>
+                    <p className='text-nowrap text-muted-foreground'>Csp</p>
                     <p className='line-clamp-2 break-words'>
                       {currentEmployee.employee.csp}
                     </p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>
+                    <p className='text-nowrap text-muted-foreground'>
                       Département
                     </p>
                     <p className='line-clamp-2 break-words'>N/A</p>
                   </div>
                   <div>
-                    <p className='text-muted-foreground text-nowrap'>Status</p>
+                    <p className='text-nowrap text-muted-foreground'>Status</p>
                     <p
                       className={cn(
-                        'line-clamp-2 break-words uppercase font-medium',
+                        'line-clamp-2 break-words font-medium uppercase',
                         currentEmployee.employee.isActive
                           ? 'text-green-400'
                           : 'text-red-400'

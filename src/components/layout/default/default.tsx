@@ -8,19 +8,16 @@ import Icon from '@/components/ui/icon';
 import { Loader2 } from 'lucide-react';
 import { Toaster } from '@/components/ui/toaster';
 import { EmployeeCreateProvider } from '@/pages/employee/create';
+import { ActionCreateProvider } from '@/pages/action';
 
 function Default() {
   const { state } = useNavigation();
 
   if (state === 'loading') {
     return (
-      <div className='fixed top-0 left-1/2 -translate-x-1/2 mt-8'>
+      <div className='fixed left-1/2 top-0 mt-8 -translate-x-1/2'>
         <div className='flex items-center gap-2'>
-          <Icon
-            render={Loader2}
-            className='animate-spin'
-            size='sm'
-          />
+          <Icon render={Loader2} className='animate-spin' size='sm' />
           <p className='font-medium'>Loading...</p>
         </div>
       </div>
@@ -28,18 +25,20 @@ function Default() {
   }
 
   return (
-    <div className='bg-background text-foreground w-full'>
-      <div className='min-h-full flex items-stretch'>
+    <div className='w-full bg-background text-foreground'>
+      <div className='flex min-h-full items-stretch'>
         <div className='shadow'>
           <SideBar />
         </div>
-        <div className='flex-1 min-w-0 ml-16'>
+        <div className='ml-16 min-w-0 flex-1'>
           <FormationDataTableProvider>
             <EmployeeDataTableProvider>
               <TableContextProvider>
                 <EmployeeCreateProvider>
                   <FormationCreateProvider>
-                    <Outlet />
+                    <ActionCreateProvider>
+                      <Outlet />
+                    </ActionCreateProvider>
                   </FormationCreateProvider>
                 </EmployeeCreateProvider>
               </TableContextProvider>

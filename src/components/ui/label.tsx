@@ -15,7 +15,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         ref={ref}
         htmlFor={htmlFor}
         className={cn(
-          'flex-1 flex flex-col gap-2 truncate p-0.5 relative',
+          'relative flex flex-1 flex-col gap-2 truncate p-0.5',
           className
         )}
         {...props}

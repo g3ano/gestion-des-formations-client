@@ -1,25 +1,28 @@
 import axiosClient from '@/lib/axios';
-import { Action, ActionFormData, Participant } from '@/pages/action';
+import {
+  Action,
+  ActionFormData,
+  SearchResult,
+  Participant,
+} from '@/pages/action';
 import { AxiosResponse } from 'axios';
 
 export const getActions = async (
   filterParams: [string, string][]
 ): Promise<Action[]> => {
-  let searchString = '';
+  let queryString = '';
   if (filterParams.length) {
     for (const [filter, filterValue] of filterParams) {
-      searchString += `&${filter}=${filterValue}`;
+      queryString += `&${filter}=${filterValue}`;
     }
   }
   const res: AxiosResponse<{ data: Action[] }> = await axiosClient.get(
-    `/actions?include[]=formation.intitule&include[]=formation.organisme&include[]=formation.type&include[]=formation.domaine&include[]=employees${searchString}`
+    `/actions?includes[]=formation.intitule&includes[]=formation.organisme&includes[]=formation.type&includes[]=formation.domaine&includes[]=employees${queryString}`
   );
   return res.data.data;
 };
 
-export const getParticipants = async (
-  filterParams: [string, string][]
-): Promise<Participant[]> => {
+export const getParticipants = async (filterParams: [string, string][]) => {
   let searchString = '';
   if (filterParams.length) {
     for (const [filter, filterValue] of filterParams) {
@@ -33,7 +36,7 @@ export const getParticipants = async (
   const res: AxiosResponse<{
     data: Participant[];
   }> = await axiosClient.get(
-    `/participants?include[]=action.formation.intitule&include[]=action.formation.organisme&include[]=action.formation.type&include[]=employee${searchString}`
+    `/participants?includes[]=action.formation.intitule&includes[]=action.formation.organisme&includes[]=action.formation.type&includes[]=employee${searchString}`
   );
   return res.data.data;
 };
@@ -44,7 +47,7 @@ export const getAction = async (actionId: string) => {
   }> = await axiosClient.get(
     `/actions/${
       actionId ?? ''
-    }?include[]=formation.intitule&include[]=formation.type&include[]=formation.categorie&include[]=formation.organisme&include[]=formation.cout&include[]=formation.code_domaine&include[]=formation.domaine&include[]=formation.type&include[]=employees`
+    }?includes[]=formation.intitule&includes[]=formation.type&includes[]=formation.categorie&includes[]=formation.organisme&includes[]=formation.cout&includes[]=formation.code_domaine&includes[]=formation.domaine&includes[]=formation.type&includes[]=employees`
   );
   return res.data.data;
 };
@@ -58,4 +61,26 @@ export const createAction = async (action: ActionFormData) => {
   } = await axiosClient.post('/actions', action);
 
   return res.data;
+};
+
+export const globalSearch = async ({
+  includes,
+  searchValue,
+}: {
+  includes: string[];
+  searchValue: string;
+}) => {
+  let includesQueryString = '';
+
+  for (const include of includes) {
+    includesQueryString += `&includes[]=${include}`;
+  }
+
+  const res: AxiosResponse<{
+    data: SearchResult;
+  }> = await axiosClient.get(
+    `/search?query=${searchValue}${includesQueryString}`
+  );
+
+  return res.data.data;
 };

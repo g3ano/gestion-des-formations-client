@@ -4,13 +4,10 @@ interface SectionTitleProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const SectionTitle = ({ className, children, ...props }: SectionTitleProps) => {
   return (
-    <div
-      className={cn('flex items-center gap-4 mb-4', className)}
-      {...props}
-    >
-      <div className='border-b border-secondary flex-1'></div>
+    <div className={cn('mb-4 flex items-center gap-4', className)} {...props}>
+      <div className='flex-1 border-b border-secondary'></div>
       <p className='font-medium'>{children}</p>
-      <div className='border-b border-secondary flex-1'></div>
+      <div className='flex-1 border-b border-secondary'></div>
     </div>
   );
 };

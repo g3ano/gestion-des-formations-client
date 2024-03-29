@@ -37,16 +37,13 @@ function EmployeeForm() {
     <div className='space-y-8'>
       <div className='flex flex-col gap-8'>
         <div className='flex items-center justify-center gap-4'>
-          <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-          <span className='font-medium text-xl'>Employee</span>
-          <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
+          <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
+          <span className='text-xl font-medium'>Employee</span>
+          <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
         </div>
         <div className='space-y-8'>
           <div className='flex items-center gap-4'>
-            <Label
-              label='matricule'
-              htmlFor='matricule'
-            >
+            <Label label='matricule' htmlFor='matricule'>
               <Input
                 name='matricule'
                 id='matricule'
@@ -56,10 +53,7 @@ function EmployeeForm() {
                 maxLength={50}
               />
             </Label>
-            <Label
-              label='direction'
-              htmlFor='direction'
-            >
+            <Label label='direction' htmlFor='direction'>
               <Input
                 name='direction'
                 id='direction'
@@ -69,10 +63,7 @@ function EmployeeForm() {
                 maxLength={50}
               />
             </Label>
-            <Label
-              htmlFor='localite'
-              label='Localite'
-            >
+            <Label htmlFor='localite' label='Localite'>
               <Input
                 name='localite'
                 id='localite'
@@ -84,10 +75,7 @@ function EmployeeForm() {
             </Label>
           </div>
           <div className='flex items-center gap-4'>
-            <Label
-              htmlFor='nom'
-              label='Nom'
-            >
+            <Label htmlFor='nom' label='Nom'>
               <Input
                 name='nom'
                 id='nom'
@@ -97,10 +85,7 @@ function EmployeeForm() {
                 maxLength={50}
               />
             </Label>
-            <Label
-              htmlFor='prenom'
-              label='prenom'
-            >
+            <Label htmlFor='prenom' label='prenom'>
               <Input
                 name='prenom'
                 id='prenom'
@@ -111,10 +96,7 @@ function EmployeeForm() {
               />
             </Label>
 
-            <Label
-              label='sexe'
-              htmlFor='sexe'
-            >
+            <Label label='sexe' htmlFor='sexe'>
               <Select
                 name='sexe'
                 value={employee.sexe}
@@ -125,10 +107,7 @@ function EmployeeForm() {
                   }))
                 }
               >
-                <SelectTrigger
-                  className='w-full'
-                  id='sexe'
-                >
+                <SelectTrigger className='w-full' id='sexe'>
                   <SelectValue placeholder='Choisir sexe...' />
                 </SelectTrigger>
                 <SelectContent align='end'>
@@ -139,10 +118,7 @@ function EmployeeForm() {
             </Label>
           </div>
           <div className='flex items-center gap-4'>
-            <Label
-              label='csp'
-              htmlFor='CSP'
-            >
+            <Label label='csp' htmlFor='CSP'>
               <Select
                 name='csp'
                 value={employee.csp}
@@ -153,10 +129,7 @@ function EmployeeForm() {
                   }))
                 }
               >
-                <SelectTrigger
-                  className='w-full'
-                  id='csp'
-                >
+                <SelectTrigger className='w-full' id='csp'>
                   <SelectValue placeholder='Choisir csp...' />
                 </SelectTrigger>
                 <SelectContent align='end'>
@@ -166,10 +139,7 @@ function EmployeeForm() {
                 </SelectContent>
               </Select>
             </Label>
-            <Label
-              htmlFor='email'
-              label='Email'
-            >
+            <Label htmlFor='email' label='Email'>
               <Input
                 name='email'
                 id='email'
@@ -183,21 +153,18 @@ function EmployeeForm() {
             <Label
               htmlFor='dateNaissance'
               label='Date naissance'
-              className='flex flex-col flex-none'
+              className='flex flex-none flex-col'
             >
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant='ghost'
                     className={cn(
-                      'min-w-64 justify-start gap-2 text-left font-normal bg-card normal-case px-2 text-muted-foreground shadow-black/10 shadow',
+                      'min-w-64 justify-start gap-2 bg-card px-2 text-left font-normal normal-case text-muted-foreground shadow shadow-black/10',
                       { 'text-foreground': employee.dateNaissance }
                     )}
                   >
-                    <Icon
-                      render={CalendarIcon}
-                      size='sm'
-                    />
+                    <Icon render={CalendarIcon} size='sm' />
                     {employee.dateNaissance || employee.dateNaissance === 0 ? (
                       format(fromUnixTime(employee.dateNaissance), 'dd/MM/y')
                     ) : (
@@ -205,10 +172,7 @@ function EmployeeForm() {
                     )}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent
-                  className='p-0'
-                  align='start'
-                >
+                <PopoverContent className='p-0' align='start'>
                   <Calendar
                     mode='single'
                     locale={fr}
@@ -235,10 +199,7 @@ function EmployeeForm() {
                 </PopoverContent>
               </Popover>
             </Label>
-            <Label
-              htmlFor='lieuNaissance'
-              label='Lieu naissance'
-            >
+            <Label htmlFor='lieuNaissance' label='Lieu naissance'>
               <Input
                 name='lieuNaissance'
                 id='lieuNaissance'

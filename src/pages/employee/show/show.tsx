@@ -33,17 +33,17 @@ function EmployeeShow({ row, currentWidth }: EmployeeShowProps) {
   return (
     <div
       className={cn(
-        'min-h-40 w-full overflow-hidden focus:outline-offset-0 focus:outline focus:outline-1 focus:outline-accent-foreground focus:rounded-lg'
+        'min-h-40 w-full overflow-hidden focus:rounded-lg focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-accent-foreground'
       )}
       style={{
         width: `${currentWidth}px`,
       }}
     >
-      <div className='flex flex-col justify-center gap-6 px-20 py-8 group'>
+      <div className='group flex flex-col justify-center gap-6 px-20 py-8'>
         <div className='flex items-center gap-8'>
           <div className='flex items-center gap-4'>
-            <div className='size-12 bg-accent rounded-lg flex items-center justify-center shadow-inner space-x-1'>
-              <span className='font-medium text-xl'>
+            <div className='flex size-12 items-center justify-center space-x-1 rounded-lg bg-accent shadow-inner'>
+              <span className='text-xl font-medium'>
                 {row.getValue<string>('nom').slice(0, 1).toLocaleUpperCase()}
                 {row.getValue<string>('prenom').slice(0, 1).toLocaleUpperCase()}
               </span>
@@ -75,10 +75,7 @@ function EmployeeShow({ row, currentWidth }: EmployeeShowProps) {
               column='localité'
               rowValue={row.getValue('localite')}
             />
-            <Presentation
-              column='CSP'
-              rowValue={row.getValue('csp')}
-            />
+            <Presentation column='CSP' rowValue={row.getValue('csp')} />
           </div>
           <div>
             <Presentation
@@ -138,26 +135,13 @@ const EmployeePreviewMenu = ({ row }: { row: Row<Employee> }) => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            size='icon'
-            variant='ghost'
-            edge='left'
-          >
-            <Icon
-              render={MoreVertical}
-              size='sm'
-            />
+          <Button size='icon' variant='ghost' edge='left'>
+            <Icon render={MoreVertical} size='sm' />
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent
-          align='start'
-          className='w-64'
-        >
-          <DropdownMenuItem
-            inset
-            asChild
-          >
+        <DropdownMenuContent align='start' className='w-64'>
+          <DropdownMenuItem inset asChild>
             <Link to={`/employees/${row.id}/edit`}>Modifier</Link>
           </DropdownMenuItem>
 
@@ -174,23 +158,17 @@ const EmployeePreviewMenu = ({ row }: { row: Row<Employee> }) => {
             {row.getIsSelected() ? 'Désélectionner' : 'Sélectionner'}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-            inset
-          >
+          <DropdownMenuItem onClick={() => setOpen(true)} inset>
             Supprimer
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <Dialog
-        open={open}
-        onOpenChange={(open) => setOpen(open)}
-      >
+      <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
         <DialogContent className='max-w-xl'>
           <DialogHeader>
             <DialogTitle>Êtes-vous sûr de vouloir supprimer?</DialogTitle>
           </DialogHeader>
-          <div className='mt-6 mb-8'>
+          <div className='mb-8 mt-6'>
             Cette action ne peut pas être annulée. Cela supprimera
             définitivement l&apos;employée.
           </div>
@@ -215,10 +193,7 @@ const EmployeePreviewMenu = ({ row }: { row: Row<Employee> }) => {
             >
               <div className='flex items-center gap-2'>
                 {mutation.isPending && (
-                  <Icon
-                    render={Loader2}
-                    className='animate-spin'
-                  />
+                  <Icon render={Loader2} className='animate-spin' />
                 )}
                 Supprimer
               </div>

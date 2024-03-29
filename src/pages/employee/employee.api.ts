@@ -3,9 +3,8 @@ import { Employee, EmployeeFormData } from '@/pages/employee';
 import { AxiosResponse } from 'axios';
 
 export const getEmployees = async (): Promise<Employee[]> => {
-  const res: AxiosResponse<{ data: Employee[] }> = await axiosClient.get(
-    '/employees'
-  );
+  const res: AxiosResponse<{ data: Employee[] }> =
+    await axiosClient.get('/employees');
   return res.data.data;
 };
 

@@ -68,28 +68,14 @@ function FormationCreate() {
         <div className='flex items-center justify-end'>
           <div className='space-x-2'>
             <Button variant='outline'>
-              <Icon
-                render={CheckCheck}
-                size='sm'
-                edge='left'
-              />
+              <Icon render={CheckCheck} size='sm' edge='left' />
               <span>Preview</span>
             </Button>
-            <Button
-              variant='outline'
-              onClick={() => reset()}
-            >
-              <Icon
-                render={RotateCcw}
-                size='sm'
-                edge='left'
-              />
+            <Button variant='outline' onClick={() => reset()}>
+              <Icon render={RotateCcw} size='sm' edge='left' />
               <span>Resté</span>
             </Button>
-            <Button
-              onClick={handleCreate}
-              disabled={mutation.isPending}
-            >
+            <Button onClick={handleCreate} disabled={mutation.isPending}>
               <Icon
                 render={mutation.isPending ? Loader2 : Save}
                 size='sm'
@@ -103,36 +89,22 @@ function FormationCreate() {
         </div>
       }
     >
-      <div className='h-full flex flex-col justify-between relative'>
-        <div className='w-full h-full rounded-lg'>
+      <div className='relative flex h-full flex-col justify-between'>
+        <div className='h-full w-full rounded-lg'>
           <form>{step}</form>
-          <div className='absolute bottom-0 inset-x-0'>
+          <div className='absolute inset-x-0 bottom-0'>
             <div className='flex items-end justify-between'>
               <div>
                 {current + 1} / {total}
               </div>
               <div className='flex items-center gap-2'>
-                <Button
-                  onClick={backward}
-                  disabled={current === 0}
-                >
-                  <Icon
-                    render={ChevronLeft}
-                    size='sm'
-                    edge='left'
-                  />
+                <Button onClick={backward} disabled={current === 0}>
+                  <Icon render={ChevronLeft} size='sm' edge='left' />
                   <p>Back</p>
                 </Button>
-                <Button
-                  onClick={forward}
-                  disabled={current === total - 1}
-                >
+                <Button onClick={forward} disabled={current === total - 1}>
                   <p>Next</p>
-                  <Icon
-                    render={ChevronRight}
-                    size='sm'
-                    edge='right'
-                  />
+                  <Icon render={ChevronRight} size='sm' edge='right' />
                 </Button>
               </div>
             </div>

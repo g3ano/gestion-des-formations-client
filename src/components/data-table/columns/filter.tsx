@@ -34,7 +34,7 @@ function Filter<TData>({ table, column }: FilterProps<TData>) {
         <Button
           size='icon'
           variant='ghost'
-          className='mx-px text-muted-foreground flex-shrink-0 group'
+          className='group mx-px flex-shrink-0 text-muted-foreground'
         >
           <Icon
             render={ListFilter}
@@ -45,22 +45,14 @@ function Filter<TData>({ table, column }: FilterProps<TData>) {
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        align='end'
-        className='w-72'
-      >
+      <PopoverContent align='end' className='w-72'>
         <ScrollArea>
           <div className='p-0.5'>
             {column.id ? (
               column.getIsVisible() &&
               column.getCanFilter() && (
                 <div key={column.id}>
-                  {
-                    <FilterInput
-                      column={column}
-                      table={table}
-                    />
-                  }
+                  {<FilterInput column={column} table={table} />}
                 </div>
               )
             ) : (

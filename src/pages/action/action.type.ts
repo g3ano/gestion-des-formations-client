@@ -10,27 +10,34 @@ export interface Action {
     createdAt: number;
   };
   relationships: {
-    formation: Formation;
-    employees: Employee[];
+    formation?: Formation;
+    employees?: Employee[];
   };
 }
 
 export interface Participant {
-  action: Action;
-  employee: Employee;
+  id: number;
+  action?: Action;
+  employee?: Employee;
 }
 
 export type View = 'group' | 'single' | null;
 
 export interface ActionFormData {
   action: {
-    dateDebut: number;
-    dateFin: number;
+    dateDebut: number | null;
+    dateFin: number | null;
     prevision?: string;
-    formationId: number;
+    formationId: number | null;
   };
   participants: {
     employeeId: number;
     observation?: string;
   }[];
+}
+
+export interface SearchResult {
+  formations?: Formation[];
+  actions?: Action[];
+  employees?: Employee[];
 }

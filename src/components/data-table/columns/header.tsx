@@ -45,10 +45,10 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
   };
 
   return (
-    <div className='w-full flex items-center justify-between my-1 px-px'>
+    <div className='my-1 flex w-full items-center justify-between px-px'>
       <ContextMenu>
         <ContextMenuTrigger asChild>
-          <p className='h-full data-table-cell uppercase cursor-default select-none'>
+          <p className='data-table-cell h-full cursor-default select-none uppercase'>
             {column.id.replace('_', ' ')}
           </p>
         </ContextMenuTrigger>
@@ -140,11 +140,7 @@ function Header<TData, TValue>({ column, table }: HeaderProps<TData, TValue>) {
       </ContextMenu>
 
       {isFilteredColumn(column.id) && (
-        <Filter
-          key={column.id}
-          table={table}
-          column={column}
-        />
+        <Filter key={column.id} table={table} column={column} />
       )}
     </div>
   );

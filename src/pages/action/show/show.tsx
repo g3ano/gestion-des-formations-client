@@ -43,28 +43,27 @@ function ActionPreview() {
         </div>
       }
       className={cn(
-        progress < 100
+        progress && progress < 100
           ? 'bg-gradient-to-b from-red-600/5'
           : 'bg-gradient-to-b from-green-600/5'
       )}
     >
-      <div className='flex flex-col h-full pb-2 gap-8 lg:gap-12'>
+      <div className='flex h-full flex-col gap-8 pb-2 lg:gap-12'>
         {isError && <ErrorPage _error={error} />}
         {isPending && <div>Loading...</div>}
         {isSuccess && (
           <>
-            <div className='flex flex-col gap-8 min-h-40 mb-20'>
+            <div className='mb-20 flex min-h-40 flex-col gap-8'>
               <div className='flex gap-4'>
-                <CircularProgress progress={progress} />
+                <CircularProgress progress={progress!} />
 
                 <div className='flex flex-col justify-center gap-1'>
                   <h3 className='text-2xl font-bold'>
                     {
-                      action.relationships.formation.relationships.intitule
+                      action?.relationships.formation?.relationships.intitule
                         .intitule
                     }
                   </h3>
-
                   <div className='flex gap-1 text-muted-foreground'>
                     <p>Depuis</p>
                     <p>
@@ -80,10 +79,7 @@ function ActionPreview() {
               <div className='space-y-3'>
                 <div className='flex gap-8'>
                   <div className='flex items-center gap-2'>
-                    <Icon
-                      render={Calendar}
-                      size='sm'
-                    />
+                    <Icon render={Calendar} size='sm' />
                     <div className='flex justify-center gap-1'>
                       <p>Commencée le</p>
                       <p className='line-clamp-2 flex-1'>
@@ -95,12 +91,13 @@ function ActionPreview() {
                     </div>
                   </div>
                   <div className='flex items-center gap-2'>
-                    <Icon
-                      render={CalendarCheck}
-                      size='sm'
-                    />
+                    <Icon render={CalendarCheck} size='sm' />
                     <div className='flex justify-center gap-1'>
-                      <p>{progress < 100 ? 'Terminera le' : 'Terminée le'}</p>
+                      <p>
+                        {progress && progress < 100
+                          ? 'Terminera le'
+                          : 'Terminée le'}
+                      </p>
                       <p className='line-clamp-2 flex-1'>
                         {format(
                           fromUnixTime(action.action.dateFin),
@@ -112,13 +109,10 @@ function ActionPreview() {
                 </div>
 
                 <div className='flex gap-2'>
-                  <Icon
-                    render={Goal}
-                    size='sm'
-                  />
+                  <Icon render={Goal} size='sm' />
                   <div className='flex flex-col gap-1'>
                     <p>Prévision</p>
-                    <p className='flex-1 max-w-2xl line-clamp-3'>
+                    <p className='line-clamp-3 max-w-2xl flex-1'>
                       {action.action.prevision ||
                         "Aucune prévision n'est trouvée"}
                     </p>
@@ -127,13 +121,17 @@ function ActionPreview() {
               </div>
             </div>
 
-            <div className='h-full flex gap-4 overflow-hidden'>
-              <ScrollArea className='h-full basis-2/5 rounded-lg relative'>
-                <FormationInfo formation={action.relationships.formation} />
+            <div className='flex h-full gap-4 overflow-hidden'>
+              <ScrollArea className='relative h-full basis-2/5 rounded-lg'>
+                {action.relationships.formation && (
+                  <FormationInfo formation={action.relationships.formation} />
+                )}
               </ScrollArea>
 
-              <div className='basis-4/5 rounded-lg overflow-hidden h-full'>
-                <EmployeeInfo employees={action.relationships.employees} />
+              <div className='h-full basis-4/5 overflow-hidden rounded-lg'>
+                {action.relationships.employees && (
+                  <EmployeeInfo employees={action.relationships.employees} />
+                )}
               </div>
             </div>
           </>
@@ -147,9 +145,9 @@ export default ActionPreview;
 
 function CircularProgress({ progress }: { progress: number }) {
   return (
-    <div className='w-20 h-20 relative'>
+    <div className='relative h-20 w-20'>
       <svg
-        className='absolute top-0 left-0 w-full h-full bg-transparent'
+        className='absolute left-0 top-0 h-full w-full bg-transparent'
         viewBox='0 0 100 100'
       >
         <circle
@@ -161,7 +159,7 @@ function CircularProgress({ progress }: { progress: number }) {
         ></circle>
         <circle
           className={cn(
-            'progress-ring-circle fill-transparent stroke-current rounded-full',
+            'progress-ring-circle rounded-full fill-transparent stroke-current',
             progress < 100 ? 'text-red-600/90' : 'text-green-600/90'
           )}
           cx='50'

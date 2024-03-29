@@ -20,7 +20,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex min-w-40 h-9 items-center justify-between whitespace-nowrap rounded-sm bg-card px-2 py-1 text-sm shadow-black/10 shadow-lg',
+      'flex h-9 min-w-40 items-center justify-between whitespace-nowrap rounded-sm bg-card px-2 py-1 text-sm shadow-lg shadow-black/10',
       'placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
       'data-[state=open]:bg-accent',
       className
@@ -90,7 +90,7 @@ const SelectContent = React.forwardRef<
   >
     <SelectScrollUpButton />
     <SelectPrimitive.Viewport
-      className='py-2 w-full'
+      className='w-full py-2'
       style={{ width: 'calc(var(--radix-select-trigger-width) - 2px)' }}
     >
       {children}
@@ -120,17 +120,14 @@ const SelectItem = React.forwardRef<
     ref={ref}
     className={cn(
       'relative flex w-full cursor-default select-none items-center py-1.5 pl-10 pr-8 text-sm outline-none',
-      'data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50',
       className
     )}
     {...props}
   >
     <span className='absolute left-3 flex h-3.5 w-3.5 items-center justify-center truncate'>
       <SelectPrimitive.ItemIndicator>
-        <Icon
-          render={Check}
-          size='xs'
-        />
+        <Icon render={Check} size='xs' />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

@@ -62,28 +62,14 @@ function EmployeeCreate() {
         <div className='flex items-end justify-end'>
           <div className='space-x-2'>
             <Button variant='outline'>
-              <Icon
-                render={CheckCheck}
-                size='sm'
-                edge='left'
-              />
+              <Icon render={CheckCheck} size='sm' edge='left' />
               <span>Preview</span>
             </Button>
-            <Button
-              variant='outline'
-              onClick={() => reset()}
-            >
-              <Icon
-                render={RotateCcw}
-                size='sm'
-                edge='left'
-              />
+            <Button variant='outline' onClick={() => reset()}>
+              <Icon render={RotateCcw} size='sm' edge='left' />
               <span>Resté</span>
             </Button>
-            <Button
-              onClick={handleCreate}
-              disabled={mutation.isPending}
-            >
+            <Button onClick={handleCreate} disabled={mutation.isPending}>
               <Icon
                 render={mutation.isPending ? Loader2 : Save}
                 size='sm'
@@ -97,8 +83,8 @@ function EmployeeCreate() {
         </div>
       }
     >
-      <div className='h-full flex flex-col justify-between relative'>
-        <div className='w-full h-full rounded-lg'>
+      <div className='relative flex h-full flex-col justify-between'>
+        <div className='h-full w-full rounded-lg'>
           <form>
             <EmployeeForm />
           </form>

@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 
 export const getFormations = async (): Promise<Formation[]> => {
   const res: AxiosResponse<{ data: Formation[] }> = await axiosClient.get(
-    '/formations?include[]=intitule&include[]=categorie&include[]=type&include[]=organisme&include[]=codeDomaine&include[]=domaine&include[]=cout'
+    '/formations?includes[]=intitule&includes[]=categorie&includes[]=type&includes[]=organisme&includes[]=codeDomaine&includes[]=domaine&includes[]=cout'
   );
   return res.data.data;
 };
@@ -53,7 +53,7 @@ export const getFormation = async (formationId: string): Promise<Formation> => {
   }> = await axiosClient.get(
     `/formations/${
       formationId ?? ''
-    }?include[]=intitule&include[]=categorie&include[]=type&include[]=organisme&include[]=codeDomaine&include[]=domaine&include[]=cout`
+    }?includes[]=intitule&includes[]=categorie&includes[]=type&includes[]=organisme&includes[]=codeDomaine&includes[]=domaine&includes[]=cout`
   );
   return res.data.data;
 };

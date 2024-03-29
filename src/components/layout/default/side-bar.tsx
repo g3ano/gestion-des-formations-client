@@ -35,24 +35,24 @@ const navigation = [
 
 function SideBar() {
   return (
-    <div className='bg-card h-full fixed z-50 w-16 shadow-xl'>
+    <div className='fixed z-50 h-full w-16 bg-card shadow-xl'>
       <div>
-        <div className='rounded-sm w-full h-20 flex items-center justify-center overflow-hidden'>
+        <div className='flex h-20 w-full items-center justify-center overflow-hidden rounded-sm'>
           <Logo />
         </div>
 
-        <div className='h-full py-4 flex justify-center px-2'>
+        <div className='flex h-full justify-center px-2 py-4'>
           <div className='flex w-full flex-col gap-2'>
             {navigation.map((navItem) => (
               <TooltipProvider key={navItem.label}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className='aspect-square flex w-full'>
+                    <div className='flex aspect-square w-full'>
                       <NavLink
                         to={navItem.to}
                         className={({ isActive }) =>
                           cn(
-                            'rounded-sm flex items-center justify-center w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:bg-accent',
+                            'flex w-full items-center justify-center rounded-sm hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
                             {
                               'bg-primary text-accent-foreground hover:bg-primary/80':
                                 isActive,
@@ -64,10 +64,7 @@ function SideBar() {
                       </NavLink>
                     </div>
                   </TooltipTrigger>
-                  <TooltipContent
-                    side='right'
-                    sideOffset={20}
-                  >
+                  <TooltipContent side='right' sideOffset={20}>
                     {navItem.label}
                   </TooltipContent>
                 </Tooltip>

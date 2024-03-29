@@ -62,7 +62,7 @@ const ContextMenuContent = React.forwardRef<
     <ContextMenuPrimitive.Content
       ref={ref}
       className={cn(
-        'z-50 min-w-[12rem] overflow-hidden rounded-lg bg-popover py-2 text-popover-foreground shadow-xl shadow-black/10 border border-border',
+        'z-50 min-w-[12rem] overflow-hidden rounded-lg border border-border bg-popover py-2 text-popover-foreground shadow-xl shadow-black/10',
         className
       )}
       {...props}
@@ -82,7 +82,7 @@ const ContextMenuItem = React.forwardRef<
   <ContextMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative w-64 flex cursor-default select-none items-center px-3 py-1.5 text-sm outline-none',
+      'relative flex w-64 cursor-default select-none items-center px-3 py-1.5 text-sm outline-none',
       'focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       inset && 'pl-9',
       className
@@ -91,10 +91,7 @@ const ContextMenuItem = React.forwardRef<
   >
     {withIcon && (
       <div className='flex items-center justify-center pr-2'>
-        <Icon
-          render={icon as LucideIcon}
-          size='xs'
-        />
+        <Icon render={icon as LucideIcon} size='xs' />
       </div>
     )}
     {props.children}

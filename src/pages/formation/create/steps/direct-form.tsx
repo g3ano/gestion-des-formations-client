@@ -27,18 +27,15 @@ function DirectForm() {
   return (
     <Step>
       <div className='space-y-20'>
-        <div className='w-full flex flex-col gap-8'>
+        <div className='flex w-full flex-col gap-8'>
           <div className='flex items-center justify-center gap-4'>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
-            <span className='font-medium text-xl'>Formation</span>
-            <div className='mt-1 flex-1 bg-accent-foreground/20 h-px'></div>
+            <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
+            <span className='text-xl font-medium'>Formation</span>
+            <div className='mt-1 h-px flex-1 bg-accent-foreground/20'></div>
           </div>
           <div className='space-y-8'>
             <div className='flex items-center gap-4'>
-              <Label
-                htmlFor='structure'
-                label='Structure'
-              >
+              <Label htmlFor='structure' label='Structure'>
                 <Input
                   name='structure'
                   id='structure'
@@ -48,10 +45,7 @@ function DirectForm() {
                   maxLength={50}
                 />
               </Label>
-              <Label
-                htmlFor='codeFormation'
-                label='code formation'
-              >
+              <Label htmlFor='codeFormation' label='code formation'>
                 <Select
                   name='codeFormation'
                   value={direct.codeFormation}
@@ -62,10 +56,7 @@ function DirectForm() {
                     }))
                   }
                 >
-                  <SelectTrigger
-                    className='w-full'
-                    id='codeFormation'
-                  >
+                  <SelectTrigger className='w-full' id='codeFormation'>
                     <SelectValue placeholder='CDI' />
                   </SelectTrigger>
                   <SelectContent align='end'>
@@ -80,10 +71,7 @@ function DirectForm() {
               </Label>
             </div>
             <div className='flex items-center gap-4'>
-              <Label
-                label='mode'
-                htmlFor='mode'
-              >
+              <Label label='mode' htmlFor='mode'>
                 <Select
                   name='mode'
                   value={direct.mode}
@@ -94,10 +82,7 @@ function DirectForm() {
                     }))
                   }
                 >
-                  <SelectTrigger
-                    className='w-full'
-                    id='mode'
-                  >
+                  <SelectTrigger className='w-full' id='mode'>
                     <SelectValue
                       placeholder='Présentiel'
                       defaultValue='Présentiel'
@@ -110,10 +95,7 @@ function DirectForm() {
                   </SelectContent>
                 </Select>
               </Label>
-              <Label
-                label='domaine'
-                htmlFor='domaineId'
-              >
+              <Label label='domaine' htmlFor='domaineId'>
                 <Select
                   name='domaineId'
                   value={direct.domaineId}
@@ -124,10 +106,7 @@ function DirectForm() {
                     }))
                   }
                 >
-                  <SelectTrigger
-                    className='w-full'
-                    id='domaineId'
-                  >
+                  <SelectTrigger className='w-full' id='domaineId'>
                     <SelectValue placeholder='FCM' />
                   </SelectTrigger>
                   <SelectContent align='end'>
@@ -137,10 +116,7 @@ function DirectForm() {
                   </SelectContent>
                 </Select>
               </Label>
-              <Label
-                label='categorie'
-                htmlFor='categorieId'
-              >
+              <Label label='categorie' htmlFor='categorieId'>
                 <Select
                   name='categorieId'
                   value={direct.categorieId}
@@ -151,10 +127,7 @@ function DirectForm() {
                     }))
                   }
                 >
-                  <SelectTrigger
-                    className='w-full'
-                    id='categorieId'
-                  >
+                  <SelectTrigger className='w-full' id='categorieId'>
                     <SelectValue
                       placeholder="Actions d'adaptation au poste de travail"
                       defaultValue="actions d'adaptation au poste de travail"
@@ -175,10 +148,7 @@ function DirectForm() {
               </Label>
             </div>
             <div className='flex items-center gap-4'>
-              <Label
-                label='lieu'
-                htmlFor='lieu'
-              >
+              <Label label='lieu' htmlFor='lieu'>
                 <Input
                   name='lieu'
                   id='lieu'
@@ -188,10 +158,7 @@ function DirectForm() {
                   maxLength={50}
                 />
               </Label>
-              <Label
-                label='type'
-                htmlFor='typeId'
-              >
+              <Label label='type' htmlFor='typeId'>
                 <Select
                   name='typeId'
                   value={direct.typeId}
@@ -202,10 +169,7 @@ function DirectForm() {
                     }))
                   }
                 >
-                  <SelectTrigger
-                    className='w-full'
-                    id='typeId'
-                  >
+                  <SelectTrigger className='w-full' id='typeId'>
                     <SelectValue
                       placeholder='Formation Recrutement'
                       defaultValue='1'
@@ -223,10 +187,7 @@ function DirectForm() {
               </Label>
             </div>
             <div className='flex items-center gap-4'>
-              <Label
-                label='observation'
-                htmlFor='observation'
-              >
+              <Label label='observation' htmlFor='observation'>
                 <textarea
                   rows={7}
                   name='observation'
@@ -235,7 +196,7 @@ function DirectForm() {
                   onChange={handleChange}
                   placeholder='Entrer Observation...'
                   className={cn(
-                    'resize-none flex w-full rounded-lg shadow-black/10 bg-card px-3 py-3 text-sm shadow-sm transition-colors',
+                    'flex w-full resize-none rounded-lg bg-card px-3 py-3 text-sm shadow-sm shadow-black/10 transition-colors',
                     'placeholder:text-muted-foreground',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
                   )}

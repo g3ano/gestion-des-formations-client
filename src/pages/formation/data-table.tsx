@@ -122,11 +122,11 @@ function DataTable<TData, TValue>({
 
   return (
     <div
-      className={cn('grid grid-cols-10 grid-rows-12 gap-4 h-full relative', {
+      className={cn('relative grid h-full grid-cols-10 grid-rows-12 gap-4', {
         'cursor-w-resize': table.getState().columnSizingInfo.isResizingColumn,
       })}
     >
-      <div className='col-span-10 row-span-1 flex items-end flex-col md:flex-row md:justify-between'>
+      <div className='col-span-10 row-span-1 flex flex-col items-end md:flex-row md:justify-between'>
         <div className='w-full md:w-1/4'>
           <GlobalFilter
             globalFilter={globalFilter}
@@ -156,7 +156,7 @@ function DataTable<TData, TValue>({
 
       <ScrollAreaPrimitive.Root
         className={cn(
-          'col-span-10 row-span-10 overflow-auto flex max-h-full max-w-full rounded-lg drop-shadow',
+          'col-span-10 row-span-10 flex max-h-full max-w-full overflow-auto rounded-lg drop-shadow',
           {
             'col-span-7 lg:col-span-8 xl:col-span-8':
               table.getIsSomeRowsExpanded(),
@@ -165,7 +165,7 @@ function DataTable<TData, TValue>({
       >
         <ScrollAreaPrimitive.Viewport
           ref={containerRef}
-          className='h-full relative rounded-lg'
+          className='relative h-full rounded-lg'
         >
           <div
             role='table'
@@ -177,20 +177,20 @@ function DataTable<TData, TValue>({
           >
             <div
               role='table head'
-              className='grid sticky top-0 z-10 bg-card rounded-t-lg shadow-sm'
+              className='sticky top-0 z-10 grid rounded-t-lg bg-card shadow-sm'
             >
               {table.getHeaderGroups().map((headerGroup) => (
                 <div
                   role='table row'
                   key={headerGroup.id}
-                  className='w-full flex shadow rounded-t-lg pr-[2px]'
+                  className='flex w-full rounded-t-lg pr-[2px] shadow'
                 >
                   {headerGroup.headers.map((header) => {
                     return (
                       <div
                         role='table header'
                         key={header.id}
-                        className='flex w-full mt-[1px] relative overflow-hidden'
+                        className='relative mt-[1px] flex w-full overflow-hidden'
                         style={{
                           width: `calc(var(--header-${header?.id}-size) * 1px)`,
                         }}
@@ -204,9 +204,9 @@ function DataTable<TData, TValue>({
                             onMouseDown={header.getResizeHandler()}
                             onTouchStart={header.getResizeHandler()}
                             className={cn(
-                              'w-1 cursor-w-resize h-full hover:bg-accent absolute inset-y-0 right-0 transition duration-150 ease-in-out',
+                              'absolute inset-y-0 right-0 h-full w-1 cursor-w-resize transition duration-150 ease-in-out hover:bg-accent',
                               {
-                                'bg-accent w-9': header.column.getIsResizing(),
+                                'w-9 bg-accent': header.column.getIsResizing(),
                               }
                             )}
                           />
@@ -238,11 +238,11 @@ function DataTable<TData, TValue>({
       </ScrollAreaPrimitive.Root>
 
       {previewRow?.getIsExpanded() && (
-        <div className='col-span-3 row-span-10 flex lg:col-span-2 xl:col-span-2 rounded-lg'>
+        <div className='col-span-3 row-span-10 flex rounded-lg lg:col-span-2 xl:col-span-2'>
           <FormationPreview row={previewRow} />
         </div>
       )}
-      <div className='col-span-10 row-span-1 flex bg-card px-4 w-full shadow rounded-lg'>
+      <div className='col-span-10 row-span-1 flex w-full rounded-lg bg-card px-4 shadow'>
         <Pagination table={table} />
       </div>
     </div>
@@ -274,7 +274,7 @@ function TableBody<TData>({
   return virtualizer.getVirtualItems().length ? (
     <div
       role='table body'
-      className={cn('grid relative', {
+      className={cn('relative grid', {
         'select-none': table.getState().columnSizingInfo.isResizingColumn,
       })}
       style={{
@@ -291,16 +291,16 @@ function TableBody<TData>({
             data-index={virtualRow.index}
             ref={(node) => virtualizer.measureElement(node)}
             key={row.id}
-            className='w-full flex absolute'
+            className='absolute flex w-full'
             style={{
               transform: `translateY(${virtualRow.start}px)`,
             }}
           >
             <div
               className={cn(
-                'flex mt-1 bg-card relative border border-background select-none',
+                'relative mt-1 flex select-none border border-background bg-card',
                 {
-                  'bg-primary/25 border-primary/25': row.getIsSelected(),
+                  'border-primary/25 bg-primary/25': row.getIsSelected(),
                   'cursor-pointer':
                     !table.getState().columnSizingInfo.isResizingColumn,
                 }
@@ -332,12 +332,9 @@ function TableBody<TData>({
   ) : (
     <div
       role='table row'
-      className='data-table-row flex mt-1.5 bg-card rounded-lg'
+      className='data-table-row mt-1.5 flex rounded-lg bg-card'
     >
-      <div
-        role='cell'
-        className='data-table-cell'
-      >
+      <div role='cell' className='data-table-cell'>
         No data is found
       </div>
     </div>

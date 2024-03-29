@@ -40,14 +40,8 @@ function CommonForm() {
             const data = commonData[key];
 
             return (
-              <div
-                className='flex-1'
-                key={key}
-              >
-                <Label
-                  label={keys[key]}
-                  htmlFor={keys[key]}
-                >
+              <div className='flex-1' key={key}>
+                <Label label={keys[key]} htmlFor={keys[key]}>
                   <AutoComplete
                     id={keys[key]}
                     name={keys[key]}

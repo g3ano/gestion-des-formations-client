@@ -36,10 +36,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
     }, [data, value]);
 
     return (
-      <Popover
-        open={open}
-        onOpenChange={setOpen}
-      >
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <div className='relative'>
             <Input
@@ -56,7 +53,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
             />
             <Icon
               render={ChevronsUpDown}
-              className='absolute top-1/2 right-0 -translate-y-1/2 mr-2 shrink-0 opacity-50'
+              className='absolute right-0 top-1/2 mr-2 shrink-0 -translate-y-1/2 opacity-50'
               size='xs'
             />
           </div>
@@ -80,7 +77,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(
             />
           ) : (
             <div
-              className='hover:bg-accent hover:text-accent-foreground px-3 py-2'
+              className='px-3 py-2 hover:bg-accent hover:text-accent-foreground'
               onClick={() => setOpen(false)}
             >
               {value}
@@ -126,13 +123,13 @@ const SearchResultList = ({
       }}
     >
       <div
-        className='w-full relative'
+        className='relative w-full'
         style={{
           height: virtualizer.getTotalSize(),
         }}
       >
         <div
-          className='absolute top-0 left-0 w-full space-y-1'
+          className='absolute left-0 top-0 w-full space-y-1'
           style={{
             transform: `translateY(${items[0]?.start ?? 0}px)`,
           }}
@@ -145,7 +142,7 @@ const SearchResultList = ({
             >
               <div
                 className={cn(
-                  'w-full cursor-pointer hover:bg-accent hover:text-accent-foreground px-3 py-2 flex items-center justify-between focus:bg-accent focus:text-accent-foreground',
+                  'flex w-full cursor-pointer items-center justify-between px-3 py-2 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
                   {
                     'bg-accent text-accent-foreground':
                       value === searchResults[vr.index],

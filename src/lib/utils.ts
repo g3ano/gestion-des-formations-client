@@ -136,8 +136,8 @@ export const resolvePageNumber = (
       ? currentPage - 1
       : currentPage
     : currentPage === firstPage
-    ? 0
-    : currentPage - (safePagesNum - (lastPage - currentPage)) - 1; //calculate items pad if no more overflowing pages is found, and it's not the first page
+      ? 0
+      : currentPage - (safePagesNum - (lastPage - currentPage)) - 1; //calculate items pad if no more overflowing pages is found, and it's not the first page
 
   for (start; start < end; start++) {
     if (start < pageCount && start >= 0) {
@@ -184,14 +184,14 @@ export function objCompare<T, P extends T>(
       typeof objValue === 'string'
         ? objValue.trim()
         : typeof objValue === 'number'
-        ? objValue
-        : null;
+          ? objValue
+          : null;
     targetValue =
       typeof targetValue === 'string'
         ? targetValue.trim()
         : typeof targetValue === 'number'
-        ? targetValue
-        : null;
+          ? targetValue
+          : null;
 
     if (objValue === null || targetValue === null) return false;
     if (objValue !== targetValue) return false;

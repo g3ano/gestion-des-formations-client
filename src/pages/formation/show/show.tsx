@@ -26,11 +26,11 @@ import {
 
 export default function FormationShow({ row }: { row: Row<Formation> }) {
   return (
-    <div className='w-full flex rounded-lg'>
-      <ScrollArea className='-mb-0.5 rounded-lg drop-shadow w-full'>
+    <div className='flex w-full rounded-lg'>
+      <ScrollArea className='-mb-0.5 w-full rounded-lg drop-shadow'>
         <div className='flex flex-col justify-between gap-1'>
-          <div className='bg-card rounded-[5px] space-y-1.5'>
-            <div className='flex min-h-12 items-center justify-between bg-accent px-4 py-1 absolute inset-x-0 top-0 z-10 rounded-t-lg'>
+          <div className='space-y-1.5 rounded-[5px] bg-card'>
+            <div className='absolute inset-x-0 top-0 z-10 flex min-h-12 items-center justify-between rounded-t-lg bg-accent px-4 py-1'>
               <div className=''>
                 <FormationPreviewMenu row={row} />
               </div>
@@ -41,23 +41,20 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
                 onClick={() => row.toggleExpanded(false)}
                 edge='right'
               >
-                <Icon
-                  render={X}
-                  size='sm'
-                />
+                <Icon render={X} size='sm' />
               </Button>
             </div>
             <div className='p-4 pt-14'>
-              <p className='font-medium line-clamp-2 pb-1 text-muted-foreground'>
+              <p className='line-clamp-2 pb-1 font-medium text-muted-foreground'>
                 Intitule
               </p>
-              <p className='line-clamp-2 pt-1 pb-4'>
+              <p className='line-clamp-2 pb-4 pt-1'>
                 {capitalize(row.getValue('intitule'))}
               </p>
             </div>
           </div>
-          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
-            <p className='font-medium line-clamp-2 pb-1 text-muted-foreground'>
+          <div className='space-y-1.5 rounded-[5px] bg-card p-4'>
+            <p className='line-clamp-2 pb-1 font-medium text-muted-foreground'>
               Formation
             </p>
             <Presentation
@@ -89,7 +86,7 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
+          <div className='space-y-1.5 rounded-[5px] bg-card p-4'>
             <Presentation
               column='organisme'
               rowValue={row.getValue('organisme')}
@@ -111,8 +108,8 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               multiline
             />
           </div>
-          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
-            <p className='font-medium line-clamp-2 pb-1 text-muted-foreground'>
+          <div className='space-y-1.5 rounded-[5px] bg-card p-4'>
+            <p className='line-clamp-2 pb-1 font-medium text-muted-foreground'>
               Effectif à former
             </p>
             <Presentation
@@ -134,8 +131,8 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-card rounded-[5px] p-4 space-y-1.5'>
-            <p className='font-medium line-clamp-2 pb-1 text-muted-foreground'>
+          <div className='space-y-1.5 rounded-[5px] bg-card p-4'>
+            <p className='line-clamp-2 pb-1 font-medium text-muted-foreground'>
               Coût
             </p>
             <Presentation
@@ -169,8 +166,8 @@ export default function FormationShow({ row }: { row: Row<Formation> }) {
               inline
             />
           </div>
-          <div className='bg-card rounded-b-lg rounded-t-[5px] p-4 space-y-1.5 mb-0.5'>
-            <p className='font-medium line-clamp-2 text-muted-foreground'>
+          <div className='mb-0.5 space-y-1.5 rounded-b-lg rounded-t-[5px] bg-card p-4'>
+            <p className='line-clamp-2 font-medium text-muted-foreground'>
               Observation
             </p>
             <p className='line-clamp-4 pt-1'>
@@ -206,7 +203,7 @@ const Presentation = ({
       'flex-col gap-1': multiline,
     })}
   >
-    <p className='flex-1 line-clamp-1 2xl:line-clamp-none text-muted-foreground'>
+    <p className='line-clamp-1 flex-1 text-muted-foreground 2xl:line-clamp-none'>
       {capitalize(column)}
     </p>
     {isCapitalized && (
@@ -238,25 +235,12 @@ const FormationPreviewMenu = ({ row }: { row: Row<Formation> }) => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            size='icon'
-            variant='ghost'
-            edge='left'
-          >
-            <Icon
-              render={MoreVertical}
-              size='sm'
-            />
+          <Button size='icon' variant='ghost' edge='left'>
+            <Icon render={MoreVertical} size='sm' />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align='start'
-          className='w-64'
-        >
-          <DropdownMenuItem
-            inset
-            asChild
-          >
+        <DropdownMenuContent align='start' className='w-64'>
+          <DropdownMenuItem inset asChild>
             <Link to={`/formations/${row.id}/edit`}>Modifier</Link>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -272,23 +256,17 @@ const FormationPreviewMenu = ({ row }: { row: Row<Formation> }) => {
             {row.getIsSelected() ? 'Désélectionner' : 'Sélectionner'}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-            inset
-          >
+          <DropdownMenuItem onClick={() => setOpen(true)} inset>
             Supprimer
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <Dialog
-        open={open}
-        onOpenChange={(open) => setOpen(open)}
-      >
+      <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
         <DialogContent className='max-w-xl'>
           <DialogHeader>
             <DialogTitle>Êtes-vous sûr de vouloir supprimer?</DialogTitle>
           </DialogHeader>
-          <div className='mt-6 mb-8'>
+          <div className='mb-8 mt-6'>
             Cette action ne peut pas être annulée. Cela supprimera
             définitivement la formation.
           </div>
@@ -313,10 +291,7 @@ const FormationPreviewMenu = ({ row }: { row: Row<Formation> }) => {
             >
               <div className='flex items-center gap-2'>
                 {mutation.isPending && (
-                  <Icon
-                    render={Loader2}
-                    className='animate-spin'
-                  />
+                  <Icon render={Loader2} className='animate-spin' />
                 )}
                 Supprimer
               </div>

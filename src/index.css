@@ -4,23 +4,27 @@
 
 @font-face {
   font-family: 'Roboto';
-  src: url('./font/Roboto-Light.ttf') format('truetype');
+  src: url('./.font/Roboto-Light.ttf') format('truetype');
   font-weight: 300;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Roboto';
-  src: url('./font/Roboto-Regular.ttf') format('truetype');
+  src: url('./.font/Roboto-Regular.ttf') format('truetype');
   font-weight: 400;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Roboto';
-  src: url('./font/Roboto-Medium.ttf') format('truetype');
+  src: url('./.font/Roboto-Medium.ttf') format('truetype');
   font-weight: 500;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Roboto';
-  src: url('./font/Roboto-Bold.ttf') format('truetype');
+  src: url('./.font/Roboto-Bold.ttf') format('truetype');
   font-weight: 700;
+  font-display: swap;
 }
 
 @layer base {
@@ -81,17 +85,17 @@
 
   /* width */
   ::-webkit-scrollbar {
-    @apply w-1.5 pl-px h-1.5 bg-transparent rounded-lg;
+    @apply h-1.5 w-1.5 rounded-lg bg-transparent pl-px;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
-    @apply bg-transparent rounded-lg;
+    @apply rounded-lg bg-transparent;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-secondary rounded-lg;
+    @apply rounded-lg bg-secondary;
   }
 
   /* Handle on hover */
@@ -102,7 +106,7 @@
 
 @layer components {
   .data-table-cell {
-    @apply flex items-center px-4 py-2 w-full;
+    @apply flex w-full items-center px-4 py-2;
   }
   .progress-ring-circle {
     transition: stroke-dashoffset 0.35s;
