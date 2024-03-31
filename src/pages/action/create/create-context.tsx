@@ -43,7 +43,7 @@ const _ActionCreateContext = createContext<ActionCreateContextState>({
   },
   setAction: () => {},
   preview: {
-    open: true,
+    open: false,
   },
   setPreview: () => {},
   reset: () => {},
@@ -66,7 +66,7 @@ export const ActionCreateProvider = ({ children }: { children: ReactNode }) => {
     formation?: Formation;
     participants?: Employee[];
   }>({
-    open: true,
+    open: false,
   });
   const [searchValue, setSearchValue] = useState('');
   const reset = useCallback(() => {

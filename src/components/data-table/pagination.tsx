@@ -3,22 +3,12 @@ import {
   Pagination as DataTablePagination,
   PaginationButton,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
 } from '@/components/ui/pagination';
-import { resolvePageNumber } from '@/lib/utils';
 import { Table } from '@tanstack/react-table';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const DISPLAY_PAGES_NUM = 6;
-
 function Pagination<TData>({ table }: { table: Table<TData> }) {
-  const { pages, currentPage, firstPage, lastPage } = resolvePageNumber(
-    table.getPageCount(),
-    table.getState().pagination.pageIndex,
-    DISPLAY_PAGES_NUM
-  );
-
   return (
     <div className='flex w-full items-center justify-between'>
       <div className='flex w-1/2 items-center gap-4'>
@@ -35,9 +25,9 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
           <span className='font-bold'>
             {table.getFilteredSelectedRowModel().rows.length}
           </span>
-          <span>Lignes sur </span>
+          <span className='select-none'>Lignes sur </span>
           <span>{table.getFilteredRowModel().rows.length}</span>
-          <span>sélectionnées</span>
+          <span className='select-none'>sélectionnées</span>
         </div>
       </div>
       <div className='flex items-center gap-4'>
@@ -53,28 +43,6 @@ function Pagination<TData>({ table }: { table: Table<TData> }) {
                 <Icon render={ChevronLeft} />
               </PaginationButton>
             </PaginationItem>
-            {pages.map((page) => (
-              <div key={page} className='flex items-center gap-1'>
-                {page === lastPage && pages.length > 4 && (
-                  <PaginationItem>
-                    <PaginationEllipsis className='flex items-end' />
-                  </PaginationItem>
-                )}
-                <PaginationItem>
-                  <PaginationButton
-                    onClick={() => table.setPageIndex(page)}
-                    isActive={page === currentPage}
-                  >
-                    {page + 1}
-                  </PaginationButton>
-                </PaginationItem>
-                {page === firstPage && pages.length > 4 && (
-                  <PaginationItem>
-                    <PaginationEllipsis className='flex items-end' />
-                  </PaginationItem>
-                )}
-              </div>
-            ))}
             <PaginationItem>
               <PaginationButton
                 size='icon'

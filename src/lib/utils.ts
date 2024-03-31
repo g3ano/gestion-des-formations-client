@@ -105,61 +105,6 @@ export const matchSearch = (searchResult: string, searchValue: string) => {
   return result;
 };
 
-//I can't believe I've spent 5 hours on this shit
-//it is not even completed, there is some edge cases that need to be covered
-export const resolvePageNumber = (
-  pageCount: number,
-  pageIndex: number,
-  displayPagesNum: number
-): {
-  currentPage: number;
-  firstPage: number;
-  lastPage: number;
-  pages: number[];
-} => {
-  const currentPage = pageIndex;
-  const firstPage = 0;
-  const lastPage = pageCount ? pageCount - 1 : pageCount;
-  let pages: number[] = [];
-  const isEnoughNextPages = currentPage + displayPagesNum < pageCount;
-  const safePagesNum =
-    currentPage === firstPage ? displayPagesNum - 1 : displayPagesNum - 2;
-
-  const end = isEnoughNextPages
-    ? currentPage >= 2 //covers left padding added below
-      ? currentPage + safePagesNum - 1
-      : currentPage + safePagesNum
-    : lastPage;
-
-  let start = isEnoughNextPages
-    ? currentPage >= 2 //adds a left padding of one page if page position >= 2
-      ? currentPage - 1
-      : currentPage
-    : currentPage === firstPage
-      ? 0
-      : currentPage - (safePagesNum - (lastPage - currentPage)) - 1; //calculate items pad if no more overflowing pages is found, and it's not the first page
-
-  for (start; start < end; start++) {
-    if (start < pageCount && start >= 0) {
-      pages.push(start);
-    }
-  }
-  if (!pages.includes(firstPage)) {
-    pages = [...pages, firstPage];
-  }
-  if (!pages.includes(lastPage)) {
-    pages = [...pages, lastPage];
-  }
-  pages.sort((a, b) => a - b);
-
-  return {
-    currentPage,
-    firstPage,
-    lastPage,
-    pages,
-  };
-};
-
 /**
  * A simple function that compares two given objects literals, it returns true if `obj` is identical to `target`, false otherwise.
  * **PS**: if the values are not string/number it return false.
