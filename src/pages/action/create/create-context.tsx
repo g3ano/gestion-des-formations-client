@@ -1,6 +1,4 @@
 import { ActionFormData } from '@/pages/action';
-import { Employee } from '@/pages/employee';
-import { Formation } from '@/pages/formation';
 import {
   Dispatch,
   ReactNode,
@@ -16,14 +14,20 @@ interface ActionCreateContextState {
   setAction: Dispatch<SetStateAction<ActionFormData>>;
   preview: {
     open: boolean;
-    formation?: Formation;
-    participants?: Employee[];
+    formation?: string;
+    participants?: {
+      fullName: string;
+      matricule: number;
+    }[];
   };
   setPreview: Dispatch<
     SetStateAction<{
       open: boolean;
-      formation?: Formation | undefined;
-      participants?: Employee[] | undefined;
+      formation?: string;
+      participants?: {
+        fullName: string;
+        matricule: number;
+      }[];
     }>
   >;
   reset: () => void;
@@ -43,11 +47,11 @@ const _ActionCreateContext = createContext<ActionCreateContextState>({
   },
   setAction: () => {},
   preview: {
-    open: false,
+    open: true,
   },
   setPreview: () => {},
   reset: () => {},
-  searchValue: '',
+  searchValue: 'al',
   setSearchValue: () => {},
 });
 
@@ -63,12 +67,15 @@ export const ActionCreateProvider = ({ children }: { children: ReactNode }) => {
   });
   const [preview, setPreview] = useState<{
     open: boolean;
-    formation?: Formation;
-    participants?: Employee[];
+    formation?: string;
+    participants?: {
+      fullName: string;
+      matricule: number;
+    }[];
   }>({
-    open: false,
+    open: true,
   });
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState('al');
   const reset = useCallback(() => {
     setAction({
       action: {

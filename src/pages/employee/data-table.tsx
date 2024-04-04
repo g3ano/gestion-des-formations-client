@@ -95,7 +95,7 @@ function DataTable<TData, TValue>({
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     getExpandedRowModel: getExpandedRowModel(),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-    getRowId: (row: any) => String(row.employee.id),
+    getRowId: (row: any) => String(row.attributes.id),
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
   });

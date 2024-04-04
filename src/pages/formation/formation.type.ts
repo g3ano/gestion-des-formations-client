@@ -1,7 +1,8 @@
 import { Action } from '@/pages/action';
 
 export interface Formation {
-  formation: {
+  type: 'formation';
+  attributes: {
     id: number;
     structure: string;
     codeFormation: string;

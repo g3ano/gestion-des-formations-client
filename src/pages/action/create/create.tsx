@@ -26,8 +26,8 @@ import {
 
 function ActionCreate() {
   const { step, backward, forward, current, total } = useStepper([
-    <ActionDetailsForm key='details' />,
     <ActionSearchForm key='search' />,
+    <ActionDetailsForm key='details' />,
   ]);
 
   const { action, reset, setPreview, preview } = ActionCreateContext();
@@ -93,8 +93,12 @@ function ActionCreate() {
     >
       <div className='flex h-full flex-col justify-between gap-8'>
         <div className='flex h-full gap-8 overflow-hidden px-0.5'>
-          <div className={preview.open ? 'w-3/4' : 'w-full'}>
-            <form>{step}</form>
+          <div
+            className={cn('h-full w-full', {
+              'w-3/4': preview.open,
+            })}
+          >
+            {step}
           </div>
           {preview.open ? (
             <div className='relative flex w-1/4 flex-col gap-4 rounded-lg bg-card py-4'>

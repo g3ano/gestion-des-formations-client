@@ -37,7 +37,7 @@ function ActionGroup() {
       {isSuccess ? (
         actions.length ? (
           actions.map((action) => (
-            <CardGroup key={action.action.id} action={action} />
+            <CardGroup key={action.attributes.id} action={action} />
           ))
         ) : (
           <div className='col-span-12'>Aucune action n&apos;a été trouvée</div>
@@ -49,14 +49,21 @@ function ActionGroup() {
 
 export default ActionGroup;
 
-function CardGroup({ action: { action, relationships } }: { action: Action }) {
+function CardGroup({
+  action: { attributes, relationships },
+}: {
+  action: Action;
+}) {
   return (
     <div
       className={cn(
         'group relative isolate col-span-4 h-[9.975rem] max-h-min cursor-pointer overflow-hidden rounded-lg bg-card px-4 py-3 pb-4 transition-transform delay-300 duration-300 hover:bg-accent'
       )}
     >
-      <Link to={`/actions/${action.id}`} className='absolute inset-0'></Link>
+      <Link
+        to={`/actions/${attributes.id}`}
+        className='absolute inset-0'
+      ></Link>
       <div className='absolute inset-0 -z-50 bg-card/75'></div>
       <div className='flex h-full'>
         <div className='flex flex-1 flex-col justify-between'>
@@ -83,12 +90,12 @@ function CardGroup({ action: { action, relationships } }: { action: Action }) {
                       <span>
                         {relationships.employees?.[
                           relationships.employees.length - 1
-                        ]?.employee.nom ?? 'John'}
+                        ]?.attributes.nom ?? 'John'}
                       </span>
                       <span>
                         {relationships.employees?.[
                           relationships.employees.length - 1
-                        ]?.employee.prenom ?? 'Doe'}
+                        ]?.attributes.prenom ?? 'Doe'}
                       </span>
                     </>
                   ) : (
@@ -103,7 +110,7 @@ function CardGroup({ action: { action, relationships } }: { action: Action }) {
                 <p className='flex items-center gap-1'>
                   <Icon render={MapPin} size='sm' />
                   <span>
-                    {capitalize(relationships.formation.formation.lieu)}
+                    {capitalize(relationships.formation.attributes.lieu)}
                   </span>
                   A,
                   <span>

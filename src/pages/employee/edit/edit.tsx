@@ -45,8 +45,8 @@ function EmployeeEdit() {
   const [resetForm, setResetForm] = useState(false);
 
   useEffect(() => {
-    if (isSuccess && data.employee) {
-      const { employee: employeeData } = data;
+    if (isSuccess && data.attributes) {
+      const { attributes: employeeData } = data;
       for (const field in employee) {
         if (
           employeeData[field as keyof typeof employeeData] ||
@@ -71,8 +71,8 @@ function EmployeeEdit() {
   };
 
   const isDirty = useMemo(() => {
-    if (isSuccess && data.employee) {
-      const { employee: employeeData } = data;
+    if (isSuccess && data.attributes) {
+      const { attributes: employeeData } = data;
       const isEmployeeDirty = !objCompare(employee, {
         matricule: employeeData.matricule,
         nom: employeeData.nom,

@@ -2,7 +2,7 @@ import axiosClient from '@/lib/axios';
 import {
   Action,
   ActionFormData,
-  SearchResult,
+  SearchResultShuffled,
   Participant,
 } from '@/pages/action';
 import { AxiosResponse } from 'axios';
@@ -66,9 +66,11 @@ export const createAction = async (action: ActionFormData) => {
 export const globalSearch = async ({
   includes,
   searchValue,
+  page,
 }: {
   includes: string[];
   searchValue: string;
+  page: number;
 }) => {
   let includesQueryString = '';
 
@@ -76,11 +78,9 @@ export const globalSearch = async ({
     includesQueryString += `&includes[]=${include}`;
   }
 
-  const res: AxiosResponse<{
-    data: SearchResult;
-  }> = await axiosClient.get(
-    `/search?query=${searchValue}${includesQueryString}`
+  const res: AxiosResponse<SearchResultShuffled> = await axiosClient.get(
+    `/search?query=${searchValue}${includesQueryString}&isShuffled=1&page=${page}`
   );
 
-  return res.data.data;
+  return res.data;
 };

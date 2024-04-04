@@ -51,8 +51,8 @@ function CardSingle({
   participant: Participant;
 }) {
   const progress = useProgress(
-    action?.action.dateDebut,
-    action?.action.dateFin
+    action?.attributes.dateDebut,
+    action?.attributes.dateFin
   );
 
   return (
@@ -65,7 +65,7 @@ function CardSingle({
       )}
     >
       <Link
-        to={`/actions/${action?.action.id}`}
+        to={`/actions/${action?.attributes.id}`}
         className='absolute inset-0'
       ></Link>
       <div className='absolute inset-0 -z-50 bg-card/75'></div>
@@ -84,8 +84,8 @@ function CardSingle({
                 <Icon render={UserRound} size='sm' />
                 {employee ? (
                   <>
-                    <span>{employee.employee.nom ?? 'John'}</span>
-                    <span>{employee.employee.prenom ?? 'John'}</span>
+                    <span>{employee.attributes.nom ?? 'John'}</span>
+                    <span>{employee.attributes.prenom ?? 'John'}</span>
                   </>
                 ) : (
                   <span className='opacity-70'>No participant</span>
@@ -95,7 +95,8 @@ function CardSingle({
                 <p className='flex items-center gap-1'>
                   <Icon render={MapPin} size='sm' />
                   <span>
-                    {capitalize(action.relationships.formation.formation.lieu)}.
+                    {capitalize(action.relationships.formation.attributes.lieu)}
+                    .
                   </span>
                   à
                   <span>

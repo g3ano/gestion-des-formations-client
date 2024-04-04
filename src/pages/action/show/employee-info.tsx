@@ -21,10 +21,10 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
     inactiveEmployees: Employee[];
   } = useMemo(() => {
     const activeEmployees = employees.filter(
-      (employee) => employee.employee.isActive
+      (employee) => employee.attributes.isActive
     );
     const inactiveEmployees = employees.filter(
-      (employee) => !employee.employee.isActive
+      (employee) => !employee.attributes.isActive
     );
 
     return {
@@ -50,20 +50,22 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                 <>
                   <SectionTitle>ACTIF</SectionTitle>
                   <div className='space-y-1 px-6'>
-                    {employees.map(({ employee }) =>
-                      employee.isActive ? (
+                    {employees.map((employee) =>
+                      employee.attributes.isActive ? (
                         <div
-                          key={employee.id}
+                          key={employee.attributes.id}
                           className={cn(
                             'relative isolate min-w-72 cursor-pointer rounded-lg py-2',
                             {
                               'bg-secondary':
-                                employee.id === currentEmployee.employee.id,
+                                employee.attributes.id ===
+                                currentEmployee.attributes.id,
                             }
                           )}
-                          onClick={() => setCurrentEmployee({ employee })}
+                          onClick={() => setCurrentEmployee(employee)}
                         >
-                          {employee.id === currentEmployee.employee.id && (
+                          {employee.attributes.id ===
+                            currentEmployee.attributes.id && (
                             <div className='absolute inset-0 -z-10 -translate-x-6 bg-secondary py-0.5 ps-0.5 '>
                               <div className='h-full w-0.5 rounded-lg bg-primary'></div>
                             </div>
@@ -72,10 +74,10 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                           <div className='flex items-center gap-4'>
                             <div className='relative flex size-12 items-center justify-center rounded-sm bg-background p-2'>
                               <p className='font-medium uppercase'>
-                                {employee.nom.slice(0, 1)}
+                                {employee.attributes.nom.slice(0, 1)}
                               </p>
                               <p className='font-medium uppercase'>
-                                {employee.prenom.slice(0, 1)}
+                                {employee.attributes.prenom.slice(0, 1)}
                               </p>
 
                               <TooltipProvider>
@@ -95,11 +97,11 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
 
                             <div className='flex flex-1 flex-col justify-center'>
                               <div className='line-clamp-1 flex items-center gap-1 text-nowrap pe-4'>
-                                <p>{employee.nom}</p>
-                                <p>{employee.prenom}</p>
+                                <p>{employee.attributes.nom}</p>
+                                <p>{employee.attributes.prenom}</p>
                               </div>
                               <p className='text-muted-foreground'>
-                                {employee.matricule}
+                                {employee.attributes.matricule}
                               </p>
                             </div>
                           </div>
@@ -119,20 +121,22 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                     INACTIF
                   </SectionTitle>
                   <div className='space-y-1 px-6'>
-                    {employees.map(({ employee }) =>
-                      !employee.isActive ? (
+                    {employees.map((employee) =>
+                      !employee.attributes.isActive ? (
                         <div
-                          key={employee.id}
+                          key={employee.attributes.id}
                           className={cn(
                             'relative isolate min-w-72 cursor-pointer rounded-lg py-2',
                             {
                               'bg-secondary':
-                                employee.id === currentEmployee.employee.id,
+                                employee.attributes.id ===
+                                currentEmployee.attributes.id,
                             }
                           )}
-                          onClick={() => setCurrentEmployee({ employee })}
+                          onClick={() => setCurrentEmployee(employee)}
                         >
-                          {employee.id === currentEmployee.employee.id && (
+                          {employee.attributes.id ===
+                            currentEmployee.attributes.id && (
                             <div className='absolute inset-0 -z-10 -translate-x-6 bg-secondary py-0.5 ps-0.5 '>
                               <div className='h-full w-0.5 rounded-lg bg-primary'></div>
                             </div>
@@ -141,20 +145,20 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                           <div className='flex items-center gap-4'>
                             <div className='relative flex size-12 items-center justify-center rounded-sm bg-background p-2'>
                               <p className='font-medium uppercase'>
-                                {employee.nom.slice(0, 1)}
+                                {employee.attributes.nom.slice(0, 1)}
                               </p>
                               <p className='font-medium uppercase'>
-                                {employee.prenom.slice(0, 1)}
+                                {employee.attributes.prenom.slice(0, 1)}
                               </p>
                             </div>
 
                             <div className='flex flex-1 flex-col justify-center'>
                               <div className='line-clamp-1 flex items-center gap-1 text-nowrap pe-4'>
-                                <p>{employee.nom}</p>
-                                <p>{employee.prenom}</p>
+                                <p>{employee.attributes.nom}</p>
+                                <p>{employee.attributes.prenom}</p>
                               </div>
                               <p className='text-muted-foreground'>
-                                {employee.matricule}
+                                {employee.attributes.matricule}
                               </p>
                             </div>
                           </div>
@@ -177,14 +181,14 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
               <div className='space-x-1 text-nowrap'>
                 <span className='select-none'>Matricule</span>
                 <span className='font-medium'>
-                  {currentEmployee.employee.matricule}
+                  {currentEmployee.attributes.matricule}
                 </span>
               </div>
               <div className='text-base text-muted-foreground'>
                 <span>Depuis</span>{' '}
                 <span>
                   {format(
-                    fromUnixTime(currentEmployee.employee.createdAt),
+                    fromUnixTime(currentEmployee.attributes.createdAt),
                     'd MMMM y'
                   )}
                 </span>
@@ -198,13 +202,13 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                   <div>
                     <p className='text-nowrap text-muted-foreground'>Nom</p>
                     <p className='line-clamp-2 break-words'>
-                      {capitalize(currentEmployee.employee.nom)}
+                      {capitalize(currentEmployee.attributes.nom)}
                     </p>
                   </div>
                   <div>
                     <p className='text-nowrap text-muted-foreground'>Prenom</p>
                     <p className='line-clamp-2'>
-                      {capitalize(currentEmployee.employee.prenom)}
+                      {capitalize(currentEmployee.attributes.prenom)}
                     </p>
                   </div>
                   <div>
@@ -212,18 +216,18 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                       Adresse email
                     </p>
                     <p className='line-clamp-2 break-words'>
-                      {currentEmployee.employee.email}
+                      {currentEmployee.attributes.email}
                     </p>
                   </div>
-                  {currentEmployee.employee.isActive && (
+                  {currentEmployee.attributes.isActive && (
                     <div>
                       <p className='text-nowrap text-muted-foreground'>
                         Date de début
                       </p>
-                      {currentEmployee.employee.startedAt ? (
+                      {currentEmployee.attributes.startedAt ? (
                         <p className='line-clamp-2 break-words'>
                           {format(
-                            fromUnixTime(currentEmployee.employee.startedAt),
+                            fromUnixTime(currentEmployee.attributes.startedAt),
                             'd MMMM y'
                           )}
                         </p>
@@ -238,7 +242,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                   <div>
                     <p className='text-nowrap text-muted-foreground'>Sexe</p>
                     <p className='line-clamp-2 break-words'>
-                      {currentEmployee.employee.sexe === 'F'
+                      {currentEmployee.attributes.sexe === 'F'
                         ? 'Féminin'
                         : 'Masculin'}
                     </p>
@@ -247,7 +251,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                     <p className='text-nowrap text-muted-foreground'>
                       Localité
                     </p>
-                    <p>{currentEmployee.employee.localite}</p>
+                    <p>{currentEmployee.attributes.localite}</p>
                   </div>
                   <div>
                     <p className='text-nowrap text-muted-foreground'>
@@ -255,7 +259,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                     </p>
                     <p className='line-clamp-2 break-words'>
                       {format(
-                        fromUnixTime(currentEmployee.employee.dateNaissance),
+                        fromUnixTime(currentEmployee.attributes.dateNaissance),
                         'd MMMM y'
                       )}
                     </p>
@@ -265,7 +269,7 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                       Lieu de naissance
                     </p>
                     <p className='line-clamp-3 break-words'>
-                      {capitalize(currentEmployee.employee.lieuNaissance)}
+                      {capitalize(currentEmployee.attributes.lieuNaissance)}
                     </p>
                   </div>
                 </div>
@@ -278,13 +282,13 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                       Direction
                     </p>
                     <p className='line-clamp-2 break-words'>
-                      {capitalize(currentEmployee.employee.direction)}
+                      {capitalize(currentEmployee.attributes.direction)}
                     </p>
                   </div>
                   <div>
                     <p className='text-nowrap text-muted-foreground'>Csp</p>
                     <p className='line-clamp-2 break-words'>
-                      {currentEmployee.employee.csp}
+                      {currentEmployee.attributes.csp}
                     </p>
                   </div>
                   <div>
@@ -298,12 +302,14 @@ function EmployeeInfo({ employees }: { employees: Employee[] }) {
                     <p
                       className={cn(
                         'line-clamp-2 break-words font-medium uppercase',
-                        currentEmployee.employee.isActive
+                        currentEmployee.attributes.isActive
                           ? 'text-green-400'
                           : 'text-red-400'
                       )}
                     >
-                      {currentEmployee.employee.isActive ? 'Actif' : 'Inactif'}
+                      {currentEmployee.attributes.isActive
+                        ? 'Actif'
+                        : 'Inactif'}
                     </p>
                   </div>
                 </div>

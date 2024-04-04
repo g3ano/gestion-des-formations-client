@@ -78,18 +78,18 @@ function FormationEdit() {
 
   useEffect(() => {
     if (isSuccess && data) {
-      const { relationships, formation } = data;
+      const { relationships, attributes } = data;
       setDirect({
         categorieId: String(relationships.categorie.id),
         domaineId: String(relationships.domaine.id),
         typeId: String(relationships.type.id),
-        codeFormation: formation.codeFormation,
-        durree: String(formation.durree),
-        effectif: String(formation.effectif),
-        mode: formation.mode,
-        lieu: formation.lieu,
-        observation: formation.observation,
-        structure: formation.structure,
+        codeFormation: attributes.codeFormation,
+        durree: String(attributes.durree),
+        effectif: String(attributes.effectif),
+        mode: attributes.mode,
+        lieu: attributes.lieu,
+        observation: attributes.observation,
+        structure: attributes.structure,
       });
       setCommon({
         intitule: relationships.intitule.intitule,
@@ -122,18 +122,18 @@ function FormationEdit() {
 
   const isDirty = useMemo(() => {
     if (isSuccess) {
-      const { formation, relationships } = data;
+      const { attributes, relationships } = data;
       const isDirectDirty = !objCompare(direct, {
         categorieId: String(relationships.categorie.id),
         domaineId: String(relationships.domaine.id),
         typeId: String(relationships.type.id),
-        codeFormation: formation.codeFormation,
-        durree: String(formation.durree),
-        effectif: String(formation.effectif),
-        mode: formation.mode,
-        lieu: formation.lieu,
-        observation: formation.observation,
-        structure: formation.structure,
+        codeFormation: attributes.codeFormation,
+        durree: String(attributes.durree),
+        effectif: String(attributes.effectif),
+        mode: attributes.mode,
+        lieu: attributes.lieu,
+        observation: attributes.observation,
+        structure: attributes.structure,
       });
       const isCoutDirty = !objCompare(cout, {
         autresCharges: String(relationships.cout.autresCharges),

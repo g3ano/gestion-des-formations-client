@@ -10,11 +10,11 @@ import {
 import { cn } from '@/lib/utils';
 import { ActionCreateContext } from '@/pages/action';
 import { format, fromUnixTime, getUnixTime, getYear } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 
 function ActionDetailsForm() {
   const { action, setAction } = ActionCreateContext();
-  console.log(action);
 
   return (
     <>
@@ -44,6 +44,7 @@ function ActionDetailsForm() {
             <PopoverContent className='p-0' align='start'>
               <Calendar
                 mode='single'
+                locale={fr}
                 onDayClick={(date) => {
                   if (date) {
                     setAction((prev) => ({
@@ -56,6 +57,11 @@ function ActionDetailsForm() {
                   }
                 }}
                 initialFocus
+                selected={
+                  action?.action.dateDebut
+                    ? fromUnixTime(action?.action.dateDebut)
+                    : new Date()
+                }
                 captionLayout='dropdown-buttons'
                 fromYear={1970}
                 toYear={getYear(new Date())}
@@ -86,6 +92,7 @@ function ActionDetailsForm() {
               {action?.action.dateDebut && (
                 <Calendar
                   mode='single'
+                  locale={fr}
                   onDayClick={(date) => {
                     if (date) {
                       setAction((prev) => ({
@@ -98,8 +105,11 @@ function ActionDetailsForm() {
                     }
                   }}
                   initialFocus
-                  defaultMonth={fromUnixTime(action.action.dateDebut)}
-                  selected={fromUnixTime(action.action.dateDebut)}
+                  selected={
+                    action.action.dateFin
+                      ? fromUnixTime(action?.action.dateFin)
+                      : new Date()
+                  }
                   disabled={{
                     before: fromUnixTime(action.action.dateDebut),
                   }}

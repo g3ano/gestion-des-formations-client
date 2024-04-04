@@ -2,7 +2,8 @@ import { Employee } from '@/pages/employee';
 import { Formation } from '@/pages/formation';
 
 export interface Action {
-  action: {
+  type: 'action';
+  attributes: {
     id: number;
     dateDebut: number;
     dateFin: number;
@@ -36,8 +37,10 @@ export interface ActionFormData {
   }[];
 }
 
-export interface SearchResult {
-  formations?: Formation[];
-  actions?: Action[];
-  employees?: Employee[];
+export interface SearchResultShuffled {
+  data: (Formation | Action | Employee)[];
+  pagination: {
+    page: number;
+    pages: number;
+  };
 }

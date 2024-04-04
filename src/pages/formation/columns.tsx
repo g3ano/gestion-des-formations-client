@@ -65,7 +65,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'formation.structure',
+    accessorKey: 'attributes.structure',
     id: 'structure',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -76,7 +76,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'formation.codeFormation',
+    accessorKey: 'attributes.codeFormation',
     id: 'codeFormation',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -87,7 +87,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'formation.mode',
+    accessorKey: 'attributes.mode',
     id: 'mode',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -101,7 +101,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrEquals(),
   },
   {
-    accessorKey: 'formation.lieu',
+    accessorKey: 'attributes.lieu',
     id: 'lieu',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -126,7 +126,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'formation.effectif',
+    accessorKey: 'attributes.effectif',
     id: 'effectif',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -137,7 +137,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'formation.durree',
+    accessorKey: 'attributes.durree',
     id: 'durree',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -148,7 +148,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: arrIncludeSomeNumber(),
   },
   {
-    accessorKey: 'formation.HJ',
+    accessorKey: 'attributes.HJ',
     id: 'HJ',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -215,7 +215,7 @@ const columns: ColumnDef<Formation>[] = [
   },
   {
     id: 'observation',
-    accessorKey: 'formation.observation',
+    accessorKey: 'attributes.observation',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
     },
@@ -225,7 +225,7 @@ const columns: ColumnDef<Formation>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'formation.createdAt',
+    accessorKey: 'attributes.createdAt',
     id: 'createdAt',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;

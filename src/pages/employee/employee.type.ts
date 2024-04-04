@@ -4,7 +4,8 @@ export type Sexe = 'M' | 'F';
 export type Csp = 'C' | 'M' | 'CS';
 
 export interface Employee {
-  employee: {
+  type: 'employee';
+  attributes: {
     id: number;
     matricule: string;
     nom: string;
@@ -25,5 +26,5 @@ export interface Employee {
   };
 }
 
-export type EmployeeFormData = Omit<Employee['employee'], 'id' | 'createdAt'>;
+export type EmployeeFormData = Omit<Employee['attributes'], 'id' | 'createdAt'>;
 export type EmployeeFormDataError = Record<'errors', Partial<EmployeeFormData>>;

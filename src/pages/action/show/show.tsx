@@ -27,8 +27,8 @@ function ActionPreview() {
   });
 
   const progress = useProgress(
-    action?.action.dateDebut ?? 1,
-    action?.action.dateFin ?? 1
+    action?.attributes.dateDebut ?? 1,
+    action?.attributes.dateFin ?? 1
   );
 
   return (
@@ -68,7 +68,7 @@ function ActionPreview() {
                     <p>Depuis</p>
                     <p>
                       {format(
-                        fromUnixTime(action.action.createdAt),
+                        fromUnixTime(action.attributes.createdAt),
                         'dd MMMM y'
                       )}
                     </p>
@@ -84,7 +84,7 @@ function ActionPreview() {
                       <p>Commencée le</p>
                       <p className='line-clamp-2 flex-1'>
                         {format(
-                          fromUnixTime(action.action.dateDebut),
+                          fromUnixTime(action.attributes.dateDebut),
                           'dd MMMM y'
                         )}
                       </p>
@@ -100,7 +100,7 @@ function ActionPreview() {
                       </p>
                       <p className='line-clamp-2 flex-1'>
                         {format(
-                          fromUnixTime(action.action.dateFin),
+                          fromUnixTime(action.attributes.dateFin),
                           'dd MMMM y'
                         )}
                       </p>
@@ -113,7 +113,7 @@ function ActionPreview() {
                   <div className='flex flex-col gap-1'>
                     <p>Prévision</p>
                     <p className='line-clamp-3 max-w-2xl flex-1'>
-                      {action.action.prevision ||
+                      {action.attributes.prevision ||
                         "Aucune prévision n'est trouvée"}
                     </p>
                   </div>

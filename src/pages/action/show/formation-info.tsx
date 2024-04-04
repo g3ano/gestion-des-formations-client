@@ -33,25 +33,25 @@ function FormationInfo({ formation }: { formation: Formation }) {
               <div>
                 <span>Structure</span>
                 <span className='line-clamp-2 text-right text-muted-foreground'>
-                  {capitalize(formation.formation.structure)}
+                  {capitalize(formation.attributes.structure)}
                 </span>
               </div>
               <div>
                 <span>Mode</span>
                 <span className='line-clamp-2 text-right text-muted-foreground'>
-                  {capitalize(formation.formation.mode)}
+                  {capitalize(formation.attributes.mode)}
                 </span>
               </div>
               <div>
                 <span>Code formation</span>
                 <span className='line-clamp-2 text-right text-muted-foreground'>
-                  {formation.formation.codeFormation}
+                  {formation.attributes.codeFormation}
                 </span>
               </div>
               <div>
                 <span>Lieu</span>
                 <span className='line-clamp-2 text-right text-muted-foreground'>
-                  {formation.formation.lieu}
+                  {formation.attributes.lieu}
                 </span>
               </div>
               <div>
@@ -93,19 +93,19 @@ function FormationInfo({ formation }: { formation: Formation }) {
               <div>
                 <span>Durée</span>
                 <span className='line-clamp-2 text-right text-muted-foreground'>
-                  {formation.formation.durree}
+                  {formation.attributes.durree}
                 </span>
               </div>
               <div>
                 <span>Effectifs</span>
                 <span className='line-clamp-2 text-right text-muted-foreground'>
-                  {formation.formation.effectif}
+                  {formation.attributes.effectif}
                 </span>
               </div>
               <div>
                 <span>H/J</span>
                 <span className='line-clamp-2 text-right text-muted-foreground'>
-                  {formation.formation.HJ}
+                  {formation.attributes.HJ}
                 </span>
               </div>
             </div>

@@ -60,7 +60,7 @@ function SideBar() {
                           )
                         }
                       >
-                        <Icon render={navItem.icon} />
+                        <Icon render={navItem.icon} size='base' />
                       </NavLink>
                     </div>
                   </TooltipTrigger>

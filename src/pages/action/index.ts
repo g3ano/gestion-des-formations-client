@@ -11,7 +11,7 @@ export type {
   ActionFormData,
   Participant,
   View,
-  SearchResult,
+  SearchResultShuffled,
 } from './action.type';
 export { default as ActionCreate } from './create/create';
 export { default as ActionPreview } from './show/show';

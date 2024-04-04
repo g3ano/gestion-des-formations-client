@@ -43,7 +43,7 @@ const columns: ColumnDef<Employee>[] = [
     size: 75,
   },
   {
-    accessorKey: 'employee.matricule',
+    accessorKey: 'attributes.matricule',
     id: 'matricule',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -55,7 +55,7 @@ const columns: ColumnDef<Employee>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'employee.nom',
+    accessorKey: 'attributes.nom',
     id: 'nom',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -67,7 +67,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'employee.prenom',
+    accessorKey: 'attributes.prenom',
     id: 'prenom',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -79,7 +79,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'employee.localite',
+    accessorKey: 'attributes.localite',
     id: 'localite',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -90,7 +90,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: arrEquals(),
   },
   {
-    accessorKey: 'employee.email',
+    accessorKey: 'attributes.email',
     id: 'email',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -101,7 +101,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'employee.direction',
+    accessorKey: 'attributes.direction',
     id: 'direction',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -112,7 +112,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'employee.sexe',
+    accessorKey: 'attributes.sexe',
     id: 'sexe',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -123,7 +123,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: arrEquals(),
   },
   {
-    accessorKey: 'employee.csp',
+    accessorKey: 'attributes.csp',
     id: 'csp',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -134,7 +134,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: arrEquals(),
   },
   {
-    accessorKey: 'employee.dateNaissance',
+    accessorKey: 'attributes.dateNaissance',
     id: 'dateNaissance',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -150,7 +150,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: arrEquals(),
   },
   {
-    accessorKey: 'employee.lieuNaissance',
+    accessorKey: 'attributes.lieuNaissance',
     id: 'lieuNaissance',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
@@ -161,7 +161,7 @@ const columns: ColumnDef<Employee>[] = [
     filterFn: 'arrIncludesSome',
   },
   {
-    accessorKey: 'employee.createdAt',
+    accessorKey: 'attributes.createdAt',
     id: 'createdAt',
     header: ({ column, table }) => {
       return <Header column={column} table={table} />;
