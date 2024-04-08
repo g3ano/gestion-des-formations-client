@@ -151,13 +151,6 @@ function CircularProgress({ progress }: { progress: number }) {
         viewBox='0 0 100 100'
       >
         <circle
-          className='fill-transparent stroke-current text-transparent'
-          cx='50'
-          cy='50'
-          r='40'
-          strokeWidth='10'
-        ></circle>
-        <circle
           className={cn(
             'progress-ring-circle rounded-full fill-transparent stroke-current',
             progress < 100 ? 'text-red-600/90' : 'text-green-600/90'
@@ -168,7 +161,9 @@ function CircularProgress({ progress }: { progress: number }) {
           strokeWidth='10'
           strokeLinecap='round'
           strokeDasharray='251'
-          strokeDashoffset={`calc(251 - ${progress / 100} * 251`}
+          strokeDashoffset={`calc(251 - ${
+            (progress === 0 ? progress + 0.1 : progress) / 100
+          } * 251`}
         ></circle>
       </svg>
       <div className='absolute inset-0 flex items-center justify-center'>

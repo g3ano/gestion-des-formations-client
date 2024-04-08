@@ -12,6 +12,7 @@ export type {
   Participant,
   View,
   SearchResultShuffled,
+  SearchIncludesFilter,
 } from './action.type';
 export { default as ActionCreate } from './create/create';
 export { default as ActionPreview } from './show/show';

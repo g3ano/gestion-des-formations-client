@@ -1,4 +1,5 @@
 import Page from '@/components/layout/page';
+import Avatar from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -19,16 +20,20 @@ import {
   CheckCheck,
   ChevronLeft,
   ChevronRight,
+  Dot,
   Loader2,
   RotateCcw,
   Save,
+  User2,
 } from 'lucide-react';
+import { ReactNode, useState } from 'react';
 
 function ActionCreate() {
   const { step, backward, forward, current, total } = useStepper([
-    <ActionSearchForm key='search' />,
     <ActionDetailsForm key='details' />,
+    <ActionSearchForm key='search' />,
   ]);
+  const [errors, setErrors] = useState<Record<string, unknown>>();
 
   const { action, reset, setPreview, preview } = ActionCreateContext();
 
@@ -38,6 +43,9 @@ function ActionCreate() {
       void queryClient.invalidateQueries({
         queryKey: ['actions'],
       });
+    },
+    onError: (error) => {
+      setErrors(error.response?.data.errors);
     },
   });
 
@@ -77,7 +85,10 @@ function ActionCreate() {
               <Icon render={RotateCcw} size='sm' edge='left' />
               <span>Resté</span>
             </Button>
-            <Button disabled={mutation.isPending}>
+            <Button
+              disabled={mutation.isPending}
+              onClick={() => mutation.mutate(action)}
+            >
               <Icon
                 render={mutation.isPending ? Loader2 : Save}
                 size='sm'
@@ -113,36 +124,54 @@ function ActionCreate() {
               <ScrollArea className='overflow-hidden px-6'>
                 <div className='space-y-2'>
                   {action?.action.dateDebut && (
-                    <div className='flex justify-between gap-4'>
-                      <span className='text-muted-foreground'>
-                        Date de Début
-                      </span>
-                      <span>
-                        {format(
-                          fromUnixTime(action.action.dateDebut),
-                          'dd/MM/y'
-                        )}
-                      </span>
-                    </div>
+                    <PreviewItem title='Date de Début'>
+                      {format(fromUnixTime(action.action.dateDebut), 'dd/MM/y')}
+                    </PreviewItem>
                   )}
                   {action?.action.dateFin && (
-                    <div className='flex justify-between gap-4'>
-                      <span className='text-muted-foreground'>Date de Fin</span>
-                      <span>
-                        {format(fromUnixTime(action.action.dateFin), 'dd/MM/y')}
-                      </span>
-                    </div>
+                    <PreviewItem title='Date de Fin'>
+                      {format(fromUnixTime(action.action.dateFin), 'dd/MM/y')}
+                    </PreviewItem>
                   )}
                   {action?.action.prevision && (
-                    <div className='flex justify-between gap-8'>
-                      <p className='w-1/3 text-nowrap text-muted-foreground'>
-                        Les prévisions
-                      </p>
-                      <p className='line-clamp-3 break-words break-all'>
-                        {action.action.prevision}
-                      </p>
-                    </div>
+                    <PreviewItem title='Les prévisions'>
+                      {action.action.prevision}
+                    </PreviewItem>
                   )}
+                  {preview.formation && (
+                    <PreviewItem title='Formation'>
+                      {preview.formation}
+                    </PreviewItem>
+                  )}
+                  {preview.participants.length ? (
+                    <PreviewItem title='Les participants' vertical>
+                      {preview.participants.map((participant) => (
+                        <div
+                          className='flex w-full items-center gap-4'
+                          key={participant.matricule}
+                        >
+                          <Avatar icon={User2} />
+                          <div>
+                            <div className='flex items-center gap-2'>
+                              <p className='line-clamp-1 flex-1'>
+                                {participant.fullName}
+                              </p>
+                              <Icon
+                                render={Dot}
+                                className='text-muted-foreground'
+                              />
+                              <p>{participant.matricule}</p>
+                            </div>
+                            {participant.observation && (
+                              <p className='line-clamp-1'>
+                                {participant.observation}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </PreviewItem>
+                  ) : null}
                 </div>
               </ScrollArea>
             </div>
@@ -168,3 +197,30 @@ function ActionCreate() {
   );
 }
 export default ActionCreate;
+
+const PreviewItem = ({
+  title,
+  vertical = false,
+  children,
+}: {
+  title: string;
+  vertical?: boolean;
+  children: ReactNode;
+}) => {
+  return (
+    <div
+      className={cn('flex justify-between gap-4', {
+        'flex-col': vertical,
+      })}
+    >
+      <p className='w-1/2 text-muted-foreground'>{title}</p>
+      <div
+        className={cn('line-clamp-2 w-1/2 text-left', {
+          'w-full space-y-2': vertical,
+        })}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};

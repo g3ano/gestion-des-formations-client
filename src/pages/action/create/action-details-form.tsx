@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { ActionCreateContext } from '@/pages/action';
-import { format, fromUnixTime, getUnixTime, getYear } from 'date-fns';
+import { addDays, format, fromUnixTime, getUnixTime, getYear } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 
@@ -111,7 +111,7 @@ function ActionDetailsForm() {
                       : new Date()
                   }
                   disabled={{
-                    before: fromUnixTime(action.action.dateDebut),
+                    before: addDays(fromUnixTime(action.action.dateDebut), 1),
                   }}
                   captionLayout='dropdown-buttons'
                   fromYear={1970}

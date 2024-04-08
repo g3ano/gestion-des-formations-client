@@ -4,6 +4,7 @@ import {
   ActionFormData,
   SearchResultShuffled,
   Participant,
+  SearchIncludesFilter,
 } from '@/pages/action';
 import { AxiosResponse } from 'axios';
 
@@ -68,14 +69,16 @@ export const globalSearch = async ({
   searchValue,
   page,
 }: {
-  includes: string[];
+  includes: SearchIncludesFilter[];
   searchValue: string;
   page: number;
 }) => {
   let includesQueryString = '';
 
   for (const include of includes) {
-    includesQueryString += `&includes[]=${include}`;
+    if (include.checked) {
+      includesQueryString += `&includes[]=${include.value}`;
+    }
   }
 
   const res: AxiosResponse<SearchResultShuffled> = await axiosClient.get(

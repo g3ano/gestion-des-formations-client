@@ -87,22 +87,24 @@ function CardGroup({
                   />
                   {relationships.employees.length ? (
                     <>
-                      <span>
+                      <span className='line-clamp-1'>
                         {relationships.employees?.[
                           relationships.employees.length - 1
                         ]?.attributes.nom ?? 'John'}
                       </span>
-                      <span>
+                      <span className='line-clamp-1'>
                         {relationships.employees?.[
                           relationships.employees.length - 1
                         ]?.attributes.prenom ?? 'Doe'}
                       </span>
                     </>
                   ) : (
-                    <span className='opacity-70'>No participant</span>
+                    <span className='opacity-70'>Aucun participant</span>
                   )}
                   {relationships.employees.length - 1 > 0 && (
-                    <span>et autres {relationships.employees.length - 1}</span>
+                    <span className='line-clamp-1'>
+                      et autres {relationships.employees.length - 1}
+                    </span>
                   )}
                 </p>
               )}

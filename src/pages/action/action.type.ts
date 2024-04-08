@@ -39,8 +39,13 @@ export interface ActionFormData {
 
 export interface SearchResultShuffled {
   data: (Formation | Action | Employee)[];
-  pagination: {
+  pagination?: {
     page: number;
     pages: number;
   };
+}
+
+export interface SearchIncludesFilter {
+  value: string;
+  checked: boolean;
 }

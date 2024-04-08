@@ -26,11 +26,11 @@ function EmployeeEdit() {
   const mutation = useMutation({
     mutationFn: updateEmployee,
     onSuccess: async () => {
+      navigate('/employees');
       await queryClient.invalidateQueries({
         queryKey: ['employees'],
       });
       reset();
-      navigate('/employees');
     },
     onError: (error: AxiosError<EmployeeFormDataError>) => {
       if (error) {

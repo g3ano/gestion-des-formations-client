@@ -10,23 +10,27 @@ import {
 } from 'react';
 
 interface ActionCreateContextState {
-  action?: ActionFormData;
+  action: ActionFormData;
   setAction: Dispatch<SetStateAction<ActionFormData>>;
   preview: {
     open: boolean;
-    formation?: string;
-    participants?: {
+    formation: string;
+    participants: {
+      id: number;
       fullName: string;
-      matricule: number;
+      matricule: string;
+      observation: string | undefined;
     }[];
   };
   setPreview: Dispatch<
     SetStateAction<{
       open: boolean;
-      formation?: string;
-      participants?: {
+      formation: string;
+      participants: {
+        id: number;
         fullName: string;
-        matricule: number;
+        matricule: string;
+        observation: string | undefined;
       }[];
     }>
   >;
@@ -47,11 +51,13 @@ const _ActionCreateContext = createContext<ActionCreateContextState>({
   },
   setAction: () => {},
   preview: {
-    open: true,
+    open: false,
+    formation: '',
+    participants: [],
   },
   setPreview: () => {},
   reset: () => {},
-  searchValue: 'al',
+  searchValue: '',
   setSearchValue: () => {},
 });
 
@@ -67,15 +73,19 @@ export const ActionCreateProvider = ({ children }: { children: ReactNode }) => {
   });
   const [preview, setPreview] = useState<{
     open: boolean;
-    formation?: string;
-    participants?: {
+    formation: string;
+    participants: {
+      id: number;
       fullName: string;
-      matricule: number;
+      matricule: string;
+      observation: string | undefined;
     }[];
   }>({
-    open: true,
+    open: false,
+    formation: '',
+    participants: [],
   });
-  const [searchValue, setSearchValue] = useState('al');
+  const [searchValue, setSearchValue] = useState('');
   const reset = useCallback(() => {
     setAction({
       action: {
@@ -87,7 +97,9 @@ export const ActionCreateProvider = ({ children }: { children: ReactNode }) => {
       participants: [],
     });
     setPreview({
-      open: true,
+      open: false,
+      formation: '',
+      participants: [],
     });
     setSearchValue('');
   }, []);
