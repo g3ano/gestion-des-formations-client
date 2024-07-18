@@ -1,5 +1,4 @@
 import Page from '@/components/layout/page';
-import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
@@ -33,15 +32,6 @@ function ActionPreview() {
 
   return (
     <Page
-      actions={
-        <div className='flex items-center justify-end gap-2'>
-          <div className='flex items-center gap-4'>
-            <Button>
-              <span>Modifié L&apos;Action</span>
-            </Button>
-          </div>
-        </div>
-      }
       className={cn(
         progress && progress < 100
           ? 'bg-gradient-to-b from-red-600/5'

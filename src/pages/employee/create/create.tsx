@@ -12,7 +12,7 @@ import {
 } from '@/pages/employee/employee.type';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { CheckCheck, Loader2, RotateCcw, Save } from 'lucide-react';
+import { Loader2, RotateCcw, Save } from 'lucide-react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -61,10 +61,6 @@ function EmployeeCreate() {
       actions={
         <div className='flex items-end justify-end'>
           <div className='space-x-2'>
-            <Button variant='outline'>
-              <Icon render={CheckCheck} size='sm' edge='left' />
-              <span>Preview</span>
-            </Button>
             <Button variant='outline' onClick={() => reset()}>
               <Icon render={RotateCcw} size='sm' edge='left' />
               <span>Resté</span>

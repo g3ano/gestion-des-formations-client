@@ -18,7 +18,7 @@ function Actions() {
 
   useEffect(() => {
     if (view !== 'group' && view !== 'single') {
-      navigate('/actions?view=group');
+      navigate('/?view=group');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view]);

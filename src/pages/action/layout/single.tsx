@@ -3,7 +3,7 @@ import { Progress } from '@/components/ui/progress';
 import { capitalize, cn } from '@/lib/utils';
 import { Participant, getParticipants, useProgress } from '@/pages/action';
 import { useQuery } from '@tanstack/react-query';
-import { MapPin, UserRound } from 'lucide-react';
+import { Bird, MapPin, UserRound } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 function ActionSingle() {
@@ -37,7 +37,11 @@ function ActionSingle() {
             <CardSingle key={participant.id} participant={participant} />
           ))
         ) : (
-          <div className='col-span-12'>Aucune action n&apos;a été trouvée</div>
+          <div className='col-span-12 flex h-full w-full justify-center'>
+            <div className='aspect-square w-20 md:translate-y-full'>
+              <Icon render={Bird} className='size-40 opacity-5' />
+            </div>
+          </div>
         )
       ) : null}
     </>

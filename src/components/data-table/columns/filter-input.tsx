@@ -126,7 +126,7 @@ function FilterInput<TData, TValue>({
             name='searchValue'
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            autoFocus
+            autoFocus={true}
             placeholder={`Rechercher ${column.id.replace('_', ' ')}...`}
             className='bg-accent shadow-sm shadow-background/45'
           />

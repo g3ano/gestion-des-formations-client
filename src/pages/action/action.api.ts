@@ -54,14 +54,14 @@ export const getAction = async (actionId: string) => {
 };
 
 export const createAction = async (action: ActionFormData) => {
-  const res: {
+  const res: AxiosResponse<{
     data: {
       message: string;
       actionId: number;
     };
-  } = await axiosClient.post('/actions', action);
+  }> = await axiosClient.post('/actions', action);
 
-  return res.data;
+  return res.data.data;
 };
 
 export const globalSearch = async ({

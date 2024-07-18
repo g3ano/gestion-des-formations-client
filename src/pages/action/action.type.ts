@@ -31,10 +31,12 @@ export interface ActionFormData {
     prevision?: string;
     formationId: number | null;
   };
-  participants: {
-    employeeId: number;
-    observation?: string;
-  }[];
+  participants:
+    | {
+        employeeId: number;
+        observation?: string;
+      }[]
+    | string;
 }
 
 export interface SearchResultShuffled {

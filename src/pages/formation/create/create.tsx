@@ -15,7 +15,6 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import {
-  CheckCheck,
   ChevronLeft,
   ChevronRight,
   Loader2,
@@ -67,10 +66,6 @@ function FormationCreate() {
       actions={
         <div className='flex items-center justify-end'>
           <div className='space-x-2'>
-            <Button variant='outline'>
-              <Icon render={CheckCheck} size='sm' edge='left' />
-              <span>Preview</span>
-            </Button>
             <Button variant='outline' onClick={() => reset()}>
               <Icon render={RotateCcw} size='sm' edge='left' />
               <span>Resté</span>

@@ -1,14 +1,14 @@
-import { TableContextProvider } from '@/lib/contexts/table-context';
-import { FormationCreateProvider } from '@/pages/formation/create';
-import { FormationDataTableProvider } from '@/pages/formation';
-import { EmployeeDataTableProvider } from '@/pages/employee';
-import { Outlet, useNavigation } from 'react-router-dom';
 import { SideBar } from '@/components/layout/default';
 import Icon from '@/components/ui/icon';
-import { Loader2 } from 'lucide-react';
 import { Toaster } from '@/components/ui/toaster';
-import { EmployeeCreateProvider } from '@/pages/employee/create';
+import { TableContextProvider } from '@/lib/contexts/table-context';
 import { ActionCreateProvider } from '@/pages/action';
+import { EmployeeDataTableProvider } from '@/pages/employee';
+import { EmployeeCreateProvider } from '@/pages/employee/create';
+import { FormationDataTableProvider } from '@/pages/formation';
+import { FormationCreateProvider } from '@/pages/formation/create';
+import { Loader2 } from 'lucide-react';
+import { Outlet, useNavigation } from 'react-router-dom';
 
 function Default() {
   const { state } = useNavigation();

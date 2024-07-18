@@ -8,7 +8,7 @@ const Avatar = forwardRef<
   HTMLAttributes<HTMLDivElement> & {
     icon: LucideIcon;
   }
->(({ className, icon }, ref) => {
+>(({ className, icon, ...props }, ref) => {
   return (
     <div
       className={cn(
@@ -16,6 +16,7 @@ const Avatar = forwardRef<
         className
       )}
       ref={ref}
+      {...props}
     >
       <Icon render={icon} />
     </div>

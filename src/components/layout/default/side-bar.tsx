@@ -7,13 +7,13 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { Blocks, LayoutGrid, NotebookText, Users } from 'lucide-react';
+import { Blocks, NotebookText, Users } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const navigation = [
   {
-    label: 'Dashboard',
-    icon: LayoutGrid,
+    label: 'Actions',
+    icon: Blocks,
     to: '/',
   },
   {
@@ -25,11 +25,6 @@ const navigation = [
     label: 'Employées',
     icon: Users,
     to: '/employees',
-  },
-  {
-    label: 'Actions',
-    icon: Blocks,
-    to: '/actions?view=group',
   },
 ];
 

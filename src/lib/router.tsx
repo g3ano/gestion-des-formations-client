@@ -1,6 +1,5 @@
 import { Default } from '@/components/layout/default';
 import { ActionCreate, ActionPreview, Actions } from '@/pages/action';
-import { Dashboard } from '@/pages/dashboard';
 import { EmployeeEdit, Employees } from '@/pages/employee';
 import { EmployeeCreate } from '@/pages/employee/create';
 import ErrorPage from '@/pages/error/error';
@@ -21,10 +20,6 @@ const router = createBrowserRouter([
     element: <Default />,
     errorElement: <ErrorPage global />,
     children: [
-      {
-        path: '/',
-        element: <Dashboard />,
-      },
       {
         path: '/formations',
         children: [
@@ -60,10 +55,10 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/actions',
+        path: '/',
         children: [
           {
-            path: '/actions',
+            index: true,
             element: <Actions />,
           },
           {
